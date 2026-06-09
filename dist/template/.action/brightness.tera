@@ -8,7 +8,7 @@ case "$target_action" in
     ddcutil detect --enable-dynamic-sleep | grep -Po "^Display\s+(\K\d+)" | xargs -I{} bash -c "ddcutil getvcp 10 --display={} --enable-dynamic-sleep" | grep -Po "current value\s+=\s+(\K\d+)" | sort -n | head -1
     ;;
 *set)
-    BRIGHTNESS_VALUE=$1
+    BRIGHTNESS_VALUE=$2
 
     [[ -z $BRIGHTNESS_VALUE ]] && echo "no brightness value specified" && exit
 
