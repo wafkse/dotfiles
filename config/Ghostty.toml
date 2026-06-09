@@ -24,7 +24,7 @@ background-opacity = 1
 background-blur = true
 
 [default.Ghostty.ui]
-cursor-style = "bar"
+cursor-style = "block"
 cursor-style-blink = true
 mouse-hide-while-typing = true
 scrollbar = "never"
