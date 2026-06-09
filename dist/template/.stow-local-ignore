@@ -1,0 +1,12 @@
+# NOTE: Do not symlink Tera-templated files
+.*\.tera$
+
+# NOTE: Ignore partial Tera templates.
+^partial
+
+# NOTE: Ignore irrelevant files.
+^README\.md$
+^\.gitignore$
+
+# NOTE: No filesystem garbage.
+^\.DS_Store$

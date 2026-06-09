@@ -1,0 +1,9 @@
+[Unit]
+Description=Awww Wallpaper Daemon
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/env awww-daemon
+Restart=on-failure

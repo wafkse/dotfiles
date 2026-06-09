@@ -1,0 +1,17 @@
+{#- NOTE: This shebang is expressed like the following to omit it for shellcheck style-checking. -#}
+{{ "#!/usr/bin/env bash" }}
+
+target_action="$1"
+
+case "$target_action" in
+*get)
+    ddcutil detect --enable-dynamic-sleep | grep -Po "^Display\s+(\K\d+)" | xargs -I{} bash -c "ddcutil getvcp 10 --display={} --enable-dynamic-sleep" | grep -Po "current value\s+=\s+(\K\d+)" | sort -n | head -1
+    ;;
+*set)
+    BRIGHTNESS_VALUE=$1
+
+    [[ -z $BRIGHTNESS_VALUE ]] && echo "no brightness value specified" && exit
+
+    ddcutil detect --enable-dynamic-sleep |  grep -Po "^Display\s+(\K\d+)" | xargs -I{} bash -c "ddcutil setvcp 10 "$BRIGHTNESS_VALUE" --display={} --enable-dynamic-sleep"
+    ;;
+esac

@@ -1,0 +1,105 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Waybar.theme.toml.schema.json",
+    "title": "Theme-specific overrides for Waybar",
+    "type": "object",
+    "properties": {
+        "primary-background": { "type": "string" },
+        "primary-foreground": { "type": "string" },
+        "primary-accent": { "type": "string" },
+
+        "tooltip-background": { "type": "string" },
+        "tooltip-foreground": { "type": "string" },
+        "tooltip-border": { "type": "string" },
+
+        "workspace-background": { "type": "string" },
+        "workspace-foreground": { "type": "string" },
+        "workspace-button-hover-background": { "type": "string" },
+        "workspace-button-hover-foreground": { "type": "string" },
+        "workspace-button-select-background": { "type": "string" },
+        "workspace-button-select-foreground": { "type": "string" },
+
+        "idle-background": { "type": "string" },
+        "idle-foreground": { "type": "string" },
+
+        "privacy-background": { "type": "string" },
+        "privacy-foreground": { "type": "string" },
+
+        "window-background": { "type": "string" },
+        "window-foreground": { "type": "string" },
+
+        "load-background": { "type": "string" },
+        "load-foreground": { "type": "string" },
+
+        "cpu-background": { "type": "string" },
+        "cpu-foreground": { "type": "string" },
+
+        "memory-background": { "type": "string" },
+        "memory-foreground": { "type": "string" },
+        "memory-state-warning": { "type": "string" },
+        "memory-state-critical": { "type": "string" },
+
+        "temp-background": { "type": "string" },
+        "temp-foreground": { "type": "string" },
+        "temp-state-critical": { "type": "string" },
+
+        "tray-background": { "type": "string" },
+        "tray-foreground": { "type": "string" },
+
+        "audio-background": { "type": "string" },
+        "audio-foreground": { "type": "string" },
+        "audio-hover-background": { "type": "string" },
+
+        "bluetooth-background": { "type": "string" },
+        "bluetooth-foreground": { "type": "string" },
+
+        "network-background": { "type": "string" },
+        "network-foreground": { "type": "string" },
+
+        "clock-background": { "type": "string" },
+        "clock-foreground": { "type": "string" }
+    },
+    "required": [
+        "primary-background",
+        "primary-foreground",
+        "primary-accent",
+        "tooltip-background",
+        "tooltip-foreground",
+        "tooltip-border",
+        "workspace-background",
+        "workspace-foreground",
+        "workspace-button-hover-background",
+        "workspace-button-hover-foreground",
+        "workspace-button-select-background",
+        "workspace-button-select-foreground",
+        "idle-background",
+        "idle-foreground",
+        "privacy-background",
+        "privacy-foreground",
+        "window-background",
+        "window-foreground",
+        "load-background",
+        "load-foreground",
+        "cpu-background",
+        "cpu-foreground",
+        "memory-background",
+        "memory-foreground",
+        "memory-state-warning",
+        "memory-state-critical",
+        "temp-background",
+        "temp-foreground",
+        "temp-state-critical",
+        "tray-background",
+        "tray-foreground",
+        "audio-background",
+        "audio-foreground",
+        "audio-hover-background",
+        "bluetooth-background",
+        "bluetooth-foreground",
+        "network-background",
+        "network-foreground",
+        "clock-background",
+        "clock-foreground"
+    ],
+    "additionalProperties": false
+}

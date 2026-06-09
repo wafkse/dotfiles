@@ -1,0 +1,10 @@
+[Unit]
+Description=Mirage Dotfile Hydration Daemon (%I)
+
+[Service]
+ExecStart=/usr/bin/env mirage -C %I/config -T %I/dist/template
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,144 @@
+#:schema schema/Universe.toml.schema.json
+
+[default.Waybar]
+layer = "top"
+position = "top"
+mode = "dock"
+reload_style_on_change = true
+height = 24
+spacing = 4
+
+modules-left = ["idle_inhibitor", "cava", "niri/workspaces", "privacy"]
+modules-center = ["load", "niri/window", "temperature"]
+modules-right = [
+  "tray",
+  "cpu",
+  "memory",
+  "pulseaudio",
+  "bluetooth",
+  "network",
+  "clock",
+  "custom/power"
+]
+
+[default.Waybar."niri/workspaces"]
+format = "{icon}"
+
+[default.Waybar."niri/workspaces".format-icons]
+active = ""
+default = ""
+
+[default.Waybar.idle_inhibitor]
+format = "{icon} "
+format-icons = { activated = "", deactivated = "" }
+tooltip = true
+tooltip-format-activated = "presentation mode"
+tooltip-format-deactivated = "idle mode"
+start-activated = false
+timeout = 5
+
+[default.Waybar.privacy]
+icon-spacing = 4
+icon-size = 16
+transition-duration = 250
+
+[[default.Waybar.privacy.modules]]
+type = "screenshare"
+tooltip = true
+tooltip-icon-size = 24
+
+[[default.Waybar.privacy.modules]]
+type = "audio-in"
+tooltip = true
+tooltip-icon-size = 24
+
+[default.Waybar."niri/window"]
+format = "{title}"
+max-length = 60
+separate-outputs = true
+
+[default.Waybar.load]
+interval = 10
+format = "󰺕 {load1}"
+max-length = 10
+
+[default.Waybar.cpu]
+interval = 1
+format = " {usage:2}%"
+max-length = 100
+
+[default.Waybar.memory]
+interval = 5
+format = "󰘚 {percentage:2}%"
+format-critical = "󰀦 {percentage:2}%"
+tooltip = true
+tooltip-format = "{used:0.1f} GiB / {total:0.1f} GiB"
+max-length = 7
+
+[default.Waybar.memory.states]
+warning = 75
+critical = 90
+
+[default.Waybar.temperature]
+critical-threshold = 80
+format = "{icon} {temperatureC}°C"
+format-icons = ["", "", ""]
+tooltip = true
+
+[default.Waybar.tray]
+icon-size = 16
+spacing = 8
+
+[default.Waybar.pulseaudio]
+format = "{icon}  {volume}%"
+format-bluetooth = "󰂰 {volume}%"
+format-muted = "󰖁 muted"
+tooltip = false
+max-length = 7
+on-click = "~/.action/sound menu"
+
+[default.Waybar.pulseaudio.format-icons]
+headphone = ""
+phone = ""
+portable = ""
+car = ""
+default = ["", "", ""]
+
+[default.Waybar.bluetooth]
+format = " {status}"
+format-disabled = "󰂲"
+format-connected = "󰂱"
+format-connected-battery = "󰂱"
+tooltip-format = "{num_connections} connected"
+tooltip-format-disabled = "bluetooth disabled"
+tooltip-format-connected = "{num_connections} devices connected\n{device_enumerate}"
+tooltip-format-enumerate-connected = "{device_alias}"
+tooltip-format-enumerate-connected-battery = "{device_alias}: {device_battery_percentage}%"
+min-length = 4
+max-length = 10
+on-click = "~/.action/bluetooth menu"
+on-click-right = "~/.action/bluetooth toggle"
+
+[default.Waybar.network]
+format-wifi = "  {signalStrength:2}%"
+format-ethernet = "󰈀 "
+format-disconnected = "󰤭 "
+on-click = "~/.action/network menu"
+
+[default.Waybar.clock]
+format = "󱑂 {:%I:%M %p}"
+tooltip-format = "<tt>{calendar}</tt>"
+max-length = 12
+
+[default.Waybar.clock.calendar]
+mode = "month"
+mode-mon-col = 6
+
+[default.Waybar.clock.calendar.format]
+months = "<b>{}</b>"
+weekdays = "{}"
+today = "<b>{}</b>"
+
+[default.Waybar.clock.actions]
+on-click = "mode"
+on-click-right = "mode"

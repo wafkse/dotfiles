@@ -1,0 +1,6 @@
+# NOTE: Ignore irrelevant files.
+^README\.md$
+^\.gitignore$
+
+# NOTE: No filesystem garbage.
+^\.DS_Store$

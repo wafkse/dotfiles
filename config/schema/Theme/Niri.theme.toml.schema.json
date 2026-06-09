@@ -1,0 +1,72 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Niri.theme.toml.schema.json",
+    "title": "Theme-specific overrides for Niri Compositor",
+    "type": "object",
+    "$defs": {
+        "gradient": {
+            "type": "object",
+            "properties": {
+                "from": { "type": "string" },
+                "to": { "type": "string" },
+                "angle": { "type": "number" },
+                "relative-to": {
+                    "type": "string",
+                    "enum": ["workspace-view", "window"]
+                },
+                "in": {
+                    "type": "string",
+                    "enum": [
+                        "oklab",
+                        "srgb",
+                        "linear-srgb",
+                        "hsl",
+                        "hsv",
+                        "hwb"
+                    ]
+                }
+            },
+            "required": ["from", "to"],
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "focus-ring-active": { "type": "string" },
+        "focus-ring-inactive": { "type": "string" },
+        "focus-ring-urgent": { "type": "string" },
+        "focus-ring-active-gradient": { "$ref": "#/$defs/gradient" },
+        "focus-ring-inactive-gradient": { "$ref": "#/$defs/gradient" },
+        "focus-ring-urgent-gradient": { "$ref": "#/$defs/gradient" },
+
+        "border-active": { "type": "string" },
+        "border-inactive": { "type": "string" },
+        "border-urgent": { "type": "string" },
+        "border-active-gradient": { "$ref": "#/$defs/gradient" },
+        "border-inactive-gradient": { "$ref": "#/$defs/gradient" },
+        "border-urgent-gradient": { "$ref": "#/$defs/gradient" },
+
+        "shadow-active": { "type": "string" },
+        "shadow-inactive": { "type": "string" },
+
+        "tab-indicator-active": { "type": "string" },
+        "tab-indicator-inactive": { "type": "string" },
+        "tab-indicator-urgent": { "type": "string" },
+        "tab-indicator-active-gradient": { "$ref": "#/$defs/gradient" },
+        "tab-indicator-inactive-gradient": { "$ref": "#/$defs/gradient" },
+        "tab-indicator-urgent-gradient": { "$ref": "#/$defs/gradient" }
+    },
+    "required": [
+        "focus-ring-active",
+        "focus-ring-inactive",
+        "focus-ring-urgent",
+        "border-active",
+        "border-inactive",
+        "border-urgent",
+        "shadow-active",
+        "shadow-inactive",
+        "tab-indicator-active",
+        "tab-indicator-inactive",
+        "tab-indicator-urgent"
+    ],
+    "additionalProperties": false
+}

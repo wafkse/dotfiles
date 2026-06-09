@@ -1,0 +1,569 @@
+#:schema schema/Universe.toml.schema.json
+
+# -----------------------------------------------------------------------------
+# INPUT DEVICES
+# -----------------------------------------------------------------------------
+[default.Niri.Input.Keyboard]
+numlock = true
+
+[default.Niri.Input.Keyboard.XKB]
+layout = "us"
+
+[default.Niri.Input.Touchpad]
+# off = true
+tap = true
+# dwt = true
+# dwtp = true
+# drag = false
+# drag-lock = true
+natural-scroll = true
+# accel-speed = 0.2
+# accel-profile = "flat"
+# scroll-method = "two-finger"
+# disabled-on-external-mouse = true
+
+[default.Niri.Input.Mouse]
+# off = true
+# natural-scroll = true
+accel-speed = 0.2
+accel-profile = "flat"
+# scroll-method = "no-scroll"
+
+[default.Niri.Input.Trackpoint]
+# off = true
+# natural-scroll = true
+# accel-speed = 0.2
+# accel-profile = "flat"
+# scroll-method = "on-button-down"
+# scroll-button = 273
+# scroll-button-lock = true
+# middle-emulation = true
+
+[default.Niri.Input.Behavior]
+warp-mouse-to-focus = true
+focus-follows-mouse = { max-scroll-amount = "10%" }
+
+# -----------------------------------------------------------------------------
+# OUTPUTS
+# -----------------------------------------------------------------------------
+# [default.Niri.Outputs."eDP-1"]
+# off = true
+# mode = "1920x1080@120.030"
+# scale = 2.0
+# transform = "normal"
+# position = { x = 1280, y = 0 }
+
+# -----------------------------------------------------------------------------
+# LAYOUT & GEOMETRY
+# -----------------------------------------------------------------------------
+[default.Niri.Layout]
+gaps = 8
+center-focused-column = "on-overflow"
+default-column-width = { proportion = 1.0 }
+# default-column-width = {}
+
+[default.Niri.Layout.PresetColumnWidths]
+# Proportions
+proportions = [0.33333, 0.5, 0.66667, 1]
+
+# [default.Niri.Layout.PresetWindowHeights]
+# proportions = []
+# fixed = []
+
+[default.Niri.Layout.FocusRing]
+off = true
+width = 1
+# active-color = "#7fc8ff"
+# inactive-color = "#505050"
+# active-gradient = { from = "#80c8ff", to = "#c7ff7f", angle = 45 }
+# inactive-gradient = { from = "#505050", to = "#808080", angle = 45, relative-to = "workspace-view" }
+
+[default.Niri.Layout.Border]
+# off = true
+width = 2
+# active-color = "#ffc87f"
+# inactive-color = "#505050"
+# urgent-color = "#9b0000"
+# active-gradient = { from = "#e5989b", to = "#ffb4a2", angle = 45, relative-to = "workspace-view", in = "oklch longer hue" }
+# inactive-gradient = { from = "#505050", to = "#808080", angle = 45, relative-to = "workspace-view" }
+
+[default.Niri.Layout.Shadow]
+on = true
+draw-behind-window = true
+softness = 30
+spread = 1
+offset = { x = 0, y = 5 }
+color = "#0007"
+
+[default.Niri.Layout.Struts]
+# left = 64
+# right = 64
+# top = 64
+# bottom = 64
+
+# -----------------------------------------------------------------------------
+# MISCELLANEOUS & STARTUP
+# -----------------------------------------------------------------------------
+[default.Niri.Startup]
+spawn-at-startup = []
+
+# spawn-sh-at-startup = [
+#     "qs -c ~/source/qs/MyAwesomeShell"
+# ]
+
+[default.Niri.Settings]
+prefer-no-csd = true
+screenshot-path = "~/media/pictures/screenshot-%Y-%m-%d_%H-%M-%S.png"
+# screenshot-path = null
+
+hotkey-overlay = { skip-at-startup = false }
+
+# skip-at-startup = true
+
+# -----------------------------------------------------------------------------
+# ANIMATIONS
+# -----------------------------------------------------------------------------
+[default.Niri.Animations]
+# off = true
+# slowdown = 3.0
+
+# -----------------------------------------------------------------------------
+# WINDOW RULES
+# -----------------------------------------------------------------------------
+
+[default.Niri.WindowRules."Firefox_Picture-in-Picture"]
+match = { app-id = "firefox$", title = "^Picture-in-Picture$" }
+open-floating = true
+
+# [default.Niri.WindowRules.SecretManagers]
+# match = [ { app-id = "^org\\.keepassxc\\.KeePassXC$" }, { app-id = "^org\\.gnome\\.World\\.Secrets$" } ]
+# block-out-from = "screen-capture" # or "screencast"
+
+[default.Niri.WindowRules.'Rounded_Corners']
+geometry-corner-radius = 12
+clip-to-geometry = true
+
+# -----------------------------------------------------------------------------
+# KEYBINDS
+# -----------------------------------------------------------------------------
+[default.Niri.Keybinds.'Mod+Shift+Slash']
+show-hotkey-overlay = true
+
+[default.Niri.Keybinds.'Mod+T']
+hotkey-overlay-title = "Open a Terminal: ghostty"
+spawn = ["ghostty"]
+
+[default.Niri.Keybinds.'Mod+D']
+hotkey-overlay-title = "Run an Application: fuzzel"
+spawn = ["fuzzel"]
+
+[default.Niri.Keybinds.'Mod+Alt+L']
+hotkey-overlay-title = "Lock the Screen: swaylock"
+spawn = ["swaylock"]
+
+[default.Niri.Keybinds.'XF86AudioRaiseVolume']
+allow-when-locked = true
+spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"
+
+[default.Niri.Keybinds.'XF86AudioLowerVolume']
+allow-when-locked = true
+spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"
+
+[default.Niri.Keybinds.'XF86AudioMute']
+allow-when-locked = true
+spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+[default.Niri.Keybinds.'XF86AudioMicMute']
+allow-when-locked = true
+spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+
+[default.Niri.Keybinds.'XF86AudioPlay']
+allow-when-locked = true
+spawn-sh = "playerctl play-pause"
+
+[default.Niri.Keybinds.'XF86AudioStop']
+allow-when-locked = true
+spawn-sh = "playerctl stop"
+
+[default.Niri.Keybinds.'XF86AudioPrev']
+allow-when-locked = true
+spawn-sh = "playerctl previous"
+
+[default.Niri.Keybinds.'XF86AudioNext']
+allow-when-locked = true
+spawn-sh = "playerctl next"
+
+# [default.Niri.Keybinds.'XF86MonBrightnessUp']
+# allow-when-locked = true
+
+# [default.Niri.Keybinds.'XF86MonBrightnessDown']
+# allow-when-locked = true
+
+[default.Niri.Keybinds.'Mod+O']
+repeat = false
+toggle-overview = true
+
+[default.Niri.Keybinds.'Mod+Q']
+repeat = false
+close-window = true
+
+# Directional Focus
+[default.Niri.Keybinds.'Mod+Left']
+focus-column-left = true
+
+[default.Niri.Keybinds.'Mod+Down']
+focus-window-down = true
+
+[default.Niri.Keybinds.'Mod+Up']
+focus-window-up = true
+
+[default.Niri.Keybinds.'Mod+Right']
+focus-column-right = true
+
+[default.Niri.Keybinds.'Mod+H']
+focus-column-left = true
+
+[default.Niri.Keybinds.'Mod+J']
+focus-window-down = true
+# focus-window-or-workspace-down = true
+
+[default.Niri.Keybinds.'Mod+K']
+focus-window-up = true
+# focus-window-or-workspace-up = true
+
+[default.Niri.Keybinds.'Mod+L']
+focus-column-right = true
+
+# Directional Move
+[default.Niri.Keybinds.'Mod+Shift+Left']
+move-column-left = true
+
+[default.Niri.Keybinds.'Mod+Shift+Down']
+move-window-down = true
+
+[default.Niri.Keybinds.'Mod+Shift+Up']
+move-window-up = true
+
+[default.Niri.Keybinds.'Mod+Shift+Right']
+move-column-right = true
+
+[default.Niri.Keybinds.'Mod+Shift+H']
+move-column-left = true
+
+[default.Niri.Keybinds.'Mod+Shift+J']
+move-window-down = true
+# move-window-down-or-to-workspace-down = true
+
+[default.Niri.Keybinds.'Mod+Shift+K']
+move-window-up = true
+# move-window-up-or-to-workspace-up = true
+
+[default.Niri.Keybinds.'Mod+Shift+L']
+move-column-right = true
+
+# Column First/Last
+[default.Niri.Keybinds.'Mod+Home']
+focus-column-first = true
+
+[default.Niri.Keybinds.'Mod+End']
+focus-column-last = true
+
+[default.Niri.Keybinds.'Mod+Shift+Home']
+move-column-to-first = true
+
+[default.Niri.Keybinds.'Mod+Shift+End']
+move-column-to-last = true
+
+# Monitor Focus
+[default.Niri.Keybinds.'Mod+Ctrl+Left']
+focus-monitor-left = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+Down']
+focus-monitor-down = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+Up']
+focus-monitor-up = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+Right']
+focus-monitor-right = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+H']
+focus-monitor-left = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+J']
+focus-monitor-down = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+K']
+focus-monitor-up = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+L']
+focus-monitor-right = true
+
+# Monitor Move
+[default.Niri.Keybinds.'Mod+Shift+Ctrl+Left']
+move-column-to-monitor-left = true
+# move-window-to-monitor-left = true
+# move-workspace-to-monitor-left = true
+
+[default.Niri.Keybinds.'Mod+Shift+Ctrl+Down']
+move-column-to-monitor-down = true
+
+[default.Niri.Keybinds.'Mod+Shift+Ctrl+Up']
+move-column-to-monitor-up = true
+
+[default.Niri.Keybinds.'Mod+Shift+Ctrl+Right']
+move-column-to-monitor-right = true
+
+[default.Niri.Keybinds.'Mod+Shift+Ctrl+H']
+move-column-to-monitor-left = true
+
+[default.Niri.Keybinds.'Mod+Shift+Ctrl+J']
+move-column-to-monitor-down = true
+
+[default.Niri.Keybinds.'Mod+Shift+Ctrl+K']
+move-column-to-monitor-up = true
+
+[default.Niri.Keybinds.'Mod+Shift+Ctrl+L']
+move-column-to-monitor-right = true
+
+# Workspace Focus
+[default.Niri.Keybinds.'Mod+Page_Down']
+focus-workspace-down = true
+
+[default.Niri.Keybinds.'Mod+Page_Up']
+focus-workspace-up = true
+
+[default.Niri.Keybinds.'Mod+U']
+focus-workspace-down = true
+
+[default.Niri.Keybinds.'Mod+I']
+focus-workspace-up = true
+
+# Workspace Move Column
+[default.Niri.Keybinds.'Mod+Ctrl+Page_Down']
+move-column-to-workspace-down = true
+# move-window-to-workspace-down = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+Page_Up']
+move-column-to-workspace-up = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+U']
+move-column-to-workspace-down = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+I']
+move-column-to-workspace-up = true
+
+# Workspace Move Entire
+[default.Niri.Keybinds.'Mod+Shift+Page_Down']
+move-workspace-down = true
+
+[default.Niri.Keybinds.'Mod+Shift+Page_Up']
+move-workspace-up = true
+
+[default.Niri.Keybinds.'Mod+Shift+U']
+move-workspace-down = true
+
+[default.Niri.Keybinds.'Mod+Shift+I']
+move-workspace-up = true
+
+# Scroll Wheel Binds
+[default.Niri.Keybinds.'Mod+WheelScrollDown']
+cooldown-ms = 150
+focus-workspace-down = true
+
+[default.Niri.Keybinds.'Mod+WheelScrollUp']
+cooldown-ms = 150
+focus-workspace-up = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+WheelScrollDown']
+cooldown-ms = 150
+move-column-to-workspace-down = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+WheelScrollUp']
+cooldown-ms = 150
+move-column-to-workspace-up = true
+
+[default.Niri.Keybinds.'Mod+WheelScrollRight']
+focus-column-right = true
+
+[default.Niri.Keybinds.'Mod+WheelScrollLeft']
+focus-column-left = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+WheelScrollRight']
+move-column-right = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+WheelScrollLeft']
+move-column-left = true
+
+[default.Niri.Keybinds.'Mod+Shift+WheelScrollDown']
+focus-column-right = true
+
+[default.Niri.Keybinds.'Mod+Shift+WheelScrollUp']
+focus-column-left = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+Shift+WheelScrollDown']
+move-column-right = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+Shift+WheelScrollUp']
+move-column-left = true
+
+# [default.Niri.Keybinds.'Mod+TouchpadScrollDown']
+# spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+"
+
+# [default.Niri.Keybinds.'Mod+TouchpadScrollUp']
+# spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-"
+
+# Workspace Indexing
+[default.Niri.Keybinds.'Mod+1']
+focus-workspace = 1
+
+[default.Niri.Keybinds.'Mod+2']
+focus-workspace = 2
+
+[default.Niri.Keybinds.'Mod+3']
+focus-workspace = 3
+
+[default.Niri.Keybinds.'Mod+4']
+focus-workspace = 4
+
+[default.Niri.Keybinds.'Mod+5']
+focus-workspace = 5
+
+[default.Niri.Keybinds.'Mod+6']
+focus-workspace = 6
+
+[default.Niri.Keybinds.'Mod+7']
+focus-workspace = 7
+
+[default.Niri.Keybinds.'Mod+8']
+focus-workspace = 8
+
+[default.Niri.Keybinds.'Mod+9']
+focus-workspace = 9
+
+[default.Niri.Keybinds.'Mod+Ctrl+1']
+move-column-to-workspace = 1
+
+# move-window-to-workspace = 1
+[default.Niri.Keybinds.'Mod+Ctrl+2']
+move-column-to-workspace = 2
+
+[default.Niri.Keybinds.'Mod+Ctrl+3']
+move-column-to-workspace = 3
+
+[default.Niri.Keybinds.'Mod+Ctrl+4']
+move-column-to-workspace = 4
+
+[default.Niri.Keybinds.'Mod+Ctrl+5']
+move-column-to-workspace = 5
+
+[default.Niri.Keybinds.'Mod+Ctrl+6']
+move-column-to-workspace = 6
+
+[default.Niri.Keybinds.'Mod+Ctrl+7']
+move-column-to-workspace = 7
+
+[default.Niri.Keybinds.'Mod+Ctrl+8']
+move-column-to-workspace = 8
+
+[default.Niri.Keybinds.'Mod+Ctrl+9']
+move-column-to-workspace = 9
+
+# [default.Niri.Keybinds.'Mod+Tab']
+# focus-workspace-previous = true
+
+# Consuming/Expelling
+[default.Niri.Keybinds.'Mod+BracketLeft']
+consume-or-expel-window-left = true
+
+[default.Niri.Keybinds.'Mod+BracketRight']
+consume-or-expel-window-right = true
+
+[default.Niri.Keybinds.'Mod+Comma']
+consume-window-into-column = true
+
+[default.Niri.Keybinds.'Mod+Period']
+expel-window-from-column = true
+
+# Presets and Layout Sizing
+[default.Niri.Keybinds.'Mod+R']
+switch-preset-column-width = true
+
+[default.Niri.Keybinds.'Mod+Shift+R']
+switch-preset-column-width-back = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+Shift+R']
+switch-preset-window-height = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+R']
+reset-window-height = true
+
+[default.Niri.Keybinds.'Mod+F']
+maximize-column = true
+
+[default.Niri.Keybinds.'Mod+Shift+F']
+fullscreen-window = true
+
+[default.Niri.Keybinds.'Mod+M']
+maximize-window-to-edges = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+F']
+expand-column-to-available-width = true
+
+[default.Niri.Keybinds.'Mod+C']
+center-column = true
+
+[default.Niri.Keybinds.'Mod+Ctrl+C']
+center-visible-columns = true
+
+# Fine Adjustments
+[default.Niri.Keybinds.'Mod+Minus']
+set-column-width = "-10%"
+
+[default.Niri.Keybinds.'Mod+Equal']
+set-column-width = "+10%"
+
+[default.Niri.Keybinds.'Mod+Shift+Minus']
+set-window-height = "-10%"
+
+[default.Niri.Keybinds.'Mod+Shift+Equal']
+set-window-height = "+10%"
+
+# Layout Toggles
+[default.Niri.Keybinds.'Mod+Space']
+toggle-window-floating = true
+
+[default.Niri.Keybinds.'Mod+Shift+Space']
+switch-focus-between-floating-and-tiling = true
+
+[default.Niri.Keybinds.'Mod+W']
+toggle-column-tabbed-display = true
+
+# [default.Niri.Keybinds.'Mod+Space']
+# switch-layout = "next"
+
+# [default.Niri.Keybinds.'Mod+Shift+Space']
+# switch-layout = "prev"
+
+# System Binds
+[default.Niri.Keybinds.'Print']
+screenshot = true
+
+[default.Niri.Keybinds.'Ctrl+Print']
+screenshot-screen = true
+
+[default.Niri.Keybinds.'Alt+Print']
+screenshot-window = true
+
+[default.Niri.Keybinds.'Mod+Escape']
+allow-inhibiting = false
+toggle-keyboard-shortcuts-inhibit = true
+
+[default.Niri.Keybinds.'Mod+Shift+E']
+quit = true
+
+[default.Niri.Keybinds.'Ctrl+Alt+Delete']
+quit = true
+
+[default.Niri.Keybinds.'Mod+Shift+P']
+power-off-monitors = true

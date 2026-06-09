@@ -1,0 +1,8 @@
+# Force Stow to create real directories and symlink file-by-file
+--no-folding
+
+# Use the dist directory as the Stow directory.
+--dir=dist
+
+# Always target the home directory, no matter where Stow is run from
+--target=~/

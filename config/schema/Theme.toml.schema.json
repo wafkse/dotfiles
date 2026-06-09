@@ -1,0 +1,63 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Theme.toml.schema.json",
+    "title": "Theme Schema",
+    "description": "Validation schema for the system-wide Theme selection.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "The name of the currently active theme."
+        },
+        "default": {
+            "type": "string",
+            "description": "The name of the default theme."
+        },
+        "placeholder": {
+            "type": "string",
+            "description": "The placeholder color used when no color is assigned.",
+            "pattern": "^#[a-fA-F0-9]{6}$"
+        }
+    },
+    "required": ["default", "placeholder"],
+    "additionalProperties": {
+        "type": "object",
+        "properties": {
+            "Palette": {
+                "type": "array",
+                "minItems": 16,
+                "maxItems": 32,
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "color": {
+                            "type": "string",
+                            "pattern": "^#[a-fA-F0-9]{6}$"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "accent": {
+                            "type": "boolean"
+                        }
+                    },
+                    "required": ["color", "name"],
+                    "additionalProperties": false
+                }
+            },
+            "Override": {
+                "type": "object",
+                "properties": {
+                    "Waybar": { "$ref": "Theme/Waybar.theme.toml.schema.json" },
+                    "Ghostty": {
+                        "$ref": "Theme/Ghostty.theme.toml.schema.json"
+                    },
+                    "Fuzzel": { "$ref": "Theme/Fuzzel.theme.toml.schema.json" },
+                    "Niri": { "$ref": "Theme/Niri.theme.toml.schema.json" }
+                }
+            }
+        },
+        "required": ["Palette"],
+        "additionalProperties": false
+    }
+}

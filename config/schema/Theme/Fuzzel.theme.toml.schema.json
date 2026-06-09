@@ -1,0 +1,33 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Fuzzel.theme.toml.schema.json",
+    "title": "Theme-specific theme overrides for Fuzzel",
+    "type": "object",
+    "properties": {
+        "background": { "type": "string" },
+        "text": { "type": "string" },
+        "prompt": { "type": "string" },
+        "placeholder": { "type": "string" },
+        "input": { "type": "string" },
+        "match": { "type": "string" },
+        "selection": { "type": "string" },
+        "selection-text": { "type": "string" },
+        "selection-match": { "type": "string" },
+        "counter": { "type": "string" },
+        "border": { "type": "string" }
+    },
+    "required": [
+        "background",
+        "text",
+        "prompt",
+        "placeholder",
+        "input",
+        "match",
+        "selection",
+        "selection-text",
+        "selection-match",
+        "counter",
+        "border"
+    ],
+    "additionalProperties": false
+}

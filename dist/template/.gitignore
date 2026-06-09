@@ -1,0 +1,9 @@
+# NOTE: Ignore absolutely everything by default
+*
+!*/
+
+# NOTE: Un-ignore the Tera templates
+!*.tera
+
+# NOTE: Un-ignore this .gitignore file so it can be committed
+!.gitignore

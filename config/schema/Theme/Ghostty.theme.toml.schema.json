@@ -1,0 +1,41 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Ghostty.theme.toml.schema.json",
+    "title": "Theme-specific theme overrides for Ghostty",
+    "type": "object",
+    "properties": {
+        "palette": {
+            "type": "array",
+            "minItems": 16,
+            "maxItems": 16,
+            "items": { "type": "string" }
+        },
+        "background": {
+            "type": "string"
+        },
+        "foreground": {
+            "type": "string"
+        },
+        "cursor-color": {
+            "type": "string"
+        },
+        "cursor-text": {
+            "type": "string"
+        },
+        "selection-background": {
+            "type": "string"
+        },
+        "selection-foreground": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "palette",
+        "background",
+        "foreground",
+        "cursor-color",
+        "cursor-text",
+        "selection-background",
+        "selection-foreground"
+    ]
+}

@@ -1,0 +1,11 @@
+[Unit]
+Description=Waybar
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=waybar
+ExecReload=kill -SIGUSR2 $MAINPID
+Restart=on-failure

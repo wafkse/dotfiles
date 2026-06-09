@@ -1,0 +1,23 @@
+name: TOML Style
+
+on:
+    push:
+        paths:
+            - "**.toml"
+    pull_request:
+        paths:
+            - "**.toml"
+    workflow_dispatch:
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+              with:
+                  submodules: true
+
+            - uses: tombi-toml/setup-tombi@v1.1.1
+
+            - name: Validate TOML files
+              run: tombi lint

@@ -1,0 +1,1112 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Niri.toml.schema.json",
+    "title": "Niri Compositor Schema",
+    "description": "Validation schema for the Niri Wayland compositor configuration",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "Input": {
+            "type": "object",
+            "description": "Input device configuration (keyboard, mouse, touchpad, trackpoint).",
+            "additionalProperties": false,
+            "properties": {
+                "Keyboard": {
+                    "type": "object",
+                    "description": "Keyboard settings, including XKB configuration and numlock.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "numlock": {
+                            "type": "boolean",
+                            "description": "Enable numlock on startup."
+                        },
+                        "XKB": {
+                            "type": "object",
+                            "description": "XKB settings (rules, model, layout, variant, and options).",
+                            "additionalProperties": false,
+                            "properties": {
+                                "rules": {
+                                    "type": "string",
+                                    "description": "XKB rules."
+                                },
+                                "model": {
+                                    "type": "string",
+                                    "description": "XKB model."
+                                },
+                                "layout": {
+                                    "type": "string",
+                                    "description": "XKB layout (e.g., 'us,ru')."
+                                },
+                                "variant": {
+                                    "type": "string",
+                                    "description": "XKB variant."
+                                },
+                                "options": {
+                                    "type": "string",
+                                    "description": "XKB options (e.g., 'grp:win_space_toggle')."
+                                }
+                            }
+                        }
+                    }
+                },
+                "Touchpad": {
+                    "type": "object",
+                    "description": "Libinput touchpad settings.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "off": {
+                            "type": "boolean",
+                            "description": "Disable the touchpad."
+                        },
+                        "tap": {
+                            "type": "boolean",
+                            "description": "Enable tap-to-click."
+                        },
+                        "dwt": {
+                            "type": "boolean",
+                            "description": "Enable disable-while-typing."
+                        },
+                        "dwtp": {
+                            "type": "boolean",
+                            "description": "Enable disable-while-trackpointing."
+                        },
+                        "drag": {
+                            "type": "boolean",
+                            "description": "Enable tap-and-drag."
+                        },
+                        "drag-lock": {
+                            "type": "boolean",
+                            "description": "Enable drag lock."
+                        },
+                        "natural-scroll": {
+                            "type": "boolean",
+                            "description": "Enable natural scrolling."
+                        },
+                        "accel-speed": {
+                            "type": "number",
+                            "description": "Pointer acceleration speed."
+                        },
+                        "accel-profile": {
+                            "type": "string",
+                            "enum": ["flat", "adaptive"],
+                            "description": "Pointer acceleration profile."
+                        },
+                        "scroll-method": {
+                            "type": "string",
+                            "enum": ["two-finger", "edge", "none"],
+                            "description": "Touchpad scroll method."
+                        },
+                        "disabled-on-external-mouse": {
+                            "type": "boolean",
+                            "description": "Disable touchpad when an external mouse is connected."
+                        }
+                    }
+                },
+                "Mouse": {
+                    "type": "object",
+                    "description": "Libinput mouse settings.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "off": {
+                            "type": "boolean",
+                            "description": "Disable the mouse."
+                        },
+                        "natural-scroll": {
+                            "type": "boolean",
+                            "description": "Enable natural scrolling."
+                        },
+                        "accel-speed": {
+                            "type": "number",
+                            "description": "Pointer acceleration speed."
+                        },
+                        "accel-profile": {
+                            "type": "string",
+                            "enum": ["flat", "adaptive"],
+                            "description": "Pointer acceleration profile."
+                        },
+                        "scroll-method": {
+                            "type": "string",
+                            "enum": ["no-scroll", "on-button-down"],
+                            "description": "Mouse scroll method."
+                        }
+                    }
+                },
+                "Trackpoint": {
+                    "type": "object",
+                    "description": "Libinput trackpoint settings.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "off": {
+                            "type": "boolean",
+                            "description": "Disable the trackpoint."
+                        },
+                        "natural-scroll": {
+                            "type": "boolean",
+                            "description": "Enable natural scrolling."
+                        },
+                        "accel-speed": {
+                            "type": "number",
+                            "description": "Pointer acceleration speed."
+                        },
+                        "accel-profile": {
+                            "type": "string",
+                            "enum": ["flat", "adaptive"],
+                            "description": "Pointer acceleration profile."
+                        },
+                        "scroll-method": {
+                            "type": "string",
+                            "enum": ["on-button-down", "none"],
+                            "description": "Trackpoint scroll method."
+                        },
+                        "scroll-button": {
+                            "type": "integer",
+                            "description": "Button ID to use for scrolling."
+                        },
+                        "scroll-button-lock": {
+                            "type": "boolean",
+                            "description": "Lock the scroll button."
+                        },
+                        "middle-emulation": {
+                            "type": "boolean",
+                            "description": "Enable middle click emulation."
+                        }
+                    }
+                },
+                "Behavior": {
+                    "type": "object",
+                    "description": "Global input behaviors.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "warp-mouse-to-focus": {
+                            "type": "boolean",
+                            "description": "Warp the mouse to the center of newly focused windows."
+                        },
+                        "focus-follows-mouse": {
+                            "type": "object",
+                            "description": "Focus windows and outputs automatically when moving the mouse into them.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "max-scroll-amount": {
+                                    "type": "string",
+                                    "description": "Scroll threshold for focus follows mouse (e.g., '0%')."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "Outputs": {
+            "type": "object",
+            "description": "Output (monitor) configurations mapped by output name (e.g., 'eDP-1').",
+            "additionalProperties": false,
+            "patternProperties": {
+                "^.+$": {
+                    "type": "object",
+                    "description": "Settings for a specific output.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "off": {
+                            "type": "boolean",
+                            "description": "Disable this output."
+                        },
+                        "mode": {
+                            "type": "string",
+                            "description": "Resolution and refresh rate (e.g., '1920x1080@120.030')."
+                        },
+                        "scale": {
+                            "type": "number",
+                            "description": "Fractional or integer scale (e.g., 1.5, 2.0)."
+                        },
+                        "transform": {
+                            "type": "string",
+                            "enum": [
+                                "normal",
+                                "90",
+                                "180",
+                                "270",
+                                "flipped",
+                                "flipped-90",
+                                "flipped-180",
+                                "flipped-270"
+                            ],
+                            "description": "Rotation or reflection of the output."
+                        },
+                        "position": {
+                            "type": "object",
+                            "description": "Position of the output in global coordinate space.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "x": {
+                                    "type": "integer",
+                                    "description": "X coordinate."
+                                },
+                                "y": {
+                                    "type": "integer",
+                                    "description": "Y coordinate."
+                                }
+                            },
+                            "required": ["x", "y"]
+                        }
+                    }
+                }
+            }
+        },
+        "Layout": {
+            "type": "object",
+            "description": "Settings influencing how windows are positioned and sized.",
+            "additionalProperties": false,
+            "properties": {
+                "gaps": {
+                    "type": "integer",
+                    "description": "Gaps around windows in logical pixels."
+                },
+                "center-focused-column": {
+                    "type": "string",
+                    "enum": ["never", "always", "on-overflow"],
+                    "description": "Behavior for centering columns when changing focus."
+                },
+                "default-column-width": {
+                    "$ref": "#/$defs/widthHeightDefinition"
+                },
+                "PresetColumnWidths": {
+                    "type": "object",
+                    "description": "Customizable widths for Mod+R toggle.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "proportions": {
+                            "type": "array",
+                            "items": { "type": "number" },
+                            "description": "Widths as fractions of output width."
+                        },
+                        "fixed": {
+                            "type": "array",
+                            "items": { "type": "integer" },
+                            "description": "Fixed widths in logical pixels."
+                        }
+                    }
+                },
+                "PresetWindowHeights": {
+                    "type": "object",
+                    "description": "Customizable heights for Mod+Shift+Ctrl+R toggle.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "proportions": {
+                            "type": "array",
+                            "items": { "type": "number" },
+                            "description": "Heights as fractions of output height."
+                        },
+                        "fixed": {
+                            "type": "array",
+                            "items": { "type": "integer" },
+                            "description": "Fixed heights in logical pixels."
+                        }
+                    }
+                },
+                "FocusRing": {
+                    "type": "object",
+                    "description": "Settings for the focus ring around active windows.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "off": {
+                            "type": "boolean",
+                            "description": "Disable the focus ring."
+                        },
+                        "width": {
+                            "type": "integer",
+                            "description": "Ring width in logical pixels."
+                        },
+                        "active-color": {
+                            "type": "string",
+                            "description": "Color on active monitor."
+                        },
+                        "inactive-color": {
+                            "type": "string",
+                            "description": "Color on inactive monitors."
+                        },
+                        "active-gradient": {
+                            "$ref": "#/$defs/gradientDefinition"
+                        },
+                        "inactive-gradient": {
+                            "$ref": "#/$defs/gradientDefinition"
+                        }
+                    }
+                },
+                "Border": {
+                    "type": "object",
+                    "description": "Settings for the permanent window border.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "off": {
+                            "type": "boolean",
+                            "description": "Disable the border."
+                        },
+                        "width": {
+                            "type": "integer",
+                            "description": "Border width in logical pixels."
+                        },
+                        "active-color": {
+                            "type": "string",
+                            "description": "Color on active monitor."
+                        },
+                        "inactive-color": {
+                            "type": "string",
+                            "description": "Color on inactive monitors."
+                        },
+                        "urgent-color": {
+                            "type": "string",
+                            "description": "Color around windows requesting attention."
+                        },
+                        "active-gradient": {
+                            "$ref": "#/$defs/gradientDefinition"
+                        },
+                        "inactive-gradient": {
+                            "$ref": "#/$defs/gradientDefinition"
+                        }
+                    }
+                },
+                "Shadow": {
+                    "type": "object",
+                    "description": "Window drop shadow settings.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on": {
+                            "type": "boolean",
+                            "description": "Enable drop shadows."
+                        },
+                        "draw-behind-window": {
+                            "type": "boolean",
+                            "description": "Draw shadow behind window (fixes CSD corner artifacts)."
+                        },
+                        "softness": {
+                            "type": "integer",
+                            "description": "Shadow blur radius."
+                        },
+                        "spread": {
+                            "type": "integer",
+                            "description": "Expands the shadow."
+                        },
+                        "offset": {
+                            "type": "object",
+                            "properties": {
+                                "x": { "type": "integer" },
+                                "y": { "type": "integer" }
+                            },
+                            "additionalProperties": false
+                        },
+                        "color": {
+                            "type": "string",
+                            "description": "Shadow color and opacity (CSS-like)."
+                        }
+                    }
+                },
+                "Struts": {
+                    "type": "object",
+                    "description": "Shrinks the area occupied by windows, like outer gaps.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "left": { "type": "integer" },
+                        "right": { "type": "integer" },
+                        "top": { "type": "integer" },
+                        "bottom": { "type": "integer" }
+                    }
+                }
+            }
+        },
+        "Startup": {
+            "type": "object",
+            "description": "Processes to spawn at startup.",
+            "additionalProperties": false,
+            "properties": {
+                "spawn-at-startup": {
+                    "type": "array",
+                    "items": { "type": "array", "items": { "type": "string" } },
+                    "description": "Commands to spawn directly without shell."
+                },
+                "spawn-sh-at-startup": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Commands to spawn via `sh -c`."
+                }
+            }
+        },
+        "Settings": {
+            "type": "object",
+            "description": "Miscellaneous compositor settings.",
+            "additionalProperties": false,
+            "properties": {
+                "prefer-no-csd": {
+                    "type": "boolean",
+                    "description": "Ask clients to omit client-side decorations."
+                },
+                "screenshot-path": {
+                    "type": ["string", "null"],
+                    "description": "Path to save screenshots. Null disables saving to disk."
+                },
+                "environment": {
+                    "type": "object",
+                    "description": "Environment variables to set.",
+                    "additionalProperties": { "type": ["string", "null"] }
+                },
+                "cursor": {
+                    "type": "object",
+                    "description": "Cursor settings.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "xcursor-theme": {
+                            "type": "string",
+                            "description": "XCursor theme name."
+                        },
+                        "xcursor-size": {
+                            "type": "integer",
+                            "description": "XCursor size in pixels."
+                        },
+                        "hide-when-typing": {
+                            "type": "boolean",
+                            "description": "Hide cursor when typing."
+                        },
+                        "hide-after-inactive-ms": {
+                            "type": "integer",
+                            "description": "Hide cursor after inactivity (milliseconds)."
+                        }
+                    }
+                },
+                "overview": {
+                    "type": "object",
+                    "description": "Settings for the workspace overview.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "zoom": {
+                            "type": "number",
+                            "description": "Zoom factor for overview."
+                        },
+                        "backdrop-color": {
+                            "type": "string",
+                            "description": "Backdrop color in overview."
+                        },
+                        "workspace-shadow": {
+                            "type": "object",
+                            "description": "Workspace shadow settings in overview.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "off": {
+                                    "type": "boolean",
+                                    "description": "Disable workspace shadows."
+                                },
+                                "softness": {
+                                    "type": "integer",
+                                    "description": "Shadow blur radius."
+                                },
+                                "spread": {
+                                    "type": "integer",
+                                    "description": "Shadow spread."
+                                },
+                                "offset": {
+                                    "type": "object",
+                                    "description": "Shadow offset.",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "x": { "type": "integer" },
+                                        "y": { "type": "integer" }
+                                    }
+                                },
+                                "color": {
+                                    "type": "string",
+                                    "description": "Shadow color."
+                                }
+                            }
+                        }
+                    }
+                },
+                "xwayland-satellite": {
+                    "type": "object",
+                    "description": "XWayland satellite settings.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "off": {
+                            "type": "boolean",
+                            "description": "Disable XWayland satellite."
+                        },
+                        "path": {
+                            "type": "string",
+                            "description": "Path to XWayland satellite executable."
+                        }
+                    }
+                },
+                "clipboard": {
+                    "type": "object",
+                    "description": "Clipboard settings.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "disable-primary": {
+                            "type": "boolean",
+                            "description": "Disable primary clipboard selection."
+                        }
+                    }
+                },
+                "hotkey-overlay": {
+                    "type": "object",
+                    "description": "Settings for the hotkey overlay.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "skip-at-startup": {
+                            "type": "boolean",
+                            "description": "Skip showing the overlay at startup."
+                        },
+                        "hide-not-bound": {
+                            "type": "boolean",
+                            "description": "Hide unbound hotkeys in the overlay."
+                        }
+                    }
+                },
+                "config-notification": {
+                    "type": "object",
+                    "description": "Configuration error notification settings.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "disable-failed": {
+                            "type": "boolean",
+                            "description": "Disable notifications for failed config updates."
+                        }
+                    }
+                },
+                "blur": {
+                    "type": "object",
+                    "description": "Global blur settings.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "off": {
+                            "type": "boolean",
+                            "description": "Disable all blur effects."
+                        },
+                        "passes": {
+                            "type": "integer",
+                            "description": "Number of blur passes."
+                        },
+                        "offset": {
+                            "type": "integer",
+                            "description": "Blur offset in pixels."
+                        },
+                        "noise": {
+                            "type": "number",
+                            "description": "Noise amount for blur effect."
+                        },
+                        "saturation": {
+                            "type": "number",
+                            "description": "Saturation factor for blurred areas."
+                        }
+                    }
+                }
+            }
+        },
+        "Animations": {
+            "type": "object",
+            "description": "Global animation modifiers.",
+            "additionalProperties": false,
+            "properties": {
+                "off": {
+                    "type": "boolean",
+                    "description": "Turn off all animations."
+                },
+                "slowdown": {
+                    "type": "number",
+                    "description": "Factor to slow down all animations."
+                }
+            }
+        },
+        "WindowRules": {
+            "type": "object",
+            "description": "Rules modifying behavior for individual windows.",
+            "additionalProperties": false,
+            "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                    "type": "object",
+                    "description": "A specific window rule block.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "match": { "$ref": "#/$defs/windowMatchDef" },
+                        "exclude": { "$ref": "#/$defs/windowMatchDef" },
+                        "block-out-from": {
+                            "type": "string",
+                            "enum": ["screen-capture", "screencast"],
+                            "description": "Hide window content from captures."
+                        },
+                        "default-column-width": {
+                            "$ref": "#/$defs/widthHeightDefinition"
+                        },
+                        "default-window-height": {
+                            "$ref": "#/$defs/widthHeightDefinition"
+                        },
+                        "open-on-output": {
+                            "type": "string",
+                            "description": "Make the window open on a specific output."
+                        },
+                        "open-on-workspace": {
+                            "type": "string",
+                            "description": "Make the window open on a specific named workspace."
+                        },
+                        "open-maximized": {
+                            "type": "boolean",
+                            "description": "Make the window open as a maximized column."
+                        },
+                        "open-maximized-to-edges": {
+                            "type": "boolean",
+                            "description": "Make the window open maximized to edges."
+                        },
+                        "open-fullscreen": {
+                            "type": "boolean",
+                            "description": "Make the window open fullscreen."
+                        },
+                        "open-floating": {
+                            "type": "boolean",
+                            "description": "Make the window open in the floating layout."
+                        },
+                        "open-focused": {
+                            "type": "boolean",
+                            "description": "Allow or prevent the window from being automatically focused."
+                        },
+                        "opacity": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1,
+                            "description": "Set the opacity of the window (0.0 to 1.0)."
+                        },
+                        "variable-refresh-rate": {
+                            "type": "boolean",
+                            "description": "Enable VRR on output when this window is displayed."
+                        },
+                        "default-column-display": {
+                            "type": "string",
+                            "enum": ["normal", "tabbed"],
+                            "description": "Set the default display mode for columns created from this window."
+                        },
+                        "default-floating-position": {
+                            "type": "object",
+                            "description": "Set the initial position for this window when it opens in the floating layout.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "x": { "type": "integer" },
+                                "y": { "type": "integer" },
+                                "relative-to": {
+                                    "type": "string",
+                                    "enum": [
+                                        "top-left",
+                                        "top-right",
+                                        "bottom-left",
+                                        "bottom-right",
+                                        "top",
+                                        "bottom",
+                                        "left",
+                                        "right"
+                                    ]
+                                }
+                            },
+                            "required": ["x", "y"]
+                        },
+                        "scroll-factor": {
+                            "type": "number",
+                            "description": "Set a scroll factor for all scroll events sent to a window."
+                        },
+                        "draw-border-with-background": {
+                            "type": "boolean",
+                            "description": "Override whether the border and the focus ring draw with a background."
+                        },
+                        "focus-ring": {
+                            "type": "object",
+                            "description": "Override the focus ring options for the window.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "off": { "type": "boolean" },
+                                "on": { "type": "boolean" },
+                                "width": { "type": "integer" },
+                                "active-color": { "type": "string" },
+                                "inactive-color": { "type": "string" },
+                                "urgent-color": { "type": "string" },
+                                "active-gradient": {
+                                    "$ref": "#/$defs/gradientDefinition"
+                                },
+                                "inactive-gradient": {
+                                    "$ref": "#/$defs/gradientDefinition"
+                                },
+                                "urgent-gradient": {
+                                    "$ref": "#/$defs/gradientDefinition"
+                                }
+                            }
+                        },
+                        "border": {
+                            "type": "object",
+                            "description": "Override the border options for the window.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "off": { "type": "boolean" },
+                                "on": { "type": "boolean" },
+                                "width": { "type": "integer" },
+                                "active-color": { "type": "string" },
+                                "inactive-color": { "type": "string" },
+                                "urgent-color": { "type": "string" },
+                                "active-gradient": {
+                                    "$ref": "#/$defs/gradientDefinition"
+                                },
+                                "inactive-gradient": {
+                                    "$ref": "#/$defs/gradientDefinition"
+                                },
+                                "urgent-gradient": {
+                                    "$ref": "#/$defs/gradientDefinition"
+                                }
+                            }
+                        },
+                        "shadow": {
+                            "type": "object",
+                            "description": "Override the shadow options for the window.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "on": { "type": "boolean" },
+                                "off": { "type": "boolean" },
+                                "draw-behind-window": { "type": "boolean" },
+                                "softness": { "type": "integer" },
+                                "spread": { "type": "integer" },
+                                "offset": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "x": { "type": "integer" },
+                                        "y": { "type": "integer" }
+                                    }
+                                },
+                                "color": { "type": "string" },
+                                "inactive-color": { "type": "string" }
+                            }
+                        },
+                        "tab-indicator": {
+                            "type": "object",
+                            "description": "Override the tab indicator options for the window.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "active-color": { "type": "string" },
+                                "inactive-color": { "type": "string" },
+                                "urgent-color": { "type": "string" },
+                                "active-gradient": {
+                                    "$ref": "#/$defs/gradientDefinition"
+                                },
+                                "inactive-gradient": {
+                                    "$ref": "#/$defs/gradientDefinition"
+                                },
+                                "urgent-gradient": {
+                                    "$ref": "#/$defs/gradientDefinition"
+                                }
+                            }
+                        },
+                        "geometry-corner-radius": {
+                            "oneOf": [
+                                { "type": "integer", "minimum": 0 },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "integer",
+                                        "minimum": 0
+                                    },
+                                    "minItems": 1,
+                                    "maxItems": 4,
+                                    "description": "CSS-style corner radii: [top-left, top-right, bottom-right, bottom-left]"
+                                }
+                            ],
+                            "description": "Set the corner radius of the window."
+                        },
+                        "clip-to-geometry": {
+                            "type": "boolean",
+                            "description": "Clips the window to its visual geometry."
+                        },
+                        "tiled-state": {
+                            "type": "boolean",
+                            "description": "Informs the window that it is tiled."
+                        },
+                        "baba-is-float": {
+                            "type": "boolean",
+                            "description": "Make your windows FLOAT up and down (April Fools 2025)."
+                        },
+                        "background-effect": {
+                            "$ref": "#/$defs/backgroundEffectDef"
+                        },
+                        "popups": {
+                            "type": "object",
+                            "description": "Override properties for this window's pop-ups.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "opacity": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 1
+                                },
+                                "geometry-corner-radius": {
+                                    "oneOf": [
+                                        { "type": "integer", "minimum": 0 },
+                                        {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer",
+                                                "minimum": 0
+                                            },
+                                            "minItems": 1,
+                                            "maxItems": 4
+                                        }
+                                    ]
+                                },
+                                "background-effect": {
+                                    "$ref": "#/$defs/backgroundEffectDef"
+                                }
+                            }
+                        },
+                        "min-width": { "type": "integer" },
+                        "max-width": { "type": "integer" },
+                        "min-height": { "type": "integer" },
+                        "max-height": { "type": "integer" }
+                    }
+                }
+            }
+        },
+        "Keybinds": {
+            "type": "object",
+            "description": "Keyboard and mouse shortcuts.",
+            "additionalProperties": false,
+            "patternProperties": {
+                "^.+$": {
+                    "type": "object",
+                    "description": "A single keybind definition.",
+                    "additionalProperties": false,
+                    "properties": {
+                        "cooldown-ms": {
+                            "type": "integer",
+                            "description": "Rate-limit the bind (useful for scroll wheels)."
+                        },
+                        "repeat": {
+                            "type": "boolean",
+                            "description": "Allow or disallow holding to repeat."
+                        },
+                        "allow-when-locked": {
+                            "type": "boolean",
+                            "description": "Execute even if screen is locked."
+                        },
+                        "allow-inhibiting": {
+                            "type": "boolean",
+                            "description": "Whether software can inhibit this keybind."
+                        },
+                        "hotkey-overlay-title": {
+                            "type": ["string", "null"],
+                            "description": "Title shown in the hotkey overlay."
+                        },
+
+                        "show-hotkey-overlay": { "type": "boolean" },
+                        "spawn": {
+                            "type": "array",
+                            "items": { "type": "string" },
+                            "description": "Spawn command array."
+                        },
+                        "spawn-sh": {
+                            "type": "string",
+                            "description": "Spawn command via sh."
+                        },
+                        "toggle-overview": { "type": "boolean" },
+                        "close-window": { "type": "boolean" },
+                        "focus-column-left": { "type": "boolean" },
+                        "focus-window-down": { "type": "boolean" },
+                        "focus-window-up": { "type": "boolean" },
+                        "focus-column-right": { "type": "boolean" },
+                        "focus-window-or-workspace-down": { "type": "boolean" },
+                        "focus-window-or-workspace-up": { "type": "boolean" },
+                        "move-column-left": { "type": "boolean" },
+                        "move-window-down": { "type": "boolean" },
+                        "move-window-up": { "type": "boolean" },
+                        "move-column-right": { "type": "boolean" },
+                        "move-window-down-or-to-workspace-down": {
+                            "type": "boolean"
+                        },
+                        "move-window-up-or-to-workspace-up": {
+                            "type": "boolean"
+                        },
+                        "focus-column-first": { "type": "boolean" },
+                        "focus-column-last": { "type": "boolean" },
+                        "move-column-to-first": { "type": "boolean" },
+                        "move-column-to-last": { "type": "boolean" },
+                        "focus-monitor-left": { "type": "boolean" },
+                        "focus-monitor-down": { "type": "boolean" },
+                        "focus-monitor-up": { "type": "boolean" },
+                        "focus-monitor-right": { "type": "boolean" },
+                        "move-column-to-monitor-left": { "type": "boolean" },
+                        "move-column-to-monitor-down": { "type": "boolean" },
+                        "move-column-to-monitor-up": { "type": "boolean" },
+                        "move-column-to-monitor-right": { "type": "boolean" },
+                        "move-window-to-monitor-left": { "type": "boolean" },
+                        "move-window-to-monitor-down": { "type": "boolean" },
+                        "move-window-to-monitor-up": { "type": "boolean" },
+                        "move-window-to-monitor-right": { "type": "boolean" },
+                        "move-workspace-to-monitor-left": { "type": "boolean" },
+                        "move-workspace-to-monitor-down": { "type": "boolean" },
+                        "move-workspace-to-monitor-up": { "type": "boolean" },
+                        "move-workspace-to-monitor-right": {
+                            "type": "boolean"
+                        },
+                        "focus-workspace-down": { "type": "boolean" },
+                        "focus-workspace-up": { "type": "boolean" },
+                        "move-column-to-workspace-down": { "type": "boolean" },
+                        "move-column-to-workspace-up": { "type": "boolean" },
+                        "move-window-to-workspace-down": { "type": "boolean" },
+                        "move-window-to-workspace-up": { "type": "boolean" },
+                        "move-workspace-down": { "type": "boolean" },
+                        "move-workspace-up": { "type": "boolean" },
+                        "focus-workspace": {
+                            "type": "integer",
+                            "description": "Focus workspace by index."
+                        },
+                        "move-column-to-workspace": {
+                            "type": "integer",
+                            "description": "Move column to workspace by index."
+                        },
+                        "move-window-to-workspace": {
+                            "type": "integer",
+                            "description": "Move window to workspace by index."
+                        },
+                        "focus-workspace-previous": { "type": "boolean" },
+                        "consume-or-expel-window-left": { "type": "boolean" },
+                        "consume-or-expel-window-right": { "type": "boolean" },
+                        "consume-window-into-column": { "type": "boolean" },
+                        "expel-window-from-column": { "type": "boolean" },
+                        "switch-preset-column-width": { "type": "boolean" },
+                        "switch-preset-column-width-back": {
+                            "type": "boolean"
+                        },
+                        "switch-preset-window-height": { "type": "boolean" },
+                        "reset-window-height": { "type": "boolean" },
+                        "maximize-column": { "type": "boolean" },
+                        "fullscreen-window": { "type": "boolean" },
+                        "maximize-window-to-edges": { "type": "boolean" },
+                        "expand-column-to-available-width": {
+                            "type": "boolean"
+                        },
+                        "center-column": { "type": "boolean" },
+                        "center-visible-columns": { "type": "boolean" },
+                        "set-column-width": {
+                            "type": "string",
+                            "description": "Set/Adjust width (e.g., '+10%', '500')."
+                        },
+                        "set-window-height": {
+                            "type": "string",
+                            "description": "Set/Adjust height (e.g., '-10%', '300')."
+                        },
+                        "toggle-window-floating": { "type": "boolean" },
+                        "switch-focus-between-floating-and-tiling": {
+                            "type": "boolean"
+                        },
+                        "toggle-column-tabbed-display": { "type": "boolean" },
+                        "switch-layout": {
+                            "type": "string",
+                            "enum": ["next", "prev"]
+                        },
+                        "screenshot": { "type": "boolean" },
+                        "screenshot-screen": { "type": "boolean" },
+                        "screenshot-window": { "type": "boolean" },
+                        "toggle-keyboard-shortcuts-inhibit": {
+                            "type": "boolean"
+                        },
+                        "quit": { "type": "boolean" },
+                        "power-off-monitors": { "type": "boolean" }
+                    }
+                }
+            }
+        }
+    },
+    "$defs": {
+        "gradientDefinition": {
+            "type": "object",
+            "description": "CSS-like linear gradient configuration.",
+            "additionalProperties": false,
+            "properties": {
+                "from": { "type": "string", "description": "Start color." },
+                "to": { "type": "string", "description": "End color." },
+                "angle": {
+                    "type": "integer",
+                    "description": "Gradient angle in degrees (default 180)."
+                },
+                "relative-to": {
+                    "type": "string",
+                    "enum": ["workspace-view"],
+                    "description": "Render relative to entire view rather than window."
+                },
+                "in": {
+                    "type": "string",
+                    "description": "Interpolation color space (e.g., 'oklch longer hue')."
+                }
+            },
+            "required": ["from", "to"]
+        },
+        "widthHeightDefinition": {
+            "type": "object",
+            "description": "Sets sizing either by proportion or fixed pixels. An empty object unsets the default.",
+            "additionalProperties": false,
+            "properties": {
+                "proportion": {
+                    "type": "number",
+                    "description": "Fraction of the output area."
+                },
+                "fixed": {
+                    "type": "integer",
+                    "description": "Fixed size in logical pixels."
+                }
+            }
+        },
+        "windowMatchObject": {
+            "type": "object",
+            "description": "Individual match conditions for a window rule.",
+            "additionalProperties": false,
+            "properties": {
+                "app-id": {
+                    "type": "string",
+                    "description": "Regex matching the application ID."
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Regex matching the window title."
+                },
+                "is-active": { "type": "boolean" },
+                "is-focused": { "type": "boolean" },
+                "is-active-in-column": { "type": "boolean" },
+                "is-floating": { "type": "boolean" },
+                "is-window-cast-target": { "type": "boolean" },
+                "is-urgent": { "type": "boolean" },
+                "at-startup": { "type": "boolean" }
+            }
+        },
+        "windowMatchDef": {
+            "oneOf": [
+                { "$ref": "#/$defs/windowMatchObject" },
+                {
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/windowMatchObject" },
+                    "description": "List of match rules (OR logic across objects, AND logic within objects)."
+                }
+            ]
+        },
+        "backgroundEffectDef": {
+            "type": "object",
+            "description": "Background effects like blur and noise.",
+            "additionalProperties": false,
+            "properties": {
+                "xray": {
+                    "type": "boolean",
+                    "description": "Enable the efficient xray blur effect."
+                },
+                "blur": {
+                    "type": "boolean",
+                    "description": "Enable standard blur behind the surface."
+                },
+                "noise": {
+                    "type": "number",
+                    "description": "Amount of pixel noise added to the background."
+                },
+                "saturation": {
+                    "type": "number",
+                    "description": "Color saturation of the background (1 is normal)."
+                }
+            }
+        }
+    }
+}

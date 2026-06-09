@@ -1,0 +1,20 @@
+[configure]
+profile = "default"
+
+[[candidate]]
+path = "[!.]*.toml"
+policy = "override"
+
+[[candidate]]
+path = "theme/**/[!.]*.toml"
+policy = "override"
+
+# NOTE: Ad-hoc overrides are to be processed last.
+[[candidate]]
+path = "override/[!.]*.toml"
+policy = "override"
+
+# NOTE: Ad-hoc overrides are to be processed last.
+[[candidate]]
+path = "override/**/[!.]*.toml"
+policy = "override"

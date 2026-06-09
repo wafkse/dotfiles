@@ -1,0 +1,8 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Fuzzel.toml.schema.json",
+    "title": "Fuzzel Schema",
+    "description": "Schema for Fuzzel",
+    "type": "object",
+    "properties": {}
+}

@@ -1,0 +1,11 @@
+[Unit]
+Description=Watch Waybar Configuration
+
+[Path]
+PathModified=%h/.config/waybar/config.jsonc
+PathChanged=%h/.config/waybar/config.jsonc
+PathModified=%h/.config/waybar/style.css
+PathModified=%h/.config/waybar/style.css
+
+[Install]
+WantedBy=default.target

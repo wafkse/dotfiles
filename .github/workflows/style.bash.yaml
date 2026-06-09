@@ -1,0 +1,28 @@
+name: Shellscript Style
+
+on:
+    push:
+        paths-ignore:
+            - "config/**"
+            - ".github/**"
+            - "*.md"
+    pull_request:
+        paths-ignore:
+            - "config/**"
+            - ".github/**"
+            - "*.md"
+    workflow_dispatch:
+
+jobs:
+    style:
+        name: Style Tests
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+              with:
+                  submodules: true
+
+            - name: Initial Setup
+              run: sudo apt update && sudo apt install shellcheck
+
+            - run: shellcheck --shell=bash $(git grep --color=never --cached -l '^#!/usr/bin/env bash$')

@@ -1,0 +1,29 @@
+{% import "partial/theme.tera" as ThemeMacros %}
+
+{# Grab the root Theme object #}
+{% set ThemeRoot = Theme %}
+
+# ============================================================================
+# FUZZEL THEME
+# Generated dynamically from active theme: {{ ThemeRoot.name | default(value=ThemeRoot.default) }}
+# ============================================================================
+
+[colors]
+# Background gets 'dd' for slight transparency, everything else gets 'ff' (solid)
+background={{ ThemeMacros::AppString(ThemeTree=ThemeRoot, AppName='Fuzzel', KeyName='background') | replace(from="#", to="") }}dd
+text={{ ThemeMacros::AppString(ThemeTree=ThemeRoot, AppName='Fuzzel', KeyName='text') | replace(from="#", to="") }}ff
+prompt={{ ThemeMacros::AppString(ThemeTree=ThemeRoot, AppName='Fuzzel', KeyName='prompt') | replace(from="#", to="") }}ff
+placeholder={{ ThemeMacros::AppString(ThemeTree=ThemeRoot, AppName='Fuzzel', KeyName='placeholder') | replace(from="#", to="") }}ff
+input={{ ThemeMacros::AppString(ThemeTree=ThemeRoot, AppName='Fuzzel', KeyName='input') | replace(from="#", to="") }}ff
+match={{ ThemeMacros::AppString(ThemeTree=ThemeRoot, AppName='Fuzzel', KeyName='match') | replace(from="#", to="") }}ff
+selection={{ ThemeMacros::AppString(ThemeTree=ThemeRoot, AppName='Fuzzel', KeyName='selection') | replace(from="#", to="") }}ff
+selection-text={{ ThemeMacros::AppString(ThemeTree=ThemeRoot, AppName='Fuzzel', KeyName='selection-text') | replace(from="#", to="") }}ff
+selection-match={{ ThemeMacros::AppString(ThemeTree=ThemeRoot, AppName='Fuzzel', KeyName='selection-match') | replace(from="#", to="") }}ff
+counter={{ ThemeMacros::AppString(ThemeTree=ThemeRoot, AppName='Fuzzel', KeyName='counter') | replace(from="#", to="") }}ff
+border={{ ThemeMacros::AppString(ThemeTree=ThemeRoot, AppName='Fuzzel', KeyName='border') | replace(from="#", to="") }}ff
+
+# --- Example of additional non-color config you might want here ---
+[main]
+font=JetBrainsMono Nerd Font:size=11
+prompt="> "
+terminal=ghostty -e

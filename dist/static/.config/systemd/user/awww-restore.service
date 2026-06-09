@@ -1,0 +1,9 @@
+[Unit]
+Description=Awww Wallpaper Restore
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/env awww restore
+Restart=on-failure

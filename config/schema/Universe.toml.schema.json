@@ -1,0 +1,27 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Universal Dotfile Configuration Schema",
+    "type": "object",
+    "properties": {
+        "default": { "$ref": "#/$defs/profileConfig" },
+        "global": { "$ref": "#/$defs/profileConfig" }
+    },
+    "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": { "$ref": "#/$defs/profileConfig" }
+    },
+    "additionalProperties": false,
+    "$defs": {
+        "profileConfig": {
+            "type": "object",
+            "description": "Base profile structure allowing specific sub-objects.",
+            "properties": {
+                "Theme": { "$ref": "Theme.toml.schema.json" },
+                "Niri": { "$ref": "Niri.toml.schema.json" },
+                "Waybar": { "$ref": "Waybar.toml.schema.json" },
+                "Fuzzel": { "$ref": "Fuzzel.toml.schema.json" },
+                "Ghostty": { "$ref": "Ghostty.toml.schema.json" }
+            },
+            "additionalProperties": false
+        }
+    }
+}
