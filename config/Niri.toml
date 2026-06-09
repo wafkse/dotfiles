@@ -58,8 +58,8 @@ focus-follows-mouse = { max-scroll-amount = "10%" }
 # -----------------------------------------------------------------------------
 [default.Niri.Layout]
 gaps = 8
-center-focused-column = "on-overflow"
-default-column-width = { proportion = 1.0 }
+center-focused-column = "never"
+default-column-width = { proportion = 0.5 }
 # default-column-width = {}
 
 [default.Niri.Layout.PresetColumnWidths]
