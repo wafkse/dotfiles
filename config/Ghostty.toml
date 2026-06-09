@@ -1,1 +1,39 @@
 #:schema schema/Universe.toml.schema.json
+
+# ==============================================================================
+# GHOSTTY CONFIGURATION
+# ==============================================================================
+
+[default.Ghostty.font]
+font-family = "JetBrainsMono Nerd Font"
+font-size = 12
+font-feature = [
+  "-calt",
+  "-liga"
+]  # Example of an array mapping multiple times
+font-thicken = false
+adjust-cell-height = "10%"
+
+[default.Ghostty.window]
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+window-decoration = "auto"
+window-theme = "auto"
+background-opacity = 1
+background-blur = true
+
+[default.Ghostty.ui]
+cursor-style = "bar"
+cursor-style-blink = true
+mouse-hide-while-typing = true
+scrollbar = "never"
+
+[default.Ghostty.behavior]
+clipboard-read = "allow"
+clipboard-write = "allow"
+copy-on-select = true
+shell-integration = "detect"
+quit-after-last-window-closed = true
+
+[default.Ghostty.keybinds]

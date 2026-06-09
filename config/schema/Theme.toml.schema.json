@@ -53,7 +53,8 @@
                         "$ref": "Theme/Ghostty.theme.toml.schema.json"
                     },
                     "Fuzzel": { "$ref": "Theme/Fuzzel.theme.toml.schema.json" },
-                    "Niri": { "$ref": "Theme/Niri.theme.toml.schema.json" }
+                    "Niri": { "$ref": "Theme/Niri.theme.toml.schema.json" },
+                    "Dunst": { "$ref": "Theme/Dunst.theme.toml.schema.json" }
                 }
             }
         },

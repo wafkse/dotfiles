@@ -1,0 +1,37 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Dunst.theme.toml.schema.json",
+    "title": "Theme-specific overrides for Dunst",
+    "type": "object",
+    "properties": {
+        "global-separator": { "type": "string" },
+        "low-background": { "type": "string" },
+        "low-foreground": { "type": "string" },
+        "low-frame": { "type": "string" },
+        "low-highlight": { "type": "string" },
+        "normal-background": { "type": "string" },
+        "normal-foreground": { "type": "string" },
+        "normal-frame": { "type": "string" },
+        "normal-highlight": { "type": "string" },
+        "critical-background": { "type": "string" },
+        "critical-foreground": { "type": "string" },
+        "critical-frame": { "type": "string" },
+        "critical-highlight": { "type": "string" }
+    },
+    "required": [
+        "global-separator",
+        "low-background",
+        "low-foreground",
+        "low-frame",
+        "low-highlight",
+        "normal-background",
+        "normal-foreground",
+        "normal-frame",
+        "normal-highlight",
+        "critical-background",
+        "critical-foreground",
+        "critical-frame",
+        "critical-highlight"
+    ],
+    "additionalProperties": false
+}

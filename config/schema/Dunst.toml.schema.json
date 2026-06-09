@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Dunst.toml.schema.json",
+    "title": "Dunst Configuration Schema",
+    "description": "Configuration schema for non-color Dunst layout and behavior properties",
+    "type": "object",
+    "properties": {
+        "global": {
+            "type": "object",
+            "properties": {
+                "font": { "type": "string" },
+                "width": { "type": ["integer", "string"] },
+                "height": { "type": ["integer", "string"] },
+                "offset": { "type": "string" },
+                "origin": { "type": "string" },
+                "progress_bar": { "type": "boolean" },
+                "corner_radius": { "type": "integer" },
+                "padding": { "type": "integer" },
+                "horizontal_padding": { "type": "integer" },
+                "frame_width": { "type": "integer" },
+                "gap_size": { "type": "integer" },
+                "markup": { "type": "string", "enum": ["full", "strip", "no"] },
+                "format": { "type": "string" }
+            },
+            "additionalProperties": true
+        },
+        "urgency_low": { "type": "object", "additionalProperties": true },
+        "urgency_normal": { "type": "object", "additionalProperties": true },
+        "urgency_critical": { "type": "object", "additionalProperties": true }
+    },
+    "additionalProperties": true
+}

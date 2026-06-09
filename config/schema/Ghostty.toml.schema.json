@@ -1,8 +1,79 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "Ghostty.toml.schema.json",
-    "title": "Ghostty Schema",
-    "description": "Schema for Ghostty",
+    "title": "Ghostty Configuration Schema",
+    "description": "Configuration schema for non-color Ghostty layout and behavior properties",
     "type": "object",
-    "properties": {}
+    "properties": {
+        "font": {
+            "type": "object",
+            "properties": {
+                "font-family": { "type": "string" },
+                "font-size": { "type": "number" },
+                "font-feature": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
+                "font-thicken": { "type": "boolean" },
+                "adjust-cell-height": { "type": ["string", "number"] }
+            },
+            "additionalProperties": true
+        },
+        "window": {
+            "type": "object",
+            "properties": {
+                "window-padding-x": { "type": "integer", "minimum": 0 },
+                "window-padding-y": { "type": "integer", "minimum": 0 },
+                "window-padding-balance": { "type": "boolean" },
+                "window-decoration": { "type": ["string", "boolean"] },
+                "window-theme": {
+                    "type": "string",
+                    "enum": ["auto", "system", "light", "dark", "ghostty"]
+                },
+                "background-opacity": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "background-blur": { "type": ["boolean", "integer", "string"] }
+            },
+            "additionalProperties": true
+        },
+        "ui": {
+            "type": "object",
+            "properties": {
+                "cursor-style": {
+                    "type": "string",
+                    "enum": ["block", "bar", "underline", "block_hollow"]
+                },
+                "cursor-style-blink": { "type": "boolean" },
+                "mouse-hide-while-typing": { "type": "boolean" },
+                "scrollbar": { "type": "string", "enum": ["system", "never"] }
+            },
+            "additionalProperties": true
+        },
+        "behavior": {
+            "type": "object",
+            "properties": {
+                "clipboard-read": {
+                    "type": "string",
+                    "enum": ["ask", "allow", "deny"]
+                },
+                "clipboard-write": {
+                    "type": "string",
+                    "enum": ["ask", "allow", "deny"]
+                },
+                "copy-on-select": { "type": "boolean" },
+                "shell-integration": { "type": "string" },
+                "quit-after-last-window-closed": { "type": "boolean" }
+            },
+            "additionalProperties": true
+        },
+        "keybinds": {
+            "type": "object",
+            "description": "Ghostty keybinds mapping. Key is trigger, value is action.",
+            "additionalProperties": { "type": "string" }
+        }
+    },
+    "additionalProperties": false
 }

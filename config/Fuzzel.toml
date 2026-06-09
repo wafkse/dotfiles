@@ -1,0 +1,32 @@
+#:schema schema/Universe.toml.schema.json
+
+# ==============================================================================
+# FUZZEL CONFIGURATION
+# ==============================================================================
+
+[default.Fuzzel.main]
+font = "JetBrainsMono Nerd Font:size=13"
+use-bold = true
+dpi-aware = "auto"
+prompt = " 󰍉  "
+placeholder = "Search applications..."
+icons-enabled = true
+icon-theme = "Papirus-Dark"
+match-mode = "fzf"
+lines = 10
+width = 45
+horizontal-pad = 25
+vertical-pad = 15
+inner-pad = 10
+layer = "overlay"
+anchor = "center"
+exit-on-keyboard-focus-loss = true
+
+[default.Fuzzel.border]
+width = 2
+radius = 12
+selection-radius = 6
+
+[default.Fuzzel.dmenu]
+mode = "text"
+exit-immediately-if-empty = false

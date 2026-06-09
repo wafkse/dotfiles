@@ -1,8 +1,68 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "Fuzzel.toml.schema.json",
-    "title": "Fuzzel Schema",
-    "description": "Schema for Fuzzel",
+    "title": "Fuzzel Configuration Schema",
+    "description": "Configuration schema for non-color Fuzzel layout and behavior properties",
     "type": "object",
-    "properties": {}
+    "properties": {
+        "main": {
+            "type": "object",
+            "properties": {
+                "font": { "type": "string" },
+                "use-bold": { "type": "boolean" },
+                "dpi-aware": {
+                    "type": "string",
+                    "enum": ["auto", "yes", "no"]
+                },
+                "prompt": { "type": "string" },
+                "placeholder": { "type": "string" },
+                "icons-enabled": { "type": "boolean" },
+                "icon-theme": { "type": "string" },
+                "match-mode": {
+                    "type": "string",
+                    "enum": ["exact", "fzf", "fuzzy"]
+                },
+                "lines": { "type": "integer", "minimum": 1 },
+                "width": { "type": "integer", "minimum": 1 },
+                "horizontal-pad": { "type": "integer", "minimum": 0 },
+                "vertical-pad": { "type": "integer", "minimum": 0 },
+                "inner-pad": { "type": "integer", "minimum": 0 },
+                "layer": { "type": "string", "enum": ["top", "overlay"] },
+                "anchor": {
+                    "type": "string",
+                    "enum": [
+                        "top-left",
+                        "top",
+                        "top-right",
+                        "left",
+                        "center",
+                        "right",
+                        "bottom-left",
+                        "bottom",
+                        "bottom-right"
+                    ]
+                },
+                "exit-on-keyboard-focus-loss": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        },
+        "border": {
+            "type": "object",
+            "properties": {
+                "width": { "type": "integer", "minimum": 0 },
+                "radius": { "type": "integer", "minimum": 0 },
+                "selection-radius": { "type": "integer", "minimum": 0 }
+            },
+            "additionalProperties": false
+        },
+        "dmenu": {
+            "type": "object",
+            "properties": {
+                "mode": { "type": "string", "enum": ["text", "index"] },
+                "exit-immediately-if-empty": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
 }

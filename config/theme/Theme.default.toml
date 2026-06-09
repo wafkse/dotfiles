@@ -180,7 +180,7 @@ selection = "Surface 2"
 selection-text = "Text"
 selection-match = "Rosewater"
 counter = "Overlay 1"
-border = "Teal"
+border = "Mauve"
 
 # ==============================================================================
 # CATPPUCCIN LATTE (LIGHT)
@@ -250,6 +250,24 @@ network-background = "Mantle"
 network-foreground = "Lavender"
 clock-background = "Mantle"
 clock-foreground = "Mauve"
+
+[default.Theme.'Catppuccin Frappe'.Override.Dunst]
+global-separator = "Surface 2"
+
+low-background = "Base"
+low-foreground = "Subtext 0"
+low-frame = "Surface 1"
+low-highlight = "Blue"
+
+normal-background = "Base"
+normal-foreground = "Text"
+normal-frame = "Rosewater"
+normal-highlight = "Rosewater"
+
+critical-background = "Base"
+critical-foreground = "Text"
+critical-frame = "Red"
+critical-highlight = "Peach"
 
 [[default.Theme.'Catppuccin Latte'.Palette]]
 color = "#dce0e8"
@@ -422,7 +440,7 @@ selection = "Surface 2"
 selection-text = "Text"
 selection-match = "Rosewater"
 counter = "Overlay 1"
-border = "Teal"
+border = "Mauve"
 
 # ==============================================================================
 # CATPPUCCIN MACCHIATO
@@ -492,6 +510,24 @@ network-background = "Mantle"
 network-foreground = "Lavender"
 clock-background = "Mantle"
 clock-foreground = "Mauve"
+
+[default.Theme.'Catppuccin Latte'.Override.Dunst]
+global-separator = "Surface 2"
+
+low-background = "Base"
+low-foreground = "Subtext 0"
+low-frame = "Surface 1"
+low-highlight = "Blue"
+
+normal-background = "Base"
+normal-foreground = "Text"
+normal-frame = "Rosewater"
+normal-highlight = "Rosewater"
+
+critical-background = "Base"
+critical-foreground = "Text"
+critical-frame = "Red"
+critical-highlight = "Peach"
 
 [[default.Theme.'Catppuccin Macchiato'.Palette]]
 color = "#181926"
@@ -664,7 +700,7 @@ selection = "Surface 2"
 selection-text = "Text"
 selection-match = "Rosewater"
 counter = "Overlay 1"
-border = "Teal"
+border = "Mauve"
 
 [default.Theme.'Catppuccin Macchiato'.Override.Niri]
 focus-ring-active = "Rosewater"
@@ -730,6 +766,24 @@ network-background = "Mantle"
 network-foreground = "Lavender"
 clock-background = "Mantle"
 clock-foreground = "Mauve"
+
+[default.Theme.'Catppuccin Macchiato'.Override.Dunst]
+global-separator = "Surface 2"
+
+low-background = "Base"
+low-foreground = "Subtext 0"
+low-frame = "Surface 1"
+low-highlight = "Blue"
+
+normal-background = "Base"
+normal-foreground = "Text"
+normal-frame = "Rosewater"
+normal-highlight = "Rosewater"
+
+critical-background = "Base"
+critical-foreground = "Text"
+critical-frame = "Red"
+critical-highlight = "Peach"
 
 [[default.Theme.'Catppuccin Mocha'.Palette]]
 color = "#11111b"
@@ -902,7 +956,7 @@ selection = "Surface 2"
 selection-text = "Text"
 selection-match = "Rosewater"
 counter = "Overlay 1"
-border = "Teal"
+border = "Mauve"
 # ==============================================================================
 # NIRI OVERRIDES
 # ==============================================================================
@@ -989,3 +1043,21 @@ network-foreground = "Lavender"
 
 clock-background = "Mantle"
 clock-foreground = "Mauve"
+
+[default.Theme.'Catppuccin Mocha'.Override.Dunst]
+global-separator = "Surface 2"
+
+low-background = "Base"
+low-foreground = "Subtext 0"
+low-frame = "Surface 1"
+low-highlight = "Blue"
+
+normal-background = "Base"
+normal-foreground = "Text"
+normal-frame = "Rosewater"
+normal-highlight = "Rosewater"
+
+critical-background = "Base"
+critical-foreground = "Text"
+critical-frame = "Red"
+critical-highlight = "Peach"
