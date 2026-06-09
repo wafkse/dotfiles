@@ -1,6 +1,6 @@
 # Dotfiles
 
-This is a repository containing my 
+This is a repository containing the configuration for my personal Linux machines.
 
 # Installation
 
@@ -19,7 +19,7 @@ For the desktop, the following must be installed:
 
 ## Installation Process
 
-First, clone the repository to `~/.dotfiles` (or any directory where the dotfiles shall reside, change paths accordingly), and execute:
+First, clone the repository to `~/.dotfiles` (or any directory where the dotfiles shall reside, change the path accordingly), and execute:
 
 ```bash
 $ DOTFILES_PATH="$HOME/.dotfiles"
@@ -29,6 +29,8 @@ $ # Once you've stow'd your static files, you must enable and start the Mirage d
 $ systemctl --user enable --now "mirage@$(systemd-escape "$DOTFILES_PATH").service"
 $ # Now, enable all provided user services.
 ```
+
+For provided systemd units, take a look at the [.config/systemd/user](dist/static/.config/systemd/user) directory.
 
 ### Potential Failure
 
