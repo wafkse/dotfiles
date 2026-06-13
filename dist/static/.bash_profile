@@ -115,22 +115,27 @@ done
 
 export "${EXPORT_LIST[@]}"
 
-systemctl --user import-environment "${EXPORT_LIST[@]}"
+case $- in
+  *i*)
+    systemctl --user import-environment "${EXPORT_LIST[@]}"
 
-if hash dbus-update-activation-environment 2>/dev/null; then
-    dbus-update-activation-environment --all
-fi
+    if hash dbus-update-activation-environment 2>/dev/null; then
+        dbus-update-activation-environment --all
+    fi
 
-if [[ "${START_TARGET["DESKTOP"]}" = 1 ]]; then
-    systemctl --user reset-failed
+    if [[ "${START_TARGET["DESKTOP"]}" = 1 ]]; then
+        systemctl --user reset-failed
 
-    systemctl --user --wait start niri.service
+        systemctl --user --wait start niri.service
 
-    systemctl --user unset-environment WAYLAND_DISPLAY DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP NIRI_SOCKET
+        systemctl --user unset-environment WAYLAND_DISPLAY DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP NIRI_SOCKET
 
-    exit
-elif [[ -n "$SSH_CONNECTION" ]] || [[ -n "$TERMUX_VERSION" ]]; then
-    exec bash
-else
-    exec tmux new "-As${USER:-default}"
-fi
+        exit
+    elif [[ -n "$SSH_CONNECTION" ]] || [[ -n "$TERMUX_VERSION" ]]; then
+        exec bash
+    else
+        exec tmux new "-As${USER:-default}"
+    fi
+  ;;
+  *) :;;
+esac
