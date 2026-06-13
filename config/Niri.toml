@@ -135,6 +135,11 @@ hotkey-overlay = { skip-at-startup = false }
 match = { app-id = "firefox$", title = "^Picture-in-Picture$" }
 open-floating = true
 
+[default.Niri.WindowRules."Counter-Strike2"]
+match = { app-id = "cs2" }
+open-fullscreen = true
+open-focused = true
+
 # [default.Niri.WindowRules.SecretManagers]
 # match = [ { app-id = "^org\\.keepassxc\\.KeePassXC$" }, { app-id = "^org\\.gnome\\.World\\.Secrets$" } ]
 # block-out-from = "screen-capture" # or "screencast"
