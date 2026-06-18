@@ -1,0 +1,30 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Sway.theme.toml.schema.json",
+    "title": "Theme-specific overrides for SwayWM",
+    "type": "object",
+    "$defs": {
+        "clientColors": {
+            "type": "object",
+            "properties": {
+                "border": { "type": "string" },
+                "background": { "type": "string" },
+                "text": { "type": "string" },
+                "indicator": { "type": "string" },
+                "child_border": { "type": "string" }
+            },
+            "required": ["border", "background", "text", "indicator", "child_border"],
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "focused": { "$ref": "#/$defs/clientColors" },
+        "focused_inactive": { "$ref": "#/$defs/clientColors" },
+        "unfocused": { "$ref": "#/$defs/clientColors" },
+        "urgent": { "$ref": "#/$defs/clientColors" },
+        "placeholder": { "$ref": "#/$defs/clientColors" },
+        "background": { "type": "string" }
+    },
+    "required": ["focused", "focused_inactive", "unfocused", "urgent", "placeholder", "background"],
+    "additionalProperties": false
+}

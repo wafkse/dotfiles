@@ -1,0 +1,25 @@
+#:schema schema/Universe.toml.schema.json
+
+[default.Sway.Input."type:keyboard"]
+xkb_layout = "us"
+
+[default.Sway.Input."type:touchpad"]
+tap = "enabled"
+natural_scroll = "enabled"
+
+[default.Sway.Output."*"]
+bg = "#000000 solid_color"
+
+[default.Sway.Gaps]
+inner = 8
+outer = 0
+
+[default.Sway.Window]
+border = "pixel"
+border_size = 2
+titlebar = false
+
+[default.Sway.Floating]
+modifier = "Mod4"
+border = "normal"
+border_size = 2

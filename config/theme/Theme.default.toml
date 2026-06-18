@@ -269,6 +269,14 @@ critical-foreground = "Text"
 critical-frame = "Red"
 critical-highlight = "Peach"
 
+[default.Theme.'Catppuccin Frappe'.Override.Sway]
+background = "Base"
+focused          = { border = "Mauve",     background = "Mauve",    text = "Base", indicator = "Rosewater", child_border = "Mauve" }
+focused_inactive = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+unfocused        = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+urgent           = { border = "Red",       background = "Red",      text = "Base", indicator = "Red",       child_border = "Red" }
+placeholder      = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+
 [[default.Theme.'Catppuccin Latte'.Palette]]
 color = "#dce0e8"
 name = "Crust"
@@ -529,6 +537,14 @@ critical-foreground = "Text"
 critical-frame = "Red"
 critical-highlight = "Peach"
 
+[default.Theme.'Catppuccin Latte'.Override.Sway]
+background = "Base"
+focused          = { border = "Mauve",     background = "Mauve",    text = "Base", indicator = "Rosewater", child_border = "Mauve" }
+focused_inactive = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+unfocused        = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+urgent           = { border = "Red",       background = "Red",      text = "Base", indicator = "Red",       child_border = "Red" }
+placeholder      = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+
 [[default.Theme.'Catppuccin Macchiato'.Palette]]
 color = "#181926"
 name = "Crust"
@@ -784,6 +800,14 @@ critical-background = "Base"
 critical-foreground = "Text"
 critical-frame = "Red"
 critical-highlight = "Peach"
+
+[default.Theme.'Catppuccin Macchiato'.Override.Sway]
+background = "Base"
+focused          = { border = "Mauve",     background = "Mauve",    text = "Base", indicator = "Rosewater", child_border = "Mauve" }
+focused_inactive = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+unfocused        = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+urgent           = { border = "Red",       background = "Red",      text = "Base", indicator = "Red",       child_border = "Red" }
+placeholder      = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
 
 [[default.Theme.'Catppuccin Mocha'.Palette]]
 color = "#11111b"
@@ -1061,3 +1085,11 @@ critical-background = "Base"
 critical-foreground = "Text"
 critical-frame = "Red"
 critical-highlight = "Peach"
+
+[default.Theme.'Catppuccin Mocha'.Override.Sway]
+background = "Base"
+focused          = { border = "Mauve",     background = "Mauve",    text = "Base", indicator = "Rosewater", child_border = "Mauve" }
+focused_inactive = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+unfocused        = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+urgent           = { border = "Red",       background = "Red",      text = "Base", indicator = "Red",       child_border = "Red" }
+placeholder      = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }

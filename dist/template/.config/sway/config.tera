@@ -1,0 +1,72 @@
+{% import "partial/theme.tera" as ThemeMacros %}
+
+{# ==================== MACROS ==================== #}
+
+{% macro EmitThemedColor(ThemeTree, AppName, KeyName) -%}
+{{- ThemeMacros::AppString(ThemeTree=ThemeTree, AppName=AppName, KeyName=KeyName) -}}
+{%- endmacro EmitThemedColor %}
+
+{% macro EmitClientColors(ThemeTree, AppName, ClassName) -%}
+client.{{ ClassName }} {{ self::EmitThemedColor(ThemeTree=ThemeTree, AppName=AppName, KeyName=ClassName ~ ".border") }} {{ self::EmitThemedColor(ThemeTree=ThemeTree, AppName=AppName, KeyName=ClassName ~ ".background") }} {{ self::EmitThemedColor(ThemeTree=ThemeTree, AppName=AppName, KeyName=ClassName ~ ".text") }} {{ self::EmitThemedColor(ThemeTree=ThemeTree, AppName=AppName, KeyName=ClassName ~ ".indicator") }} {{ self::EmitThemedColor(ThemeTree=ThemeTree, AppName=AppName, KeyName=ClassName ~ ".child_border") }}
+{%- endmacro EmitClientColors %}
+
+{# ==================== CONFIGURATION ==================== #}
+
+# Sway configuration generated from TOML
+
+{% if Sway.Input is defined -%}
+# --- INPUT ---
+{% for DeviceIdentifier, Settings in Sway.Input -%}
+input "{{ DeviceIdentifier }}" {
+    {% if Settings.xkb_layout is defined %}xkb_layout {{ Settings.xkb_layout }}{% endif %}
+    {% if Settings.xkb_variant is defined %}xkb_variant {{ Settings.xkb_variant }}{% endif %}
+    {% if Settings.xkb_options is defined %}xkb_options {{ Settings.xkb_options }}{% endif %}
+    {% if Settings.tap is defined %}tap {{ Settings.tap }}{% endif %}
+    {% if Settings.natural_scroll is defined %}natural_scroll {{ Settings.natural_scroll }}{% endif %}
+    {% if Settings.pointer_accel is defined %}pointer_accel {{ Settings.pointer_accel }}{% endif %}
+    {% if Settings.accel_profile is defined %}accel_profile {{ Settings.accel_profile }}{% endif %}
+}
+{% endfor %}
+{%- endif %}
+
+{% if Sway.Output is defined -%}
+# --- OUTPUT ---
+{% for OutputIdentifier, Settings in Sway.Output -%}
+output "{{ OutputIdentifier }}" {
+    {% if Settings.mode is defined %}mode {{ Settings.mode }}{% endif %}
+    {% if Settings.pos is defined %}pos {{ Settings.pos }}{% endif %}
+    {% if Settings.res is defined %}res {{ Settings.res }}{% endif %}
+    {% if Settings.scale is defined %}scale {{ Settings.scale }}{% endif %}
+    {% if Settings.bg is defined %}bg {{ Settings.bg }}{% endif %}
+    {% if Settings.transform is defined %}transform {{ Settings.transform }}{% endif %}
+}
+{% endfor %}
+{%- endif %}
+
+{% if Sway.Gaps is defined -%}
+# --- GAPS ---
+{% if Sway.Gaps.inner is defined %}gaps inner {{ Sway.Gaps.inner }}{% endif %}
+{% if Sway.Gaps.outer is defined %}gaps outer {{ Sway.Gaps.outer }}{% endif %}
+{%- endif %}
+
+{% if Sway.Window is defined -%}
+# --- WINDOW ---
+{% if Sway.Window.border is defined %}default_border {{ Sway.Window.border }} {{ Sway.Window.border_size | default(value=2) }}{% endif %}
+{% if Sway.Window.titlebar == false %}border none{% endif %}
+{%- endif %}
+
+{% if Sway.Floating is defined -%}
+# --- FLOATING ---
+{% if Sway.Floating.modifier is defined %}floating_modifier {{ Sway.Floating.modifier }}{% endif %}
+{% if Sway.Floating.border is defined %}default_floating_border {{ Sway.Floating.border }} {{ Sway.Floating.border_size | default(value=2) }}{% endif %}
+{%- endif %}
+
+# --- THEME ---
+{% set ThemeRoot = Theme -%}
+{{ self::EmitClientColors(ThemeTree=ThemeRoot, AppName='Sway', ClassName='focused') }}
+{{ self::EmitClientColors(ThemeTree=ThemeRoot, AppName='Sway', ClassName='focused_inactive') }}
+{{ self::EmitClientColors(ThemeTree=ThemeRoot, AppName='Sway', ClassName='unfocused') }}
+{{ self::EmitClientColors(ThemeTree=ThemeRoot, AppName='Sway', ClassName='urgent') }}
+{{ self::EmitClientColors(ThemeTree=ThemeRoot, AppName='Sway', ClassName='placeholder') }}
+
+output "*" bg {{ self::EmitThemedColor(ThemeTree=ThemeRoot, AppName='Sway', KeyName='background') }} solid_color

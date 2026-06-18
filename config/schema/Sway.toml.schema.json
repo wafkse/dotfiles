@@ -1,0 +1,73 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Sway.toml.schema.json",
+    "title": "SwayWM Configuration Schema",
+    "description": "Validation schema for the Sway window manager configuration",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "Input": {
+            "type": "object",
+            "description": "Input device configuration.",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "object",
+                    "properties": {
+                        "xkb_layout": { "type": "string" },
+                        "xkb_variant": { "type": "string" },
+                        "xkb_options": { "type": "string" },
+                        "tap": { "type": "string", "enum": ["enabled", "disabled"] },
+                        "natural_scroll": { "type": "string", "enum": ["enabled", "disabled"] },
+                        "pointer_accel": { "type": "number" },
+                        "accel_profile": { "type": "string", "enum": ["flat", "adaptive"] }
+                    },
+                    "additionalProperties": false
+                }
+            }
+        },
+        "Output": {
+            "type": "object",
+            "description": "Output (monitor) configuration.",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "object",
+                    "properties": {
+                        "mode": { "type": "string" },
+                        "pos": { "type": "string" },
+                        "res": { "type": "string" },
+                        "scale": { "type": "number" },
+                        "bg": { "type": "string" },
+                        "transform": { "type": "string" }
+                    },
+                    "additionalProperties": false
+                }
+            }
+        },
+        "Gaps": {
+            "type": "object",
+            "properties": {
+                "inner": { "type": "integer" },
+                "outer": { "type": "integer" }
+            },
+            "additionalProperties": false
+        },
+        "Window": {
+            "type": "object",
+            "properties": {
+                "border": { "type": "string", "enum": ["normal", "none", "pixel"] },
+                "border_size": { "type": "integer" },
+                "titlebar": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        },
+        "Floating": {
+            "type": "object",
+            "properties": {
+                "modifier": { "type": "string" },
+                "border": { "type": "string", "enum": ["normal", "none", "pixel"] },
+                "border_size": { "type": "integer" }
+            },
+            "additionalProperties": false
+        }
+    }
+}
