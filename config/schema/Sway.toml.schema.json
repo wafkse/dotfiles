@@ -16,10 +16,23 @@
                         "xkb_layout": { "type": "string" },
                         "xkb_variant": { "type": "string" },
                         "xkb_options": { "type": "string" },
-                        "tap": { "type": "string", "enum": ["enabled", "disabled"] },
-                        "natural_scroll": { "type": "string", "enum": ["enabled", "disabled"] },
+                        "xkb_numlock": {
+                            "type": "string",
+                            "enum": ["enabled", "disabled"]
+                        },
+                        "tap": {
+                            "type": "string",
+                            "enum": ["enabled", "disabled"]
+                        },
+                        "natural_scroll": {
+                            "type": "string",
+                            "enum": ["enabled", "disabled"]
+                        },
                         "pointer_accel": { "type": "number" },
-                        "accel_profile": { "type": "string", "enum": ["flat", "adaptive"] }
+                        "accel_profile": {
+                            "type": "string",
+                            "enum": ["flat", "adaptive"]
+                        }
                     },
                     "additionalProperties": false
                 }
@@ -37,11 +50,35 @@
                         "res": { "type": "string" },
                         "scale": { "type": "number" },
                         "bg": { "type": "string" },
-                        "transform": { "type": "string" }
+                        "transform": { "type": "string" },
+                        "adaptive_sync": {
+                            "type": "string",
+                            "enum": ["on", "off"]
+                        },
+                        "allow_tearing": {
+                            "type": "string",
+                            "enum": ["yes", "no"]
+                        },
+                        "max_render_time": { "type": "number" }
                     },
                     "additionalProperties": false
                 }
             }
+        },
+        "Focus": {
+            "type": "object",
+            "description": "Pointer focus behavior (mirrors Niri's Input.Behavior).",
+            "properties": {
+                "follow_mouse": {
+                    "type": "string",
+                    "enum": ["yes", "no", "always", "smart"]
+                },
+                "mouse_warping": {
+                    "type": "string",
+                    "enum": ["output", "container", "none"]
+                }
+            },
+            "additionalProperties": false
         },
         "Gaps": {
             "type": "object",
@@ -54,7 +91,10 @@
         "Window": {
             "type": "object",
             "properties": {
-                "border": { "type": "string", "enum": ["normal", "none", "pixel"] },
+                "border": {
+                    "type": "string",
+                    "enum": ["normal", "none", "pixel"]
+                },
                 "border_size": { "type": "integer" },
                 "titlebar": { "type": "boolean" }
             },
@@ -64,10 +104,102 @@
             "type": "object",
             "properties": {
                 "modifier": { "type": "string" },
-                "border": { "type": "string", "enum": ["normal", "none", "pixel"] },
+                "border": {
+                    "type": "string",
+                    "enum": ["normal", "none", "pixel"]
+                },
                 "border_size": { "type": "integer" }
             },
             "additionalProperties": false
+        },
+        "Startup": {
+            "type": "object",
+            "description": "Processes to spawn at startup.",
+            "properties": {
+                "exec": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Commands to run once on startup (`exec`)."
+                },
+                "exec_always": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Commands to run on every config (re)load (`exec_always`)."
+                }
+            },
+            "additionalProperties": false
+        },
+        "WindowRules": {
+            "type": "object",
+            "description": "Criteria-based window rules (`for_window`).",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "object",
+                    "properties": {
+                        "match": {
+                            "type": "object",
+                            "properties": {
+                                "app_id": { "type": "string" },
+                                "title": { "type": "string" },
+                                "class": { "type": "string" },
+                                "instance": { "type": "string" },
+                                "floating": { "type": "boolean" },
+                                "tiling": { "type": "boolean" }
+                            },
+                            "additionalProperties": false
+                        },
+                        "command": {
+                            "oneOf": [
+                                { "type": "string" },
+                                {
+                                    "type": "array",
+                                    "items": { "type": "string" }
+                                }
+                            ],
+                            "description": "Sway command(s) applied to matching windows."
+                        }
+                    },
+                    "required": ["match", "command"],
+                    "additionalProperties": false
+                }
+            }
+        },
+        "Keybinds": {
+            "type": "object",
+            "description": "Key bindings (`bindsym`). The table key is the Sway key combination.",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "object",
+                    "properties": {
+                        "spawn": {
+                            "type": "array",
+                            "items": { "type": "string" },
+                            "description": "Argument vector run via `exec`."
+                        },
+                        "spawn_sh": {
+                            "type": "string",
+                            "description": "Shell command run via `exec`."
+                        },
+                        "command": {
+                            "type": "string",
+                            "description": "Raw Sway command to execute."
+                        },
+                        "locked": {
+                            "type": "boolean",
+                            "description": "Allow the bind while the screen is locked (`--locked`)."
+                        },
+                        "no_repeat": {
+                            "type": "boolean",
+                            "description": "Do not repeat the bind while the key is held (`--no-repeat`)."
+                        },
+                        "release": {
+                            "type": "boolean",
+                            "description": "Trigger on key release instead of press (`--release`)."
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            }
         }
     }
 }

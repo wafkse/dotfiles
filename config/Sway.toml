@@ -1,15 +1,41 @@
 #:schema schema/Universe.toml.schema.json
 
+# -----------------------------------------------------------------------------
+# INPUT DEVICES
+# -----------------------------------------------------------------------------
 [default.Sway.Input."type:keyboard"]
 xkb_layout = "us"
+xkb_numlock = "enabled"
 
 [default.Sway.Input."type:touchpad"]
 tap = "enabled"
 natural_scroll = "enabled"
 
+[default.Sway.Input."type:pointer"]
+pointer_accel = 0.2
+accel_profile = "flat"
+
+# Mirrors Niri's Input.Behavior (warp-mouse-to-focus + focus-follows-mouse).
+[default.Sway.Focus]
+follow_mouse = "yes"
+mouse_warping = "container"
+
+# -----------------------------------------------------------------------------
+# OUTPUTS
+# -----------------------------------------------------------------------------
+# [default.Sway.Output."eDP-1"]
+# mode = "1920x1080@120.030"
+# scale = 2.0
+# transform = "normal"
+# pos = "1280 0"
+
 [default.Sway.Output."*"]
 bg = "#000000 solid_color"
+adaptive_sync = "on"
 
+# -----------------------------------------------------------------------------
+# LAYOUT & GEOMETRY
+# -----------------------------------------------------------------------------
 [default.Sway.Gaps]
 inner = 8
 outer = 0
@@ -23,3 +49,345 @@ titlebar = false
 modifier = "Mod4"
 border = "normal"
 border_size = 2
+
+# NOTE: Niri's focus-ring, window shadows, struts, rounded corners and
+# animations have no equivalent in non-bleeding-edge (non-SwayFX) Sway and are
+# intentionally omitted.
+
+# -----------------------------------------------------------------------------
+# MISCELLANEOUS & STARTUP
+# -----------------------------------------------------------------------------
+[default.Sway.Startup]
+exec = []
+
+# -----------------------------------------------------------------------------
+# WINDOW RULES
+# -----------------------------------------------------------------------------
+[default.Sway.WindowRules."Firefox-Picture-in-Picture"]
+match = { app_id = "firefox", title = "^Picture-in-Picture$" }
+command = "floating enable"
+
+# NOTE: Niri's "block-out-from = screen-capture" (KeePassXC) and
+# "geometry-corner-radius"/"clip-to-geometry" (rounded corners) are SwayFX-only
+# and cannot be expressed in mainline Sway.
+
+# -----------------------------------------------------------------------------
+# KEYBINDS
+# -----------------------------------------------------------------------------
+# NOTE: $mod is emitted as `set $mod <Floating.modifier>` (Mod4 / Super).
+# Niri-specific actions without a Sway analogue (overview, scrollable-column
+# operations, preset widths, consume/expel, hotkey overlay, shortcut inhibit)
+# are intentionally omitted.
+
+[default.Sway.Keybinds.'$mod+t']
+spawn = ["ghostty"]
+
+[default.Sway.Keybinds.'$mod+d']
+spawn = ["fuzzel"]
+
+[default.Sway.Keybinds.'$mod+Mod1+l']
+spawn = ["swaylock"]
+
+# Audio Controls
+[default.Sway.Keybinds.'XF86AudioRaiseVolume']
+locked = true
+spawn_sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"
+
+[default.Sway.Keybinds.'XF86AudioLowerVolume']
+locked = true
+spawn_sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"
+
+[default.Sway.Keybinds.'XF86AudioMute']
+locked = true
+spawn_sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+[default.Sway.Keybinds.'XF86AudioMicMute']
+locked = true
+spawn_sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+
+[default.Sway.Keybinds.'XF86AudioPlay']
+locked = true
+spawn_sh = "playerctl play-pause"
+
+[default.Sway.Keybinds.'XF86AudioStop']
+locked = true
+spawn_sh = "playerctl stop"
+
+[default.Sway.Keybinds.'XF86AudioPrev']
+locked = true
+spawn_sh = "playerctl previous"
+
+[default.Sway.Keybinds.'XF86AudioNext']
+locked = true
+spawn_sh = "playerctl next"
+
+[default.Sway.Keybinds.'$mod+q']
+no_repeat = true
+command = "kill"
+
+# Directional Focus
+[default.Sway.Keybinds.'$mod+Left']
+command = "focus left"
+
+[default.Sway.Keybinds.'$mod+Down']
+command = "focus down"
+
+[default.Sway.Keybinds.'$mod+Up']
+command = "focus up"
+
+[default.Sway.Keybinds.'$mod+Right']
+command = "focus right"
+
+[default.Sway.Keybinds.'$mod+h']
+command = "focus left"
+
+[default.Sway.Keybinds.'$mod+j']
+command = "focus down"
+
+[default.Sway.Keybinds.'$mod+k']
+command = "focus up"
+
+[default.Sway.Keybinds.'$mod+l']
+command = "focus right"
+
+# Directional Move
+[default.Sway.Keybinds.'$mod+Shift+Left']
+command = "move left"
+
+[default.Sway.Keybinds.'$mod+Shift+Down']
+command = "move down"
+
+[default.Sway.Keybinds.'$mod+Shift+Up']
+command = "move up"
+
+[default.Sway.Keybinds.'$mod+Shift+Right']
+command = "move right"
+
+[default.Sway.Keybinds.'$mod+Shift+h']
+command = "move left"
+
+[default.Sway.Keybinds.'$mod+Shift+j']
+command = "move down"
+
+[default.Sway.Keybinds.'$mod+Shift+k']
+command = "move up"
+
+[default.Sway.Keybinds.'$mod+Shift+l']
+command = "move right"
+
+# Monitor Focus
+[default.Sway.Keybinds.'$mod+Ctrl+Left']
+command = "focus output left"
+
+[default.Sway.Keybinds.'$mod+Ctrl+Down']
+command = "focus output down"
+
+[default.Sway.Keybinds.'$mod+Ctrl+Up']
+command = "focus output up"
+
+[default.Sway.Keybinds.'$mod+Ctrl+Right']
+command = "focus output right"
+
+[default.Sway.Keybinds.'$mod+Ctrl+h']
+command = "focus output left"
+
+[default.Sway.Keybinds.'$mod+Ctrl+j']
+command = "focus output down"
+
+[default.Sway.Keybinds.'$mod+Ctrl+k']
+command = "focus output up"
+
+[default.Sway.Keybinds.'$mod+Ctrl+l']
+command = "focus output right"
+
+# Monitor Move
+[default.Sway.Keybinds.'$mod+Shift+Ctrl+Left']
+command = "move container to output left"
+
+[default.Sway.Keybinds.'$mod+Shift+Ctrl+Down']
+command = "move container to output down"
+
+[default.Sway.Keybinds.'$mod+Shift+Ctrl+Up']
+command = "move container to output up"
+
+[default.Sway.Keybinds.'$mod+Shift+Ctrl+Right']
+command = "move container to output right"
+
+[default.Sway.Keybinds.'$mod+Shift+Ctrl+h']
+command = "move container to output left"
+
+[default.Sway.Keybinds.'$mod+Shift+Ctrl+j']
+command = "move container to output down"
+
+[default.Sway.Keybinds.'$mod+Shift+Ctrl+k']
+command = "move container to output up"
+
+[default.Sway.Keybinds.'$mod+Shift+Ctrl+l']
+command = "move container to output right"
+
+# Workspace Focus
+[default.Sway.Keybinds.'$mod+Next']
+command = "workspace next_on_output"
+
+[default.Sway.Keybinds.'$mod+Prior']
+command = "workspace prev_on_output"
+
+[default.Sway.Keybinds.'$mod+u']
+command = "workspace next_on_output"
+
+[default.Sway.Keybinds.'$mod+i']
+command = "workspace prev_on_output"
+
+# Workspace Move Container
+[default.Sway.Keybinds.'$mod+Ctrl+Next']
+command = "move container to workspace next_on_output"
+
+[default.Sway.Keybinds.'$mod+Ctrl+Prior']
+command = "move container to workspace prev_on_output"
+
+[default.Sway.Keybinds.'$mod+Ctrl+u']
+command = "move container to workspace next_on_output"
+
+[default.Sway.Keybinds.'$mod+Ctrl+i']
+command = "move container to workspace prev_on_output"
+
+# Scroll Wheel Binds
+[default.Sway.Keybinds.'$mod+button5']
+command = "workspace next_on_output"
+
+[default.Sway.Keybinds.'$mod+button4']
+command = "workspace prev_on_output"
+
+[default.Sway.Keybinds.'$mod+Ctrl+button5']
+command = "move container to workspace next_on_output"
+
+[default.Sway.Keybinds.'$mod+Ctrl+button4']
+command = "move container to workspace prev_on_output"
+
+[default.Sway.Keybinds.'$mod+button7']
+command = "focus right"
+
+[default.Sway.Keybinds.'$mod+button6']
+command = "focus left"
+
+[default.Sway.Keybinds.'$mod+Ctrl+button7']
+command = "move right"
+
+[default.Sway.Keybinds.'$mod+Ctrl+button6']
+command = "move left"
+
+[default.Sway.Keybinds.'$mod+Shift+button5']
+command = "focus right"
+
+[default.Sway.Keybinds.'$mod+Shift+button4']
+command = "focus left"
+
+[default.Sway.Keybinds.'$mod+Ctrl+Shift+button5']
+command = "move right"
+
+[default.Sway.Keybinds.'$mod+Ctrl+Shift+button4']
+command = "move left"
+
+# Workspace Indexing
+[default.Sway.Keybinds.'$mod+1']
+command = "workspace number 1"
+
+[default.Sway.Keybinds.'$mod+2']
+command = "workspace number 2"
+
+[default.Sway.Keybinds.'$mod+3']
+command = "workspace number 3"
+
+[default.Sway.Keybinds.'$mod+4']
+command = "workspace number 4"
+
+[default.Sway.Keybinds.'$mod+5']
+command = "workspace number 5"
+
+[default.Sway.Keybinds.'$mod+6']
+command = "workspace number 6"
+
+[default.Sway.Keybinds.'$mod+7']
+command = "workspace number 7"
+
+[default.Sway.Keybinds.'$mod+8']
+command = "workspace number 8"
+
+[default.Sway.Keybinds.'$mod+9']
+command = "workspace number 9"
+
+[default.Sway.Keybinds.'$mod+Ctrl+1']
+command = "move container to workspace number 1"
+
+[default.Sway.Keybinds.'$mod+Ctrl+2']
+command = "move container to workspace number 2"
+
+[default.Sway.Keybinds.'$mod+Ctrl+3']
+command = "move container to workspace number 3"
+
+[default.Sway.Keybinds.'$mod+Ctrl+4']
+command = "move container to workspace number 4"
+
+[default.Sway.Keybinds.'$mod+Ctrl+5']
+command = "move container to workspace number 5"
+
+[default.Sway.Keybinds.'$mod+Ctrl+6']
+command = "move container to workspace number 6"
+
+[default.Sway.Keybinds.'$mod+Ctrl+7']
+command = "move container to workspace number 7"
+
+[default.Sway.Keybinds.'$mod+Ctrl+8']
+command = "move container to workspace number 8"
+
+[default.Sway.Keybinds.'$mod+Ctrl+9']
+command = "move container to workspace number 9"
+
+# Sizing (Niri's set-column-width / set-window-height)
+[default.Sway.Keybinds.'$mod+minus']
+command = "resize shrink width 10 ppt"
+
+[default.Sway.Keybinds.'$mod+equal']
+command = "resize grow width 10 ppt"
+
+[default.Sway.Keybinds.'$mod+Shift+minus']
+command = "resize shrink height 10 ppt"
+
+[default.Sway.Keybinds.'$mod+Shift+equal']
+command = "resize grow height 10 ppt"
+
+# Maximize / Fullscreen
+[default.Sway.Keybinds.'$mod+f']
+command = "fullscreen toggle"
+
+[default.Sway.Keybinds.'$mod+Shift+f']
+command = "fullscreen toggle global"
+
+# Layout Toggles
+[default.Sway.Keybinds.'$mod+space']
+command = "floating toggle"
+
+[default.Sway.Keybinds.'$mod+Shift+space']
+command = "focus mode_toggle"
+
+[default.Sway.Keybinds.'$mod+w']
+command = "layout toggle tabbed split"
+
+# System Binds
+[default.Sway.Keybinds.'Print']
+spawn_sh = "grim -g \"$(slurp)\" ~/media/pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"
+
+[default.Sway.Keybinds.'Ctrl+Print']
+spawn_sh = "grim ~/media/pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"
+
+[default.Sway.Keybinds.'Mod1+Print']
+spawn_sh = "grim -g \"$(swaymsg -t get_tree | jq -j '.. | select(.focused?) | .rect | \\\"\\(.x),\\(.y) \\(.width)x\\(.height)\\\"')\" ~/media/pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"
+
+[default.Sway.Keybinds.'$mod+Shift+e']
+spawn_sh = "swaynag -t warning -m 'Exit Sway?' -B 'Yes, exit' 'swaymsg exit'"
+
+[default.Sway.Keybinds.'Ctrl+Mod1+Delete']
+spawn_sh = "swaynag -t warning -m 'Exit Sway?' -B 'Yes, exit' 'swaymsg exit'"
+
+[default.Sway.Keybinds.'$mod+Shift+p']
+command = "output * power toggle"

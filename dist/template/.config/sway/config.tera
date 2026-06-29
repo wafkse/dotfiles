@@ -14,6 +14,9 @@ client.{{ ClassName }} {{ self::EmitThemedColor(ThemeTree=ThemeTree, AppName=App
 
 # Sway configuration generated from TOML
 
+# --- VARIABLES ---
+{% if Sway.Floating is defined and Sway.Floating.modifier is defined %}set $mod {{ Sway.Floating.modifier }}{% else %}set $mod Mod4{% endif %}
+
 {% if Sway.Input is defined -%}
 # --- INPUT ---
 {% for DeviceIdentifier, Settings in Sway.Input -%}
@@ -21,12 +24,19 @@ input "{{ DeviceIdentifier }}" {
     {% if Settings.xkb_layout is defined %}xkb_layout {{ Settings.xkb_layout }}{% endif %}
     {% if Settings.xkb_variant is defined %}xkb_variant {{ Settings.xkb_variant }}{% endif %}
     {% if Settings.xkb_options is defined %}xkb_options {{ Settings.xkb_options }}{% endif %}
+    {% if Settings.xkb_numlock is defined %}xkb_numlock {{ Settings.xkb_numlock }}{% endif %}
     {% if Settings.tap is defined %}tap {{ Settings.tap }}{% endif %}
     {% if Settings.natural_scroll is defined %}natural_scroll {{ Settings.natural_scroll }}{% endif %}
     {% if Settings.pointer_accel is defined %}pointer_accel {{ Settings.pointer_accel }}{% endif %}
     {% if Settings.accel_profile is defined %}accel_profile {{ Settings.accel_profile }}{% endif %}
 }
 {% endfor %}
+{%- endif %}
+
+{% if Sway.Focus is defined -%}
+# --- FOCUS ---
+{% if Sway.Focus.follow_mouse is defined %}focus_follows_mouse {{ Sway.Focus.follow_mouse }}{% endif %}
+{% if Sway.Focus.mouse_warping is defined %}mouse_warping {{ Sway.Focus.mouse_warping }}{% endif %}
 {%- endif %}
 
 {% if Sway.Output is defined -%}
@@ -39,6 +49,9 @@ output "{{ OutputIdentifier }}" {
     {% if Settings.scale is defined %}scale {{ Settings.scale }}{% endif %}
     {% if Settings.bg is defined %}bg {{ Settings.bg }}{% endif %}
     {% if Settings.transform is defined %}transform {{ Settings.transform }}{% endif %}
+    {% if Settings.adaptive_sync is defined %}adaptive_sync {{ Settings.adaptive_sync }}{% endif %}
+    {% if Settings.allow_tearing is defined %}allow_tearing {{ Settings.allow_tearing }}{% endif %}
+    {% if Settings.max_frame_time is defined %}max_frame_time {{ Settings.max_frame_time }}{% endif %}
 }
 {% endfor %}
 {%- endif %}
@@ -52,13 +65,36 @@ output "{{ OutputIdentifier }}" {
 {% if Sway.Window is defined -%}
 # --- WINDOW ---
 {% if Sway.Window.border is defined %}default_border {{ Sway.Window.border }} {{ Sway.Window.border_size | default(value=2) }}{% endif %}
-{% if Sway.Window.titlebar == false %}border none{% endif %}
+{# NOTE: A `pixel`/`none` default_border already removes titlebars; Sway has no #}
+{# standalone titlebar toggle, so `titlebar = false` is honored via the border. #}
 {%- endif %}
 
 {% if Sway.Floating is defined -%}
 # --- FLOATING ---
 {% if Sway.Floating.modifier is defined %}floating_modifier {{ Sway.Floating.modifier }}{% endif %}
 {% if Sway.Floating.border is defined %}default_floating_border {{ Sway.Floating.border }} {{ Sway.Floating.border_size | default(value=2) }}{% endif %}
+{%- endif %}
+
+{% if Sway.WindowRules is defined -%}
+# --- WINDOW RULES ---
+{% for RuleName, RuleTree in Sway.WindowRules -%}
+for_window [{% if RuleTree.match.app_id is defined %}app_id="{{ RuleTree.match.app_id }}" {% endif %}{% if RuleTree.match.class is defined %}class="{{ RuleTree.match.class }}" {% endif %}{% if RuleTree.match.instance is defined %}instance="{{ RuleTree.match.instance }}" {% endif %}{% if RuleTree.match.title is defined %}title="{{ RuleTree.match.title }}" {% endif %}{% if RuleTree.match.floating is defined %}floating {% endif %}{% if RuleTree.match.tiling is defined %}tiling {% endif %}] {% if RuleTree.command is string %}{{ RuleTree.command }}{% else %}{% for Command in RuleTree.command %}{{ Command }}{% if not loop.last %}, {% endif %}{% endfor %}{% endif %}
+{% endfor %}
+{%- endif %}
+
+{% if Sway.Startup is defined -%}
+# --- STARTUP ---
+{% if Sway.Startup.exec is defined %}{% for Command in Sway.Startup.exec %}exec {{ Command }}
+{% endfor %}{% endif %}
+{% if Sway.Startup.exec_always is defined %}{% for Command in Sway.Startup.exec_always %}exec_always {{ Command }}
+{% endfor %}{% endif %}
+{%- endif %}
+
+{% if Sway.Keybinds is defined -%}
+# --- KEYBINDS ---
+{% for HotkeyName, BindTree in Sway.Keybinds -%}
+bindsym{% if BindTree.locked %} --locked{% endif %}{% if BindTree.no_repeat %} --no-repeat{% endif %}{% if BindTree.release %} --release{% endif %} {{ HotkeyName }} {% if BindTree.spawn is defined %}exec {% for Argument in BindTree.spawn %}{{ Argument }}{% if not loop.last %} {% endif %}{% endfor %}{% elif BindTree.spawn_sh is defined %}exec {{ BindTree.spawn_sh }}{% elif BindTree.command is defined %}{{ BindTree.command }}{% endif %}
+{% endfor %}
 {%- endif %}
 
 # --- THEME ---
