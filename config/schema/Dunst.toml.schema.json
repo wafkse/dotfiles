@@ -24,9 +24,9 @@
             },
             "additionalProperties": true
         },
-        "urgency_low": { "type": "object", "additionalProperties": true },
-        "urgency_normal": { "type": "object", "additionalProperties": true },
-        "urgency_critical": { "type": "object", "additionalProperties": true }
+        "urgency-low": { "type": "object", "additionalProperties": true },
+        "urgency-normal": { "type": "object", "additionalProperties": true },
+        "urgency-critical": { "type": "object", "additionalProperties": true }
     },
     "additionalProperties": true
 }

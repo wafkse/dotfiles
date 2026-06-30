@@ -33,11 +33,11 @@ icon_position = "left"
 min_icon_size = 32
 max_icon_size = 64
 
-[default.Dunst.urgency_low]
+[default.Dunst.urgency-low]
 timeout = 3
 
-[default.Dunst.urgency_normal]
+[default.Dunst.urgency-normal]
 timeout = 5
 
-[default.Dunst.urgency_critical]
+[default.Dunst.urgency-critical]
 timeout = 0  # 0 means it will not expire until manually dismissed
