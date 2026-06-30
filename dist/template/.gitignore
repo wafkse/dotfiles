@@ -1,9 +1,10 @@
-# NOTE: Ignore absolutely everything by default
+# NOTE: Ignore absolutely everything by default (rendered output included)
 *
 !*/
 
-# NOTE: Un-ignore the Tera templates
-!*.tera
+# NOTE: Un-ignore the Jinja templates
+!*.jinja
 
-# NOTE: Un-ignore this .gitignore file so it can be committed
+# NOTE: Un-ignore this .gitignore and the stow ignore so they can be committed
 !.gitignore
+!.stow-local-ignore

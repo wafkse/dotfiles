@@ -1,0 +1,90 @@
+{% set Config = Fuzzel %}
+
+{# Emits standard key=value. Safely traverses Tree -> SubTree -> Key #}
+{% macro EmitRaw(Tree, SubTree, Key, Default) -%}
+    {%- set Val = Default -%}
+    {%- if Tree is defined and Tree[SubTree] is defined -%}
+        {%- if Tree[SubTree][Key] is defined -%}
+            {%- set Val = Tree[SubTree][Key] -%}
+        {%- endif -%}
+    {%- endif -%}
+    {{ Key }}={{ Val }}
+{%- endmacro %}
+
+{# Emits key=value only if it explicitly exists (no default) #}
+{% macro EmitOptionalRaw(Tree, SubTree, Key) -%}
+    {%- if Tree is defined and Tree[SubTree] is defined -%}
+        {%- if Tree[SubTree][Key] is defined -%}
+            {{ Key }}={{ Tree[SubTree][Key] }}
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro %}
+
+{# Emits key="value" inside double quotes #}
+{% macro EmitQuoted(Tree, SubTree, Key, Default) -%}
+    {%- set Val = Default -%}
+    {%- if Tree is defined and Tree[SubTree] is defined -%}
+        {%- if Tree[SubTree][Key] is defined -%}
+            {%- set Val = Tree[SubTree][Key] -%}
+        {%- endif -%}
+    {%- endif -%}
+    {{ Key }}="{{ Val }}"
+{%- endmacro %}
+
+{# Translates true/false to yes/no for Fuzzel INI #}
+{% macro EmitBool(Tree, SubTree, Key, Default) -%}
+    {%- set Val = Default -%}
+    {%- if Tree is defined and Tree[SubTree] is defined -%}
+        {%- if Tree[SubTree][Key] is defined -%}
+            {%- set Val = Tree[SubTree][Key] -%}
+        {%- endif -%}
+    {%- endif -%}
+    {{ Key }}={% if Val %}yes{% else %}no{% endif %}
+{%- endmacro %}
+
+
+# ==============================================================================
+# Fuzzel Configuration File
+# Generated dynamically via miragectl
+# ==============================================================================
+
+[main]
+{{ EmitRaw(Tree=Config, SubTree="main", Key="font", Default="monospace") }}
+{{ EmitBool(Tree=Config, SubTree="main", Key="use-bold", Default=false) }}
+{{ EmitRaw(Tree=Config, SubTree="main", Key="dpi-aware", Default="auto") }}
+{{ EmitQuoted(Tree=Config, SubTree="main", Key="prompt", Default="> ") }}
+{{ EmitQuoted(Tree=Config, SubTree="main", Key="placeholder", Default="") }}
+{{ EmitBool(Tree=Config, SubTree="main", Key="icons-enabled", Default=true) }}
+{{ EmitOptionalRaw(Tree=Config, SubTree="main", Key="icon-theme") }}
+{{ EmitRaw(Tree=Config, SubTree="main", Key="match-mode", Default="fzf") }}
+{{ EmitRaw(Tree=Config, SubTree="main", Key="lines", Default=15) }}
+{{ EmitRaw(Tree=Config, SubTree="main", Key="width", Default=30) }}
+{{ EmitRaw(Tree=Config, SubTree="main", Key="horizontal-pad", Default=40) }}
+{{ EmitRaw(Tree=Config, SubTree="main", Key="vertical-pad", Default=8) }}
+{{ EmitRaw(Tree=Config, SubTree="main", Key="inner-pad", Default=0) }}
+{{ EmitRaw(Tree=Config, SubTree="main", Key="layer", Default="overlay") }}
+{{ EmitRaw(Tree=Config, SubTree="main", Key="anchor", Default="center") }}
+{{ EmitBool(Tree=Config, SubTree="main", Key="exit-on-keyboard-focus-loss", Default=true) }}
+
+[colors]
+background={{ ThemeApp(Theme, 'Fuzzel', 'background') | replace("#", "") }}ff
+text={{ ThemeApp(Theme, 'Fuzzel', 'text') | replace("#", "") }}ff
+match={{ ThemeApp(Theme, 'Fuzzel', 'match') | replace("#", "") }}ff
+selection={{ ThemeApp(Theme, 'Fuzzel', 'selection') | replace("#", "") }}ff
+selection-text={{ ThemeApp(Theme, 'Fuzzel', 'selection-text') | replace("#", "") }}ff
+selection-match={{ ThemeApp(Theme, 'Fuzzel', 'selection-match') | replace("#", "") }}ff
+placeholder={{ ThemeApp(Theme, 'Fuzzel', 'placeholder') | replace("#", "") }}ff
+prompt={{ ThemeApp(Theme, 'Fuzzel', 'prompt') | replace("#", "") }}ff
+input={{ ThemeApp(Theme, 'Fuzzel', 'input') | replace("#", "") }}ff
+counter={{ ThemeApp(Theme, 'Fuzzel', 'counter') | replace("#", "") }}ff
+border={{ ThemeApp(Theme, 'Fuzzel', 'border') | replace("#", "") }}ff
+
+[border]
+{{ EmitRaw(Tree=Config, SubTree="border", Key="width", Default=1) }}
+{{ EmitRaw(Tree=Config, SubTree="border", Key="radius", Default=10) }}
+{{ EmitRaw(Tree=Config, SubTree="border", Key="selection-radius", Default=0) }}
+
+[dmenu]
+{{ EmitRaw(Tree=Config, SubTree="dmenu", Key="mode", Default="text") }}
+{{ EmitBool(Tree=Config, SubTree="dmenu", Key="exit-immediately-if-empty", Default=false) }}
+

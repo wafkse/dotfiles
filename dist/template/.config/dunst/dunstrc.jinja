@@ -1,0 +1,47 @@
+{% set Config = Dunst %}
+
+# ==============================================================================
+# Configuration for Dunst
+# ==============================================================================
+
+{% for SectionName, SectionTree in Config | items %}
+# --- {{ SectionName | upper }} ---
+[{{ SectionName }}]
+{%- for Key, Value in SectionTree | items %}
+    {%- if Value is sequence %}
+        {%- for item in Value %}
+{{ Key }} = "{{ item }}"
+        {%- endfor %}
+    {%- elif Value is string %}
+        {# Dunst strictly requires quotes for strings to prevent '#' from being parsed as a comment #}
+{{ Key }} = "{{ Value }}"
+    {%- elif Value is number %}
+        {# Numbers (checked before booleans: minijinja coerces 1 == true) #}
+{{ Key }} = {{ Value }}
+    {%- else %}
+        {# Dunst expects literal true/false strings for booleans #}
+{{ Key }} = {% if Value %}true{% else %}false{% endif %}
+    {%- endif %}
+{%- endfor %}
+
+{# --- Dynamically Inject Theme Colors Based on Section --- #}
+{%- if SectionName == "global" %}
+separator_color = "{{ ThemeApp(Theme, 'Dunst', 'global-separator') }}"
+{%- elif SectionName == "urgency-low" %}
+background = "{{ ThemeApp(Theme, 'Dunst', 'low-background') }}"
+foreground = "{{ ThemeApp(Theme, 'Dunst', 'low-foreground') }}"
+frame_color = "{{ ThemeApp(Theme, 'Dunst', 'low-frame') }}"
+highlight = "{{ ThemeApp(Theme, 'Dunst', 'low-highlight') }}"
+{%- elif SectionName == "urgency-normal" %}
+background = "{{ ThemeApp(Theme, 'Dunst', 'normal-background') }}"
+foreground = "{{ ThemeApp(Theme, 'Dunst', 'normal-foreground') }}"
+frame_color = "{{ ThemeApp(Theme, 'Dunst', 'normal-frame') }}"
+highlight = "{{ ThemeApp(Theme, 'Dunst', 'normal-highlight') }}"
+{%- elif SectionName == "urgency-critical" %}
+background = "{{ ThemeApp(Theme, 'Dunst', 'critical-background') }}"
+foreground = "{{ ThemeApp(Theme, 'Dunst', 'critical-foreground') }}"
+frame_color = "{{ ThemeApp(Theme, 'Dunst', 'critical-frame') }}"
+highlight = "{{ ThemeApp(Theme, 'Dunst', 'critical-highlight') }}"
+{%- endif %}
+
+{% endfor %}

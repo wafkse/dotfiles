@@ -1,0 +1,628 @@
+{# ==================== MACROS ==================== #}
+
+{% macro EmitFlag(Tree, KeyName) -%}
+    {%- if Tree[KeyName] is defined and Tree[KeyName] -%}
+    {{ KeyName }}
+    {% endif -%}
+{%- endmacro %}
+
+{% macro EmitValue(Tree, KeyName) -%}
+    {%- if Tree[KeyName] is defined -%}
+    {{ KeyName }} {{ Tree[KeyName] }}
+    {% endif -%}
+{%- endmacro %}
+
+{% macro EmitString(Tree, KeyName) -%}
+    {%- if Tree[KeyName] is defined -%}
+    {{ KeyName }} "{{ Tree[KeyName] }}"
+    {% endif -%}
+{%- endmacro %}
+
+{% macro EmitBool(Tree, KeyName) -%}
+    {%- if Tree[KeyName] is defined -%}
+    {{ KeyName }} {% if Tree[KeyName] %}true{% else %}false{% endif %}
+    {% endif -%}
+{%- endmacro %}
+
+
+
+{% macro EmitMatcher(DirectiveName, MatchTree) -%}
+    {%- if MatchTree is mapping -%}
+{{ DirectiveName }}{{ InlineMatchCondition(MatchObject=MatchTree) }}
+    {%- else -%}
+        {%- for MatchObject in MatchTree -%}
+{{ DirectiveName }}{{ InlineMatchCondition(MatchObject=MatchObject) }}
+        {%- endfor -%}
+    {%- endif -%}
+{%- endmacro %}
+
+{% macro EmitThemedColor(Tree, KeyName, ThemeTree, ThemeKeyName) -%}
+    {%- if Tree[KeyName] is defined -%}
+    {{ KeyName }} "{{ Tree[KeyName] }}"
+    {%- else -%}
+    {{ KeyName }} "{{ ThemeApp(ThemeTree, 'Niri', ThemeKeyName) }}"
+    {%- endif -%}
+{%- endmacro %}
+
+{% macro EmitThemedGradient(Tree, KeyName, ThemeTree, ThemeKeyName) -%}
+    {%- if Tree[KeyName] is defined -%}
+    {{ FormatGradient(NodeName=KeyName, NodeTree=Tree) }}
+    {%- else -%}
+        {%- set GradString = ThemeAppGradient(ThemeTree, 'Niri', ThemeKeyName) -%}
+        {%- if GradString | trim | length > 0 -%}
+        {{ KeyName }} {{ GradString | trim }}
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro %}
+
+{% macro InlineMatchCondition(MatchObject) -%}
+    {%- if MatchObject["app-id"] is defined %} app-id=r#"{{ MatchObject["app-id"] }}"#{% endif -%}
+    {%- if MatchObject.title is defined %} title=r#"{{ MatchObject.title }}"#{% endif -%}
+    {%- if MatchObject["is-active"] is defined %} is-active={{ MatchObject["is-active"] }}{% endif -%}
+    {%- if MatchObject["is-focused"] is defined %} is-focused={{ MatchObject["is-focused"] }}{% endif -%}
+    {%- if MatchObject["is-active-in-column"] is defined %} is-active-in-column={{ MatchObject["is-active-in-column"] }}{% endif -%}
+    {%- if MatchObject["is-floating"] is defined %} is-floating={{ MatchObject["is-floating"] }}{% endif -%}
+    {%- if MatchObject["is-window-cast-target"] is defined %} is-window-cast-target={{ MatchObject["is-window-cast-target"] }}{% endif -%}
+    {%- if MatchObject["is-urgent"] is defined %} is-urgent={{ MatchObject["is-urgent"] }}{% endif -%}
+    {%- if MatchObject["at-startup"] is defined %} at-startup={{ MatchObject["at-startup"] }}{% endif -%}
+{%- endmacro %}
+
+{% macro FormatDecimal(Value) -%}
+    {{ Value }}{% if Value == Value | round %}.0{% endif %}
+{%- endmacro %}
+
+{% macro FormatWidthHeight(NodeName, NodeTree) -%}
+    {%- if NodeTree[NodeName] is defined -%}
+        {%- set WidthHeightTree = NodeTree[NodeName] -%}
+        {%- if WidthHeightTree.proportion is defined -%}
+        {{ NodeName }} { proportion {{ FormatDecimal(Value=WidthHeightTree.proportion) }}; }
+        {%- elif WidthHeightTree.fixed is defined -%}
+        {{ NodeName }} { fixed {{ WidthHeightTree.fixed }}; }
+        {%- else -%}
+        {{ NodeName }} {}
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro %}
+
+{% macro FormatGradient(NodeName, NodeTree) -%}
+    {%- if NodeTree[NodeName] is defined -%}
+        {%- set GradientTree = NodeTree[NodeName] -%}
+        {{ NodeName }} from="{{ GradientTree.from }}" to="{{ GradientTree.to }}"{% if GradientTree.angle is defined %} angle={{ GradientTree.angle }}{% endif %}{% if GradientTree["relative-to"] is defined %} relative-to="{{ GradientTree["relative-to"] }}"{% endif %}{% if GradientTree.in is defined %} in="{{ GradientTree.in }}"{% endif %}
+    {%- endif -%}
+{%- endmacro %}
+
+{% macro InputDeviceSettings(DeviceTree) -%}
+    {{ EmitFlag(Tree=DeviceTree, KeyName="off") }}
+    {{ EmitFlag(Tree=DeviceTree, KeyName="natural-scroll") }}
+    {{ EmitValue(Tree=DeviceTree, KeyName="accel-speed") }}
+    {{ EmitString(Tree=DeviceTree, KeyName="accel-profile") }}
+    {{ EmitString(Tree=DeviceTree, KeyName="scroll-method") }}
+{%- endmacro %}
+
+{# Macros for Inline Bind Properties #}
+{% macro InlineFlag(Tree, KeyName) -%}
+    {%- if Tree[KeyName] is defined and Tree[KeyName] -%}{{ " " }}{{ KeyName }}=true{%- endif -%}
+{%- endmacro %}
+
+{% macro InlineBool(Tree, KeyName) -%}
+    {%- if Tree[KeyName] is defined -%}{{ " " }}{{ KeyName }}={% if Tree[KeyName] %}true{% else %}false{% endif %}{%- endif -%}
+{%- endmacro %}
+
+{% macro InlineValue(Tree, KeyName) -%}
+    {%- if Tree[KeyName] is defined -%}{{ " " }}{{ KeyName }}={{ Tree[KeyName] }}{%- endif -%}
+{%- endmacro %}
+
+{% macro InlineString(Tree, KeyName) -%}
+    {%- if Tree[KeyName] is defined -%}
+        {%- if Tree[KeyName] is string -%}{{ " " }}{{ KeyName }}="{{ Tree[KeyName] }}"{%- else -%}{{ " " }}{{ KeyName }}=null{%- endif -%}
+    {%- endif -%}
+{%- endmacro %}
+
+
+{# ==================== INPUT ==================== #}
+{% if Niri.Input is defined %}
+{% set InputTree = Niri.Input %}
+input {
+    {%- if InputTree.Keyboard is defined %}
+    {% set KeyboardTree = InputTree.Keyboard %}
+    keyboard {
+        {%- if KeyboardTree.XKB is defined %}
+        {% set XkbTree = KeyboardTree.XKB %}
+        xkb {
+            {{ EmitString(Tree=XkbTree, KeyName="rules") }}
+            {{ EmitString(Tree=XkbTree, KeyName="model") }}
+            {{ EmitString(Tree=XkbTree, KeyName="layout") }}
+            {{ EmitString(Tree=XkbTree, KeyName="variant") }}
+            {{ EmitString(Tree=XkbTree, KeyName="options") }}
+        }
+        {%- endif %}
+        {{ EmitFlag(Tree=KeyboardTree, KeyName="numlock") }}
+    }
+    {%- endif %}
+
+    {%- if InputTree.Touchpad is defined %}
+    {% set TouchpadTree = InputTree.Touchpad %}
+    touchpad {
+        {{ InputDeviceSettings(DeviceTree=TouchpadTree) }}
+        {{ EmitFlag(Tree=TouchpadTree, KeyName="tap") }}
+        {{ EmitFlag(Tree=TouchpadTree, KeyName="dwt") }}
+        {{ EmitFlag(Tree=TouchpadTree, KeyName="dwtp") }}
+        {{ EmitFlag(Tree=TouchpadTree, KeyName="drag") }}
+        {{ EmitFlag(Tree=TouchpadTree, KeyName="drag-lock") }}
+        {{ EmitFlag(Tree=TouchpadTree, KeyName="disabled-on-external-mouse") }}
+    }
+    {%- endif %}
+
+    {%- if InputTree.Mouse is defined %}
+    mouse {
+        {{ InputDeviceSettings(DeviceTree=InputTree.Mouse) }}
+    }
+    {%- endif %}
+
+    {%- if InputTree.Trackpoint is defined %}
+    {% set TrackpointTree = InputTree.Trackpoint %}
+    trackpoint {
+        {{ InputDeviceSettings(DeviceTree=TrackpointTree) }}
+        {{ EmitValue(Tree=TrackpointTree, KeyName="scroll-button") }}
+        {{ EmitFlag(Tree=TrackpointTree, KeyName="scroll-button-lock") }}
+        {{ EmitFlag(Tree=TrackpointTree, KeyName="middle-emulation") }}
+    }
+    {%- endif %}
+
+    {%- if InputTree.Behavior is defined %}
+    {% set BehaviorTree = InputTree.Behavior %}
+    {{- EmitFlag(Tree=BehaviorTree, KeyName="warp-mouse-to-focus") -}}
+    {%- if BehaviorTree["focus-follows-mouse"] is defined %}
+    {% set FocusFollowsTree = BehaviorTree["focus-follows-mouse"] %}
+    focus-follows-mouse{% if FocusFollowsTree["max-scroll-amount"] is defined %} max-scroll-amount="{{ FocusFollowsTree["max-scroll-amount"] }}"{% endif %}
+    {%- endif %}
+    {%- endif %}
+}
+{% endif %}
+
+
+{# ==================== OUTPUTS ==================== #}
+{% if Niri.Outputs is defined %}
+{% for OutputName, OutputTree in Niri.Outputs | items %}
+output "{{ OutputName }}" {
+    {{ EmitFlag(Tree=OutputTree, KeyName="off") }}
+    {{ EmitString(Tree=OutputTree, KeyName="mode") }}
+    {{ EmitValue(Tree=OutputTree, KeyName="scale") }}
+    {{ EmitString(Tree=OutputTree, KeyName="transform") }}
+    {%- if OutputTree.position is defined %}
+    position x={{ OutputTree.position.x }} y={{ OutputTree.position.y }}
+    {%- endif %}
+}
+{% endfor %}
+{% endif %}
+
+
+{# ==================== LAYOUT ==================== #}
+{% if Niri.Layout is defined %}
+{% set LayoutTree = Niri.Layout %}
+layout {
+    {{ EmitValue(Tree=LayoutTree, KeyName="gaps") }}
+    {{ EmitString(Tree=LayoutTree, KeyName="center-focused-column") }}
+
+    {{ FormatWidthHeight(NodeName="default-column-width", NodeTree=LayoutTree) }}
+
+    {%- if LayoutTree.PresetColumnWidths is defined %}
+    {% set PresetColumnTree = LayoutTree.PresetColumnWidths %}
+    preset-column-widths {
+        {%- if PresetColumnTree.proportions is defined %}
+        {%- for ProportionValue in PresetColumnTree.proportions %}
+        proportion {{ FormatDecimal(Value=ProportionValue) }}
+        {%- endfor %}{% endif %}
+        {%- if PresetColumnTree.fixed is defined %}
+        {%- for FixedValue in PresetColumnTree.fixed %}
+        fixed {{ FixedValue }}
+        {%- endfor %}{% endif %}
+    }
+    {%- endif %}
+
+    {%- if LayoutTree.PresetWindowHeights is defined %}
+    {% set PresetHeightTree = LayoutTree.PresetWindowHeights %}
+    preset-window-heights {
+        {%- if PresetHeightTree.proportions is defined %}
+        {%- for ProportionValue in PresetHeightTree.proportions %}
+        proportion {{ FormatDecimal(Value=ProportionValue) }}
+        {%- endfor %}{% endif %}
+        {%- if PresetHeightTree.fixed is defined %}
+        {%- for FixedValue in PresetHeightTree.fixed %}
+        fixed {{ FixedValue }}
+        {%- endfor %}{% endif %}
+    }
+    {%- endif %}
+
+    {%- if LayoutTree.FocusRing is defined %}
+    {% set FocusRingTree = LayoutTree.FocusRing %}
+    focus-ring {
+        {{ EmitFlag(Tree=FocusRingTree, KeyName="off") }}
+        {{ EmitValue(Tree=FocusRingTree, KeyName="width") }}
+
+        {{ EmitThemedColor(Tree=FocusRingTree, KeyName="active-color", ThemeTree=Theme, ThemeKeyName="focus-ring-active") }}
+        {{ EmitThemedColor(Tree=FocusRingTree, KeyName="inactive-color", ThemeTree=Theme, ThemeKeyName="focus-ring-inactive") }}
+        {{ EmitThemedColor(Tree=FocusRingTree, KeyName="urgent-color", ThemeTree=Theme, ThemeKeyName="focus-ring-urgent") }}
+
+        {{ EmitThemedGradient(Tree=FocusRingTree, KeyName="active-gradient", ThemeTree=Theme, ThemeKeyName="focus-ring-active-gradient") }}
+        {{ EmitThemedGradient(Tree=FocusRingTree, KeyName="inactive-gradient", ThemeTree=Theme, ThemeKeyName="focus-ring-inactive-gradient") }}
+        {{ EmitThemedGradient(Tree=FocusRingTree, KeyName="urgent-gradient", ThemeTree=Theme, ThemeKeyName="focus-ring-urgent-gradient") }}
+    }
+    {%- endif %}
+
+    {%- if LayoutTree.Border is defined %}
+    {% set BorderTree = LayoutTree.Border %}
+    border {
+        {{ EmitFlag(Tree=BorderTree, KeyName="off") }}
+        {{ EmitValue(Tree=BorderTree, KeyName="width") }}
+
+        {{ EmitThemedColor(Tree=BorderTree, KeyName="active-color", ThemeTree=Theme, ThemeKeyName="border-active") }}
+        {{ EmitThemedColor(Tree=BorderTree, KeyName="inactive-color", ThemeTree=Theme, ThemeKeyName="border-inactive") }}
+        {{ EmitThemedColor(Tree=BorderTree, KeyName="urgent-color", ThemeTree=Theme, ThemeKeyName="border-urgent") }}
+
+        {{ EmitThemedGradient(Tree=BorderTree, KeyName="active-gradient", ThemeTree=Theme, ThemeKeyName="border-active-gradient") }}
+        {{ EmitThemedGradient(Tree=BorderTree, KeyName="inactive-gradient", ThemeTree=Theme, ThemeKeyName="border-inactive-gradient") }}
+        {{ EmitThemedGradient(Tree=BorderTree, KeyName="urgent-gradient", ThemeTree=Theme, ThemeKeyName="border-urgent-gradient") }}
+    }
+    {%- endif %}
+
+    {%- if LayoutTree.Shadow is defined %}
+    {% set ShadowTree = LayoutTree.Shadow %}
+    shadow {
+        {{ EmitFlag(Tree=ShadowTree, KeyName="on") }}
+        {{ EmitBool(Tree=ShadowTree, KeyName="draw-behind-window") }}
+        {{ EmitValue(Tree=ShadowTree, KeyName="softness") }}
+        {{ EmitValue(Tree=ShadowTree, KeyName="spread") }}
+        {%- if ShadowTree.offset is defined %}
+        offset x={{ ShadowTree.offset.x }} y={{ ShadowTree.offset.y }}
+        {%- endif %}
+
+        {{ EmitThemedColor(Tree=ShadowTree, KeyName="color", ThemeTree=Theme, ThemeKeyName="shadow-active") }}
+        {{ EmitThemedColor(Tree=ShadowTree, KeyName="inactive-color", ThemeTree=Theme, ThemeKeyName="shadow-inactive") }}
+    }
+    {%- endif %}
+
+    {%- if LayoutTree.Struts is defined %}
+    {% set StrutsTree = LayoutTree.Struts %}
+    struts {
+        {{ EmitValue(Tree=StrutsTree, KeyName="left") }}
+        {{ EmitValue(Tree=StrutsTree, KeyName="right") }}
+        {{ EmitValue(Tree=StrutsTree, KeyName="top") }}
+        {{ EmitValue(Tree=StrutsTree, KeyName="bottom") }}
+    }
+    {%- endif %}
+}
+{% endif %}
+
+
+{# ==================== STARTUP ==================== #}
+{% if Niri.Startup is defined %}
+{% set StartupTree = Niri.Startup %}
+{% if StartupTree["spawn-at-startup"] is defined %}
+{% for CommandTree in StartupTree["spawn-at-startup"] %}
+spawn-at-startup {% for ArgumentString in CommandTree %}"{{ ArgumentString }}" {% endfor %}
+{% endfor %}
+{% endif %}
+
+{% if StartupTree["spawn-sh-at-startup"] is defined %}
+{% for SpawnShellCommand in StartupTree["spawn-sh-at-startup"] %}
+spawn-sh-at-startup "{{ SpawnShellCommand }}"
+{% endfor %}
+{% endif %}
+{% endif %}
+
+
+{# ==================== SETTINGS ==================== #}
+{% if Niri.Settings is defined %}
+{% set SettingsTree = Niri.Settings %}
+{{ EmitFlag(Tree=SettingsTree, KeyName="prefer-no-csd") }}
+
+{% if SettingsTree["screenshot-path"] is defined %}
+    {% if SettingsTree["screenshot-path"] is string %}
+screenshot-path "{{ SettingsTree["screenshot-path"] }}"
+    {% else %}
+screenshot-path null
+    {% endif %}
+{% endif %}
+
+{% if SettingsTree.environment is defined %}
+{% set EnvironmentTree = SettingsTree.environment %}
+environment {
+    {% for VariableName, VariableValue in EnvironmentTree | items %}
+    {% if VariableValue is string %}"{{ VariableName }}"="{{ VariableValue }}"{% else %}"{{ VariableName }}"=null{% endif %}
+    {% endfor %}
+}
+{% endif %}
+
+{% if SettingsTree.cursor is defined %}
+{% set CursorTree = SettingsTree.cursor %}
+cursor {
+    {{ EmitString(Tree=CursorTree, KeyName="xcursor-theme") }}
+    {{ EmitValue(Tree=CursorTree, KeyName="xcursor-size") }}
+    {{ EmitFlag(Tree=CursorTree, KeyName="hide-when-typing") }}
+    {{ EmitValue(Tree=CursorTree, KeyName="hide-after-inactive-ms") }}
+}
+{% endif %}
+
+{% if SettingsTree.overview is defined %}
+{% set OverviewTree = SettingsTree.overview %}
+overview {
+    {{ EmitValue(Tree=OverviewTree, KeyName="zoom") }}
+    {{ EmitString(Tree=OverviewTree, KeyName="backdrop-color") }}
+
+    {% if OverviewTree["workspace-shadow"] is defined %}
+    {% set WorkspaceShadowTree = OverviewTree["workspace-shadow"] %}
+    workspace-shadow {
+        {{ EmitFlag(Tree=WorkspaceShadowTree, KeyName="off") }}
+        {{ EmitValue(Tree=WorkspaceShadowTree, KeyName="softness") }}
+        {{ EmitValue(Tree=WorkspaceShadowTree, KeyName="spread") }}
+        {% if WorkspaceShadowTree.offset is defined %}
+        offset x={{ WorkspaceShadowTree.offset.x }} y={{ WorkspaceShadowTree.offset.y }}
+        {% endif %}
+        {{ EmitString(Tree=WorkspaceShadowTree, KeyName="color") }}
+    }
+    {% endif %}
+}
+{% endif %}
+
+{% if SettingsTree["xwayland-satellite"] is defined %}
+{% set XWaylandTree = SettingsTree["xwayland-satellite"] %}
+xwayland-satellite {
+    {{ EmitFlag(Tree=XWaylandTree, KeyName="off") }}
+    {{ EmitString(Tree=XWaylandTree, KeyName="path") }}
+}
+{% endif %}
+
+{% if SettingsTree.clipboard is defined %}
+{% set ClipboardTree = SettingsTree.clipboard %}
+clipboard {
+    {{ EmitFlag(Tree=ClipboardTree, KeyName="disable-primary") }}
+}
+{% endif %}
+
+{% if SettingsTree["hotkey-overlay"] is defined %}
+{% set HotkeyOverlayTree = SettingsTree["hotkey-overlay"] %}
+hotkey-overlay {
+    {{ EmitFlag(Tree=HotkeyOverlayTree, KeyName="skip-at-startup") }}
+    {{ EmitFlag(Tree=HotkeyOverlayTree, KeyName="hide-not-bound") }}
+}
+{% endif %}
+
+{% if SettingsTree["config-notification"] is defined %}
+{% set ConfigNotificationTree = SettingsTree["config-notification"] %}
+config-notification {
+    {{ EmitFlag(Tree=ConfigNotificationTree, KeyName="disable-failed") }}
+}
+{% endif %}
+
+{% if SettingsTree.blur is defined %}
+{% set BlurTree = SettingsTree.blur %}
+blur {
+    {{ EmitFlag(Tree=BlurTree, KeyName="off") }}
+    {{ EmitValue(Tree=BlurTree, KeyName="passes") }}
+    {{ EmitValue(Tree=BlurTree, KeyName="offset") }}
+    {{ EmitValue(Tree=BlurTree, KeyName="noise") }}
+    {{ EmitValue(Tree=BlurTree, KeyName="saturation") }}
+}
+{% endif %}
+{% endif %}
+
+
+{# ==================== ANIMATIONS ==================== #}
+{% if Niri.Animations is defined %}
+{% set AnimationsTree = Niri.Animations %}
+animations {
+    {{ EmitFlag(Tree=AnimationsTree, KeyName="off") }}
+    {{ EmitValue(Tree=AnimationsTree, KeyName="slowdown") }}
+}
+{% endif %}
+
+
+{# ==================== WINDOW RULES ==================== #}
+{% if Niri.WindowRules is defined %}
+{% for RuleName, RuleTree in Niri.WindowRules | items %}
+window-rule {
+    {% if RuleTree.match is defined %}
+    {{ EmitMatcher(DirectiveName="match", MatchTree=RuleTree.match) }}
+    {% endif %}
+    {% if RuleTree.exclude is defined %}
+    {{ EmitMatcher(DirectiveName="exclude", MatchTree=RuleTree.exclude) }}
+    {% endif %}
+
+    {{ EmitString(Tree=RuleTree, KeyName="block-out-from") }}
+    {{ FormatWidthHeight(NodeName="default-column-width", NodeTree=RuleTree) }}
+    {{ FormatWidthHeight(NodeName="default-window-height", NodeTree=RuleTree) }}
+
+    {{ EmitString(Tree=RuleTree, KeyName="open-on-output") }}
+    {{ EmitString(Tree=RuleTree, KeyName="open-on-workspace") }}
+    {{ EmitBool(Tree=RuleTree, KeyName="open-maximized") }}
+    {{ EmitBool(Tree=RuleTree, KeyName="open-maximized-to-edges") }}
+    {{ EmitBool(Tree=RuleTree, KeyName="open-fullscreen") }}
+    {{ EmitBool(Tree=RuleTree, KeyName="open-floating") }}
+    {{ EmitBool(Tree=RuleTree, KeyName="open-focused") }}
+
+    {{ EmitValue(Tree=RuleTree, KeyName="opacity") }}
+    {{ EmitBool(Tree=RuleTree, KeyName="variable-refresh-rate") }}
+    {{ EmitString(Tree=RuleTree, KeyName="default-column-display") }}
+
+    {% if RuleTree["default-floating-position"] is defined %}
+    {% set PositionTree = RuleTree["default-floating-position"] %}
+    default-floating-position x={{ PositionTree.x }} y={{ PositionTree.y }}{% if PositionTree["relative-to"] is defined %} relative-to="{{ PositionTree["relative-to"] }}"{% endif %}
+    {% endif %}
+
+    {{ EmitValue(Tree=RuleTree, KeyName="scroll-factor") }}
+    {{ EmitBool(Tree=RuleTree, KeyName="draw-border-with-background") }}
+
+    {% if RuleTree["focus-ring"] is defined %}
+    {% set FocusRingTree = RuleTree["focus-ring"] %}
+    focus-ring {
+        {{ EmitFlag(Tree=FocusRingTree, KeyName="off") }}
+        {{ EmitFlag(Tree=FocusRingTree, KeyName="on") }}
+        {{ EmitValue(Tree=FocusRingTree, KeyName="width") }}
+        {{ EmitString(Tree=FocusRingTree, KeyName="active-color") }}
+        {{ EmitString(Tree=FocusRingTree, KeyName="inactive-color") }}
+        {{ EmitString(Tree=FocusRingTree, KeyName="urgent-color") }}
+        {{ FormatGradient(NodeName="active-gradient", NodeTree=FocusRingTree) }}
+        {{ FormatGradient(NodeName="inactive-gradient", NodeTree=FocusRingTree) }}
+        {{ FormatGradient(NodeName="urgent-gradient", NodeTree=FocusRingTree) }}
+    }
+    {% endif %}
+
+    {% if RuleTree.border is defined %}
+    {% set BorderTree = RuleTree.border %}
+    border {
+        {{ EmitFlag(Tree=BorderTree, KeyName="off") }}
+        {{ EmitFlag(Tree=BorderTree, KeyName="on") }}
+        {{ EmitValue(Tree=BorderTree, KeyName="width") }}
+        {{ EmitString(Tree=BorderTree, KeyName="active-color") }}
+        {{ EmitString(Tree=BorderTree, KeyName="inactive-color") }}
+        {{ EmitString(Tree=BorderTree, KeyName="urgent-color") }}
+        {{ FormatGradient(NodeName="active-gradient", NodeTree=BorderTree) }}
+        {{ FormatGradient(NodeName="inactive-gradient", NodeTree=BorderTree) }}
+        {{ FormatGradient(NodeName="urgent-gradient", NodeTree=BorderTree) }}
+    }
+    {% endif %}
+
+    {% if RuleTree.shadow is defined %}
+    {% set ShadowTree = RuleTree.shadow %}
+    shadow {
+        {{ EmitFlag(Tree=ShadowTree, KeyName="on") }}
+        {{ EmitFlag(Tree=ShadowTree, KeyName="off") }}
+        {{ EmitBool(Tree=ShadowTree, KeyName="draw-behind-window") }}
+        {{ EmitValue(Tree=ShadowTree, KeyName="softness") }}
+        {{ EmitValue(Tree=ShadowTree, KeyName="spread") }}
+        {% if ShadowTree.offset is defined %}
+        offset x={{ ShadowTree.offset.x }} y={{ ShadowTree.offset.y }}
+        {% endif %}
+        {{ EmitString(Tree=ShadowTree, KeyName="color") }}
+        {{ EmitString(Tree=ShadowTree, KeyName="inactive-color") }}
+    }
+    {% endif %}
+
+    {% if RuleTree["tab-indicator"] is defined %}
+    {% set TabTree = RuleTree["tab-indicator"] %}
+    tab-indicator {
+        {{ EmitString(Tree=TabTree, KeyName="active-color") }}
+        {{ EmitString(Tree=TabTree, KeyName="inactive-color") }}
+        {{ EmitString(Tree=TabTree, KeyName="urgent-color") }}
+        {{ FormatGradient(NodeName="active-gradient", NodeTree=TabTree["active-gradient"]) }}
+        {{ FormatGradient(NodeName="inactive-gradient", NodeTree=TabTree["inactive-gradient"]) }}
+        {{ FormatGradient(NodeName="urgent-gradient", NodeTree=TabTree["urgent-gradient"]) }}
+    }
+    {% endif %}
+
+    {% if RuleTree["geometry-corner-radius"] is defined %}
+        {% if RuleTree["geometry-corner-radius"] is number %}
+    {{ EmitValue(Tree=RuleTree, KeyName="geometry-corner-radius") }}
+        {% else %}
+    geometry-corner-radius {% for Radius in RuleTree["geometry-corner-radius"] %}{{ Radius }} {% endfor %}
+        {% endif %}
+    {% endif %}
+
+    {{ EmitBool(Tree=RuleTree, KeyName="clip-to-geometry") }}
+    {{ EmitBool(Tree=RuleTree, KeyName="tiled-state") }}
+    {{ EmitBool(Tree=RuleTree, KeyName="baba-is-float") }}
+
+    {% if RuleTree["background-effect"] is defined %}
+    {% set BackgroundTree = RuleTree["background-effect"] %}
+    background-effect {
+        {{ EmitBool(Tree=BackgroundTree, KeyName="xray") }}
+        {{ EmitBool(Tree=BackgroundTree, KeyName="blur") }}
+        {{ EmitValue(Tree=BackgroundTree, KeyName="noise") }}
+        {{ EmitValue(Tree=BackgroundTree, KeyName="saturation") }}
+    }
+    {% endif %}
+
+    {% if RuleTree.popups is defined %}
+    {% set PopupsTree = RuleTree.popups %}
+    popups {
+        {{ EmitValue(Tree=PopupsTree, KeyName="opacity") }}
+
+        {% if PopupsTree["geometry-corner-radius"] is defined %}
+            {% if PopupsTree["geometry-corner-radius"] is number %}
+        {{ EmitValue(Tree=PopupsTree, KeyName="geometry-corner-radius") }}
+            {% else %}
+        geometry-corner-radius {% for Radius in PopupsTree["geometry-corner-radius"] %}{{ Radius }} {% endfor %}
+            {% endif %}
+        {% endif %}
+
+        {% if PopupsTree["background-effect"] is defined %}
+        {% set PopupBackgroundTree = PopupsTree["background-effect"] %}
+        background-effect {
+            {{ EmitBool(Tree=PopupBackgroundTree, KeyName="xray") }}
+            {{ EmitBool(Tree=PopupBackgroundTree, KeyName="blur") }}
+            {{ EmitValue(Tree=PopupBackgroundTree, KeyName="noise") }}
+            {{ EmitValue(Tree=PopupBackgroundTree, KeyName="saturation") }}
+        }
+        {% endif %}
+    }
+    {% endif %}
+
+    {{ EmitValue(Tree=RuleTree, KeyName="min-width") }}
+    {{ EmitValue(Tree=RuleTree, KeyName="max-width") }}
+    {{ EmitValue(Tree=RuleTree, KeyName="min-height") }}
+    {{ EmitValue(Tree=RuleTree, KeyName="max-height") }}
+}
+{% endfor %}
+{% endif %}
+
+
+{# ==================== KEYBINDS ==================== #}
+{% if Niri.Keybinds is defined %}
+binds {
+    {%- set BooleanActions = [
+        "show-hotkey-overlay", "toggle-overview", "close-window",
+        "focus-column-left", "focus-window-down", "focus-window-up", "focus-column-right",
+        "focus-window-or-workspace-down", "focus-window-or-workspace-up",
+        "move-column-left", "move-window-down", "move-window-up", "move-column-right",
+        "move-window-down-or-to-workspace-down", "move-window-up-or-to-workspace-up",
+        "focus-column-first", "focus-column-last", "move-column-to-first", "move-column-to-last",
+        "focus-monitor-left", "focus-monitor-down", "focus-monitor-up", "focus-monitor-right",
+        "move-column-to-monitor-left", "move-column-to-monitor-down", "move-column-to-monitor-up", "move-column-to-monitor-right",
+        "move-window-to-monitor-left", "move-window-to-monitor-down", "move-window-to-monitor-up", "move-window-to-monitor-right",
+        "move-workspace-to-monitor-left", "move-workspace-to-monitor-down", "move-workspace-to-monitor-up", "move-workspace-to-monitor-right",
+        "focus-workspace-down", "focus-workspace-up",
+        "move-column-to-workspace-down", "move-column-to-workspace-up",
+        "move-window-to-workspace-down", "move-window-to-workspace-up",
+        "move-workspace-down", "move-workspace-up", "focus-workspace-previous",
+        "consume-or-expel-window-left", "consume-or-expel-window-right",
+        "consume-window-into-column", "expel-window-from-column",
+        "switch-preset-column-width", "switch-preset-column-width-back",
+        "switch-preset-window-height", "reset-window-height",
+        "maximize-column", "fullscreen-window", "maximize-window-to-edges",
+        "expand-column-to-available-width", "center-column", "center-visible-columns",
+        "toggle-window-floating", "switch-focus-between-floating-and-tiling", "toggle-column-tabbed-display",
+        "screenshot", "screenshot-screen", "screenshot-window",
+        "toggle-keyboard-shortcuts-inhibit", "quit", "power-off-monitors"
+    ] %}
+
+    {%- set GenericValueActions = [
+        "focus-workspace", "move-column-to-workspace", "move-window-to-workspace",
+        "set-column-width", "set-window-height", "switch-layout"
+    ] %}
+
+    {%- for HotkeyName, BindTree in Niri.Keybinds | items %}
+    {{ HotkeyName }}{{ InlineFlag(Tree=BindTree, KeyName="allow-when-locked") }}{{ InlineBool(Tree=BindTree, KeyName="allow-inhibiting") }}{{ InlineBool(Tree=BindTree, KeyName="repeat") }}{{ InlineValue(Tree=BindTree, KeyName="cooldown-ms") }}{{ InlineString(Tree=BindTree, KeyName="hotkey-overlay-title") }} {
+        {%- if BindTree.spawn is defined %}
+        spawn {% for ArgumentName in BindTree.spawn %}"{{ ArgumentName }}" {% endfor %};
+        {%- endif %}
+        {%- if BindTree["spawn-sh"] is defined %}
+        spawn-sh "{{ BindTree["spawn-sh"] }}";
+        {%- endif %}
+
+        {%- for ActionName in GenericValueActions %}
+            {%- if BindTree[ActionName] is defined %}
+        {{ ActionName }} {% if BindTree[ActionName] is string %}"{{ BindTree[ActionName] }}"{% else %}{{ BindTree[ActionName] }}{% endif %};
+            {%- endif %}
+        {%- endfor %}
+
+        {%- for ActionName in BooleanActions %}
+            {%- if BindTree[ActionName] is defined and BindTree[ActionName] %}
+        {{ ActionName }};
+            {%- endif %}
+        {%- endfor %}
+    }
+    {%- endfor %}
+}
+{% endif %}
+

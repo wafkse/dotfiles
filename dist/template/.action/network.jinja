@@ -1,0 +1,11 @@
+{#- NOTE: This shebang is expressed like the following to omit it for shellcheck style-checking. -#}
+{{ "#!/usr/bin/env bash" }}
+
+target_action="$1"
+
+case "$target_action" in
+*menu)
+    $TERMINAL -e "nmtui"
+    ;;
+esac
+

@@ -1,12 +1,10 @@
-# NOTE: Do not symlink Tera-templated files
-.*\.tera$
-
-# NOTE: Ignore partial Tera templates.
-^partial
+# NOTE: Do not symlink Jinja-templated files
+.*\.jinja$
 
 # NOTE: Ignore irrelevant files.
 ^README\.md$
 ^\.gitignore$
+^\.stow-local-ignore$
 
 # NOTE: No filesystem garbage.
 ^\.DS_Store$

@@ -1,0 +1,10 @@
+{% for color in ThemeAppPalette(Theme, 'Ghostty', 'palette') -%}
+palette = {{ loop.index0 }}={{ color }}
+{% endfor -%}
+background = {{ ThemeApp(Theme, 'Ghostty', 'background') }}
+foreground = {{ ThemeApp(Theme, 'Ghostty', 'foreground') }}
+cursor-color = {{ ThemeApp(Theme, 'Ghostty', 'cursor-color') }}
+cursor-text = {{ ThemeApp(Theme, 'Ghostty', 'cursor-text') }}
+selection-background = {{ ThemeApp(Theme, 'Ghostty', 'selection-background') }}
+selection-foreground = {{ ThemeApp(Theme, 'Ghostty', 'selection-foreground') }}
+
