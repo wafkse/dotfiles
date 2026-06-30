@@ -17,12 +17,34 @@
             "type": "string",
             "description": "The placeholder color used when no color is assigned.",
             "pattern": "^#[a-fA-F0-9]{6}$"
+        },
+        "FamilyOverride": {
+            "type": "object",
+            "description": "Per-family application override mappings, keyed by family name. A theme tagged with a matching 'family' inherits these role-name mappings, resolved against its own palette.",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "Waybar": { "$ref": "Theme/Waybar.theme.toml.schema.json" },
+                    "Ghostty": {
+                        "$ref": "Theme/Ghostty.theme.toml.schema.json"
+                    },
+                    "Fuzzel": { "$ref": "Theme/Fuzzel.theme.toml.schema.json" },
+                    "Niri": { "$ref": "Theme/Niri.theme.toml.schema.json" },
+                    "Sway": { "$ref": "Theme/Sway.theme.toml.schema.json" },
+                    "Dunst": { "$ref": "Theme/Dunst.theme.toml.schema.json" }
+                },
+                "additionalProperties": false
+            }
         }
     },
     "required": ["default", "placeholder"],
     "additionalProperties": {
         "type": "object",
         "properties": {
+            "family": {
+                "type": "string",
+                "description": "The family this theme belongs to. Selects the shared 'FamilyOverride.<family>' mapping when a key is not given a per-theme Override exception."
+            },
             "Palette": {
                 "type": "array",
                 "minItems": 16,
