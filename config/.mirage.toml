@@ -1,20 +1,30 @@
+# Mirage manifest for the dotfile tree.
+
 [configure]
 profile = "default"
 
+# NOTE: Use the "engine" Luau module.
+module = "engine"
+
+# NOTE: Missing references render as nothing rather than aborting the pass.
+undefined = "lenient"
+
+# NOTE: Per-application configuration.
 [[candidate]]
 path = "[!.]*.toml"
 policy = "override"
 
+# NOTE: Themes included by default.
 [[candidate]]
 path = "theme/**/[!.]*.toml"
 policy = "override"
 
-# NOTE: Ad-hoc overrides are to be processed last.
+# NOTE: Ad-hoc application overrides are processed after the bases.
 [[candidate]]
 path = "override/[!.]*.toml"
 policy = "override"
 
-# NOTE: Ad-hoc overrides are to be processed last.
+# NOTE: Per-theme colour exceptions, merged last so they win over the family mapping.
 [[candidate]]
-path = "override/**/[!.]*.toml"
+path = "override/theme/**/[!.]*.toml"
 policy = "override"
