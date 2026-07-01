@@ -6,8 +6,8 @@ profile = "default"
 # NOTE: Use the "engine" Luau module.
 module = "engine"
 
-# NOTE: Missing references render as nothing rather than aborting the pass.
-undefined = "lenient"
+# NOTE: Missing references result in aborting the pass.
+undefined = "strict"
 
 # NOTE: Per-application configuration.
 [[candidate]]
