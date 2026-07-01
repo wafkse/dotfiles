@@ -87,7 +87,7 @@ for_window [{% if RuleTree.match.app_id is defined %}app_id="{{ RuleTree.match.a
 {% if Sway.Keybinds is defined -%}
 # --- KEYBINDS ---
 {% for HotkeyName, BindTree in Sway.Keybinds | items -%}
-bindsym{% if BindTree.locked %} --locked{% endif %}{% if BindTree.no_repeat %} --no-repeat{% endif %}{% if BindTree.release %} --release{% endif %} {{ HotkeyName }} {% if BindTree.spawn is defined %}exec {% for Argument in BindTree.spawn %}{{ Argument }}{% if not loop.last %} {% endif %}{% endfor %}{% elif BindTree.spawn_sh is defined %}exec {{ BindTree.spawn_sh }}{% elif BindTree.command is defined %}{{ BindTree.command }}{% endif %}
+bindsym{% if BindTree.locked is defined and BindTree.locked %} --locked{% endif %}{% if BindTree.no_repeat is defined and BindTree.no_repeat %} --no-repeat{% endif %}{% if BindTree.release is defined and BindTree.release %} --release{% endif %} {{ HotkeyName }} {% if BindTree.spawn is defined %}exec {% for Argument in BindTree.spawn %}{{ Argument }}{% if not loop.last %} {% endif %}{% endfor %}{% elif BindTree.spawn_sh is defined %}exec {{ BindTree.spawn_sh }}{% elif BindTree.command is defined %}{{ BindTree.command }}{% endif %}
 {% endfor %}
 {%- endif %}
 
