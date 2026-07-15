@@ -186,11 +186,37 @@ input {
 {% for OutputName, OutputTree in Niri.Outputs | items %}
 output "{{ OutputName }}" {
     {{ EmitFlag(Tree=OutputTree, KeyName="off") }}
-    {{ EmitString(Tree=OutputTree, KeyName="mode") }}
+    {%- if OutputTree.mode is defined %}
+    mode {% if OutputTree["mode-custom"] is defined and OutputTree["mode-custom"] %}custom=true {% endif %}"{{ OutputTree.mode }}"
+    {%- endif %}
+    {%- if OutputTree.modeline is defined %}
+    modeline {{ OutputTree.modeline }}
+    {%- endif %}
     {{ EmitValue(Tree=OutputTree, KeyName="scale") }}
     {{ EmitString(Tree=OutputTree, KeyName="transform") }}
     {%- if OutputTree.position is defined %}
     position x={{ OutputTree.position.x }} y={{ OutputTree.position.y }}
+    {%- endif %}
+    {%- if OutputTree["variable-refresh-rate"] is defined %}
+        {%- if OutputTree["variable-refresh-rate"] is mapping %}
+    variable-refresh-rate{% if OutputTree["variable-refresh-rate"]["on-demand"] is defined %} on-demand={% if OutputTree["variable-refresh-rate"]["on-demand"] %}true{% else %}false{% endif %}{% endif %}
+        {%- elif OutputTree["variable-refresh-rate"] %}
+    variable-refresh-rate
+        {%- endif %}
+    {%- endif %}
+    {{ EmitFlag(Tree=OutputTree, KeyName="focus-at-startup") }}
+    {{ EmitString(Tree=OutputTree, KeyName="background-color") }}
+    {{ EmitString(Tree=OutputTree, KeyName="backdrop-color") }}
+    {{ EmitValue(Tree=OutputTree, KeyName="max-bpc") }}
+    {%- if OutputTree["hot-corners"] is defined %}
+    {% set HotCornersTree = OutputTree["hot-corners"] %}
+    hot-corners {
+        {{ EmitFlag(Tree=HotCornersTree, KeyName="off") }}
+        {{ EmitFlag(Tree=HotCornersTree, KeyName="top-left") }}
+        {{ EmitFlag(Tree=HotCornersTree, KeyName="top-right") }}
+        {{ EmitFlag(Tree=HotCornersTree, KeyName="bottom-left") }}
+        {{ EmitFlag(Tree=HotCornersTree, KeyName="bottom-right") }}
+    }
     {%- endif %}
 }
 {% endfor %}
@@ -625,4 +651,3 @@ binds {
     {%- endfor %}
 }
 {% endif %}
-
