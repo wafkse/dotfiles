@@ -214,6 +214,14 @@
                             "type": "string",
                             "description": "Resolution and refresh rate (e.g., '1920x1080@120.030')."
                         },
+                        "mode-custom": {
+                            "type": "boolean",
+                            "description": "Treat 'mode' as a custom mode not offered by the monitor (custom=true). Refresh rate is mandatory. May damage the display."
+                        },
+                        "modeline": {
+                            "type": "string",
+                            "description": "Directly configure the mode via a modeline (e.g., '173.00 1920 2048 2248 2576 1080 1083 1088 1120 \"-hsync\" \"+vsync\"'). Overrides 'mode'. May damage the display."
+                        },
                         "scale": {
                             "type": "number",
                             "description": "Fractional or integer scale (e.g., 1.5, 2.0)."
@@ -247,6 +255,69 @@
                                 }
                             },
                             "required": ["x", "y"]
+                        },
+                        "variable-refresh-rate": {
+                            "oneOf": [
+                                {
+                                    "type": "boolean",
+                                    "description": "Enable VRR unconditionally when true."
+                                },
+                                {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "on-demand": {
+                                            "type": "boolean",
+                                            "description": "Only enable VRR when an on-screen window matches the variable-refresh-rate window rule."
+                                        }
+                                    }
+                                }
+                            ],
+                            "description": "Enable variable refresh rate (VRR / adaptive sync) if the output supports it."
+                        },
+                        "focus-at-startup": {
+                            "type": "boolean",
+                            "description": "Focus this output by default when niri starts."
+                        },
+                        "background-color": {
+                            "type": "string",
+                            "description": "Background color drawn for workspaces on this output. Deprecated: prefer the layout background-color."
+                        },
+                        "backdrop-color": {
+                            "type": "string",
+                            "description": "Backdrop color drawn between workspaces or in the overview. Alpha channel is ignored."
+                        },
+                        "max-bpc": {
+                            "type": "integer",
+                            "enum": [6, 8, 10, 12, 14, 16],
+                            "description": "Maximum bits per channel for the display signal. Leave unset unless hitting a bandwidth issue."
+                        },
+                        "hot-corners": {
+                            "type": "object",
+                            "description": "Per-output hot corner overrides. Hot corners toggle the overview.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "off": {
+                                    "type": "boolean",
+                                    "description": "Disable all hot corners on this output."
+                                },
+                                "top-left": {
+                                    "type": "boolean",
+                                    "description": "Enable the top-left hot corner."
+                                },
+                                "top-right": {
+                                    "type": "boolean",
+                                    "description": "Enable the top-right hot corner."
+                                },
+                                "bottom-left": {
+                                    "type": "boolean",
+                                    "description": "Enable the bottom-left hot corner."
+                                },
+                                "bottom-right": {
+                                    "type": "boolean",
+                                    "description": "Enable the bottom-right hot corner."
+                                }
+                            }
                         }
                     }
                 }
@@ -674,6 +745,10 @@
                         "variable-refresh-rate": {
                             "type": "boolean",
                             "description": "Enable VRR on output when this window is displayed."
+                        },
+                        "allow-tearing": {
+                            "type": "boolean",
+                            "description": "Enable tearing on output when this window is displayed."
                         },
                         "default-column-display": {
                             "type": "string",
