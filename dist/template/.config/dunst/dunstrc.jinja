@@ -14,7 +14,7 @@
         {%- endfor %}
     {%- elif Value is string %}
         {# Dunst strictly requires quotes for strings to prevent '#' from being parsed as a comment #}
-{{ Key }} = "{{ Value }}"
+{{ Key }} = "{{ Value | replace("\n", "\\n") }}"
     {%- elif Value is number %}
         {# Numbers (checked before booleans: minijinja coerces 1 == true) #}
 {{ Key }} = {{ Value }}
