@@ -203,7 +203,7 @@ spawn-sh = "playerctl next"
 repeat = false
 toggle-overview = true
 
-[default.Niri.Keybinds.'Mod+Q']
+[default.Niri.Keybinds.'Mod+Shift+Q']
 repeat = false
 close-window = true
 
