@@ -33,7 +33,7 @@ $ systemctl --user enable --now "mirage@$(systemd-escape "$DOTFILES_PATH").servi
 $ # Now, enable all provided user services.
 ```
 
-Mirage manages the rendered user units in [`.config/systemd/user`](dist/template/.config/systemd/user). The original static units remain in [`dist/static`](dist/static/.config/systemd/user) as rollback sources, but Stow ignores them in favor of the rendered units.
+Mirage manages the rendered user units in [`.config/systemd/user`](dist/template/.config/systemd/user).
 
 ### Potential Failure
 
