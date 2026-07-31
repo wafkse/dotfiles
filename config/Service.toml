@@ -1,0 +1,19 @@
+#:schema schema/Universe.toml.schema.json
+
+[default.Service.Awww.Daemon]
+environment = true
+
+[default.Service.Awww.Restore]
+environment = true
+
+[default.Service.Dunst]
+environment = true
+
+[default.Service.Niri]
+environment = false
+
+[default.Service.Waybar]
+environment = false
+
+[default.Service.WaybarReload]
+environment = false

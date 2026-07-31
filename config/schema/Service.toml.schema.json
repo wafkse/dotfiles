@@ -1,0 +1,34 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Service.toml.schema.json",
+    "title": "Systemd User Service Schema",
+    "description": "Profile-aware environment-wrapper settings for Mirage-rendered user units.",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "Awww": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "Daemon": { "$ref": "#/$defs/environment" },
+                "Restore": { "$ref": "#/$defs/environment" }
+            }
+        },
+        "Dunst": { "$ref": "#/$defs/environment" },
+        "Niri": { "$ref": "#/$defs/environment" },
+        "Waybar": { "$ref": "#/$defs/environment" },
+        "WaybarReload": { "$ref": "#/$defs/environment" }
+    },
+    "$defs": {
+        "environment": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "environment": {
+                    "type": "boolean",
+                    "description": "Resolve the executable through /usr/bin/env and the session PATH."
+                }
+            }
+        }
+    }
+}

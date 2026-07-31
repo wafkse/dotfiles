@@ -24,13 +24,16 @@ First, clone the repository to `~/.dotfiles` (or any directory where the dotfile
 ```bash
 $ DOTFILES_PATH="$HOME/.dotfiles"
 $ cd $DOTFILES_PATH
-$ stow static
-$ # Once you've stow'd your static files, you must enable and start the Mirage daemon.
+$ # Render configuration and user units before Stowing the template package.
+$ mirage -C config -T dist/template --oneshot
+$ stow static template
+$ systemctl --user daemon-reload
+$ # Once you've Stow'd the packages, enable and start the Mirage daemon.
 $ systemctl --user enable --now "mirage@$(systemd-escape "$DOTFILES_PATH").service"
 $ # Now, enable all provided user services.
 ```
 
-For provided systemd units, take a look at the [.config/systemd/user](dist/static/.config/systemd/user) directory.
+Mirage manages the rendered user units in [`.config/systemd/user`](dist/template/.config/systemd/user). The original static units remain in [`dist/static`](dist/static/.config/systemd/user) as rollback sources, but Stow ignores them in favor of the rendered units.
 
 ### Potential Failure
 
@@ -41,7 +44,7 @@ This will keep the symbolic links active, but **will trash** any existing file t
 
 ### Finishing Up
 
-Enable all user non-template `systemd` units provided.
+Enable all rendered user `systemd` units provided.
 
 Afterwards, re-login to the user, the complete environment should start automatically.
 

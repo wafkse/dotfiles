@@ -6,6 +6,6 @@ Requisite=graphical-session.target
 StartLimitIntervalSec=0
 
 [Service]
-ExecStart=waybar
-ExecReload=kill -SIGUSR2 $MAINPID
+ExecStart={% if Service.Waybar.environment %}/usr/bin/env {% endif %}waybar
+ExecReload=kill -SIGUSR1 $MAINPID
 Restart=on-failure

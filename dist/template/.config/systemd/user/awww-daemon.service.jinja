@@ -5,5 +5,5 @@ After=graphical-session.target
 Requisite=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/env awww-daemon
+ExecStart={% if Service.Awww.Daemon.environment %}/usr/bin/env {% endif %}awww-daemon
 Restart=on-failure

@@ -11,4 +11,4 @@ Before=xdg-desktop-autostart.target
 [Service]
 Slice=session.slice
 Type=notify
-ExecStart=%h/.cargo/bin/niri --session
+ExecStart={% if Service.Niri.environment %}/usr/bin/env {% endif %}niri --session

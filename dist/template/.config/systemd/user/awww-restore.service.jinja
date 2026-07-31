@@ -1,9 +1,9 @@
 [Unit]
-Description=Dunst Notification Service
+Description=Awww Wallpaper Restore
 PartOf=graphical-session.target
 After=graphical-session.target
 Requisite=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/env dunst
+ExecStart={% if Service.Awww.Restore.environment %}/usr/bin/env {% endif %}awww restore
 Restart=on-failure

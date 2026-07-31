@@ -1,0 +1,9 @@
+[Service]
+Type=oneshot
+ExecStart={% if Service.WaybarReload.environment %}/usr/bin/env {% endif %}systemctl --user reload waybar.service
+
+[Install]
+WantedBy=default.target
+
+[Unit]
+StartLimitIntervalSec=0
