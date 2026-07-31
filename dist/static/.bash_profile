@@ -9,8 +9,11 @@ declare -A ENVIRONMENT_TABLE=(
     [GPG_TTY]="$( tty )"
 )
 
-# Inherit previously set $PATH from /etc/profile
+# Inherit the previously set $PATH from /etc/profile, then rank its components.
 
+# The rank is lexicographic, directories below $HOME come first, then shallower
+# home-relative paths, fewer path components, fewer direct executable entries,
+# and finally their original PATH order.
 declare -a PATH_LIST=( "$HOME/util" "$HOME/.local/bin" )
 
 [ -d "$HOME/games/bin" ] && PATH_LIST+=( "$HOME/games/bin" )
@@ -28,29 +31,138 @@ if hash luarocks > /dev/null 2>&1; then
     ENVIRONMENT_TABLE[LUA_CPATH]="$( luarocks path --lr-cpath )"
 fi
 
-# shellcheck disable=2207
-declare -a DEFAULT_PATH=( $( echo "$PATH" | tr ":" " " ) )
+normalize_path_component() {
+    local path_component="$1"
 
-DEFAULT_PATH+=( "${PATH_LIST[*]}" )
+    while [[ "$path_component" != "/" ]] && [[ "$path_component" == */ ]]; do
+        path_component="${path_component%/}"
+    done
 
-# shellcheck disable=2016
-AWK_DUPLICATE_REMOVER='
-BEGIN {
-    RS = ":"
+    printf '%s' "$path_component"
 }
 
-{
-    sub(sprintf("%c$", 10), "")
-    if (A[$0]) {
-        # Do nothing
-    } else {
-        A[$0] = 1
-        printf((NR == 1 ? "" : ":") $0)
-    }
-}
-'
+count_path_components() {
+    local path_component="${1#/}"
+    local -a path_parts=()
+    local part
+    local count=0
 
-ENVIRONMENT_TABLE["PATH"]="$(echo -ne "${DEFAULT_PATH[*]}" | tr -d "\n" | tr "[:space:]" ":" | awk "$AWK_DUPLICATE_REMOVER")"
+    IFS=/ read -r -a path_parts <<< "$path_component"
+
+    for part in "${path_parts[@]}"; do
+        [[ -n "$part" ]] && (( count += 1 ))
+    done
+
+    printf '%d' "$count"
+}
+
+home_path_distance() {
+    local path_component="$1"
+
+    if [[ "$path_component" == "$HOME" ]]; then
+        printf '0'
+    elif [[ "$path_component" == "$HOME/"* ]]; then
+        count_path_components "${path_component#"$HOME"/}"
+    else
+        # A non-home path ranks after every path contained by $HOME.
+        printf '1000000'
+    fi
+}
+
+count_directory_executables() {
+    local directory="$1"
+    local entry
+    local count=0
+
+    # -f and -x include executable symlinks while avoiding a recursive scan.
+    for entry in "$directory"/* "$directory"/.[!.]* "$directory"/..?*; do
+        [[ -f "$entry" ]] && [[ -x "$entry" ]] && (( count += 1 ))
+    done
+
+    printf '%d' "$count"
+}
+
+path_ranks_before() {
+    local left="$1"
+    local right="$2"
+
+    if (( PATH_HOME_DISTANCE["$left"] != PATH_HOME_DISTANCE["$right"] )); then
+        (( PATH_HOME_DISTANCE["$left"] < PATH_HOME_DISTANCE["$right"] ))
+        return
+    fi
+
+    if (( PATH_COMPONENT_COUNT["$left"] != PATH_COMPONENT_COUNT["$right"] )); then
+        (( PATH_COMPONENT_COUNT["$left"] < PATH_COMPONENT_COUNT["$right"] ))
+        return
+    fi
+
+    if (( PATH_EXECUTABLE_COUNT["$left"] != PATH_EXECUTABLE_COUNT["$right"] )); then
+        (( PATH_EXECUTABLE_COUNT["$left"] < PATH_EXECUTABLE_COUNT["$right"] ))
+        return
+    fi
+
+    (( PATH_ORIGINAL_INDEX["$left"] < PATH_ORIGINAL_INDEX["$right"] ))
+}
+
+declare -a INHERITED_PATH=()
+declare -a PATH_COMPONENTS=()
+declare -a AVAILABLE_PATH_COMPONENTS=()
+declare -a UNAVAILABLE_PATH_COMPONENTS=()
+declare -a RANKED_PATH_COMPONENTS=()
+declare -A PATH_SEEN=()
+declare -A PATH_HOME_DISTANCE=()
+declare -A PATH_COMPONENT_COUNT=()
+declare -A PATH_EXECUTABLE_COUNT=()
+declare -A PATH_ORIGINAL_INDEX=()
+
+IFS=: read -r -a INHERITED_PATH <<< "$PATH"
+PATH_COMPONENTS=( "${INHERITED_PATH[@]}" "${PATH_LIST[@]}" )
+
+for path_index in "${!PATH_COMPONENTS[@]}"; do
+    path_component="$( normalize_path_component "${PATH_COMPONENTS["$path_index"]}" )"
+
+    # Empty PATH components mean the current directory. Do not add or reorder them.
+    [[ -z "$path_component" ]] && continue
+
+    [[ -n "${PATH_SEEN["$path_component"]+set}" ]] && continue
+    PATH_SEEN["$path_component"]=1
+
+    PATH_ORIGINAL_INDEX["$path_component"]="$path_index"
+
+    if [[ -d "$path_component" ]]; then
+        PATH_HOME_DISTANCE["$path_component"]="$( home_path_distance "$path_component" )"
+        PATH_COMPONENT_COUNT["$path_component"]="$( count_path_components "$path_component" )"
+        PATH_EXECUTABLE_COUNT["$path_component"]="$( count_directory_executables "$path_component" )"
+        AVAILABLE_PATH_COMPONENTS+=( "$path_component" )
+    else
+        # Preserve unavailable components after usable paths without giving them a
+        # misleading executable count of zero.
+        UNAVAILABLE_PATH_COMPONENTS+=( "$path_component" )
+    fi
+done
+
+for path_component in "${AVAILABLE_PATH_COMPONENTS[@]}"; do
+    path_inserted=0
+
+    for ranked_index in "${!RANKED_PATH_COMPONENTS[@]}"; do
+        if path_ranks_before "$path_component" "${RANKED_PATH_COMPONENTS["$ranked_index"]}"; then
+            RANKED_PATH_COMPONENTS=(
+                "${RANKED_PATH_COMPONENTS[@]:0:ranked_index}"
+                "$path_component"
+                "${RANKED_PATH_COMPONENTS[@]:ranked_index}"
+            )
+            path_inserted=1
+            break
+        fi
+    done
+
+    (( path_inserted )) || RANKED_PATH_COMPONENTS+=( "$path_component" )
+done
+
+RANKED_PATH_COMPONENTS+=( "${UNAVAILABLE_PATH_COMPONENTS[@]}" )
+
+printf -v PATH_VALUE '%s:' "${RANKED_PATH_COMPONENTS[@]}"
+ENVIRONMENT_TABLE["PATH"]="${PATH_VALUE%:}"
 
 # NOTE: Re-export the XDG_* directories as their own environment variables.
 
