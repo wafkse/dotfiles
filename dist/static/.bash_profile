@@ -31,79 +31,6 @@ if hash luarocks > /dev/null 2>&1; then
     ENVIRONMENT_TABLE[LUA_CPATH]="$( luarocks path --lr-cpath )"
 fi
 
-normalize_path_component() {
-    local path_component="$1"
-
-    while [[ "$path_component" != "/" ]] && [[ "$path_component" == */ ]]; do
-        path_component="${path_component%/}"
-    done
-
-    printf '%s' "$path_component"
-}
-
-count_path_components() {
-    local path_component="${1#/}"
-    local -a path_parts=()
-    local part
-    local count=0
-
-    IFS=/ read -r -a path_parts <<< "$path_component"
-
-    for part in "${path_parts[@]}"; do
-        [[ -n "$part" ]] && (( count += 1 ))
-    done
-
-    printf '%d' "$count"
-}
-
-home_path_distance() {
-    local path_component="$1"
-
-    if [[ "$path_component" == "$HOME" ]]; then
-        printf '0'
-    elif [[ "$path_component" == "$HOME/"* ]]; then
-        count_path_components "${path_component#"$HOME"/}"
-    else
-        # A non-home path ranks after every path contained by $HOME.
-        printf '1000000'
-    fi
-}
-
-count_directory_executables() {
-    local directory="$1"
-    local entry
-    local count=0
-
-    # -f and -x include executable symlinks while avoiding a recursive scan.
-    for entry in "$directory"/* "$directory"/.[!.]* "$directory"/..?*; do
-        [[ -f "$entry" ]] && [[ -x "$entry" ]] && (( count += 1 ))
-    done
-
-    printf '%d' "$count"
-}
-
-path_ranks_before() {
-    local left="$1"
-    local right="$2"
-
-    if (( PATH_HOME_DISTANCE["$left"] != PATH_HOME_DISTANCE["$right"] )); then
-        (( PATH_HOME_DISTANCE["$left"] < PATH_HOME_DISTANCE["$right"] ))
-        return
-    fi
-
-    if (( PATH_COMPONENT_COUNT["$left"] != PATH_COMPONENT_COUNT["$right"] )); then
-        (( PATH_COMPONENT_COUNT["$left"] < PATH_COMPONENT_COUNT["$right"] ))
-        return
-    fi
-
-    if (( PATH_EXECUTABLE_COUNT["$left"] != PATH_EXECUTABLE_COUNT["$right"] )); then
-        (( PATH_EXECUTABLE_COUNT["$left"] < PATH_EXECUTABLE_COUNT["$right"] ))
-        return
-    fi
-
-    (( PATH_ORIGINAL_INDEX["$left"] < PATH_ORIGINAL_INDEX["$right"] ))
-}
-
 declare -a INHERITED_PATH=()
 declare -a PATH_COMPONENTS=()
 declare -a AVAILABLE_PATH_COMPONENTS=()
@@ -119,20 +46,49 @@ IFS=: read -r -a INHERITED_PATH <<< "$PATH"
 PATH_COMPONENTS=( "${INHERITED_PATH[@]}" "${PATH_LIST[@]}" )
 
 for path_index in "${!PATH_COMPONENTS[@]}"; do
-    path_component="$( normalize_path_component "${PATH_COMPONENTS["$path_index"]}" )"
+    path_component="${PATH_COMPONENTS["$path_index"]}"
 
-    # Empty PATH components mean the current directory. Do not add or reorder them.
+    while [[ "$path_component" != "/" ]] && [[ "$path_component" == */ ]]; do
+        path_component="${path_component%/}"
+    done
+
+    # Empty PATH components mean the current directory. Preserve the existing
+    # policy of omitting them rather than allowing them to move during ranking.
     [[ -z "$path_component" ]] && continue
 
     [[ -n "${PATH_SEEN["$path_component"]+set}" ]] && continue
     PATH_SEEN["$path_component"]=1
-
     PATH_ORIGINAL_INDEX["$path_component"]="$path_index"
 
     if [[ -d "$path_component" ]]; then
-        PATH_HOME_DISTANCE["$path_component"]="$( home_path_distance "$path_component" )"
-        PATH_COMPONENT_COUNT["$path_component"]="$( count_path_components "$path_component" )"
-        PATH_EXECUTABLE_COUNT["$path_component"]="$( count_directory_executables "$path_component" )"
+        path_relative="${path_component#/}"
+        IFS=/ read -r -a path_parts <<< "$path_relative"
+        path_component_count=0
+
+        for path_part in "${path_parts[@]}"; do
+            [[ -n "$path_part" ]] && (( path_component_count += 1 ))
+        done
+
+        PATH_COMPONENT_COUNT["$path_component"]="$path_component_count"
+        PATH_EXECUTABLE_COUNT["$path_component"]=0
+
+        if [[ "$path_component" == "$HOME" ]]; then
+            PATH_HOME_DISTANCE["$path_component"]=0
+        elif [[ "$path_component" == "$HOME/"* ]]; then
+            home_relative="${path_component#"$HOME"/}"
+            IFS=/ read -r -a home_parts <<< "$home_relative"
+            home_distance=0
+
+            for path_part in "${home_parts[@]}"; do
+                [[ -n "$path_part" ]] && (( home_distance += 1 ))
+            done
+
+            PATH_HOME_DISTANCE["$path_component"]="$home_distance"
+        else
+            # A non-home path ranks after every path contained by $HOME.
+            PATH_HOME_DISTANCE["$path_component"]=1000000
+        fi
+
         AVAILABLE_PATH_COMPONENTS+=( "$path_component" )
     else
         # Preserve unavailable components after usable paths without giving them a
@@ -141,23 +97,41 @@ for path_index in "${!PATH_COMPONENTS[@]}"; do
     fi
 done
 
-for path_component in "${AVAILABLE_PATH_COMPONENTS[@]}"; do
-    path_inserted=0
-
-    for ranked_index in "${!RANKED_PATH_COMPONENTS[@]}"; do
-        if path_ranks_before "$path_component" "${RANKED_PATH_COMPONENTS["$ranked_index"]}"; then
-            RANKED_PATH_COMPONENTS=(
-                "${RANKED_PATH_COMPONENTS[@]:0:ranked_index}"
-                "$path_component"
-                "${RANKED_PATH_COMPONENTS[@]:ranked_index}"
-            )
-            path_inserted=1
-            break
+# Count direct executable entries in all usable PATH directories in one GNU find
+# pass. -L matches Bash's -f/-x behavior for executable symlinks. Aggregating with
+# sort/uniq keeps thousands of directory entries out of Bash itself.
+if (( ${#AVAILABLE_PATH_COMPONENTS[@]} )); then
+    while IFS= read -r -d '' executable_count_record; do
+        if [[ "$executable_count_record" =~ ^[[:space:]]*([0-9]+)[[:space:]](.*)$ ]]; then
+            PATH_EXECUTABLE_COUNT["${BASH_REMATCH[2]}"]="${BASH_REMATCH[1]}"
         fi
-    done
+    done < <(
+        find -L -- "${AVAILABLE_PATH_COMPONENTS[@]}" \
+            -mindepth 1 -maxdepth 1 -type f -executable -printf '%H\0' \
+            | LC_ALL=C sort -z \
+            | uniq -zc
+    )
+fi
 
-    (( path_inserted )) || RANKED_PATH_COMPONENTS+=( "$path_component" )
-done
+# GNU sort performs the same lexicographic ranking as the previous Bash
+# insertion sort: home distance, component count, executable count, then the
+# component's original PATH position. NUL-delimited records preserve spaces.
+while IFS= read -r -d '' path_rank_record; do
+    path_rank_record="${path_rank_record#*$'\t'}"
+    path_rank_record="${path_rank_record#*$'\t'}"
+    path_rank_record="${path_rank_record#*$'\t'}"
+    path_rank_record="${path_rank_record#*$'\t'}"
+    RANKED_PATH_COMPONENTS+=( "$path_rank_record" )
+done < <(
+    for path_component in "${AVAILABLE_PATH_COMPONENTS[@]}"; do
+        printf '%d\t%d\t%d\t%d\t%s\0' \
+            "${PATH_HOME_DISTANCE["$path_component"]}" \
+            "${PATH_COMPONENT_COUNT["$path_component"]}" \
+            "${PATH_EXECUTABLE_COUNT["$path_component"]}" \
+            "${PATH_ORIGINAL_INDEX["$path_component"]}" \
+            "$path_component"
+    done | LC_ALL=C sort -z -t $'\t' -k1,1n -k2,2n -k3,3n -k4,4n
+)
 
 RANKED_PATH_COMPONENTS+=( "${UNAVAILABLE_PATH_COMPONENTS[@]}" )
 
@@ -196,31 +170,19 @@ declare -a EXPORT_LIST=()
 for VARIABLE_NAME in "${!ENVIRONMENT_TABLE[@]}"; do
     VARIABLE_VALUE="${ENVIRONMENT_TABLE["$VARIABLE_NAME"]}"
 
-    if (
-        shopt -s nocasematch;
-        [[ "$VARIABLE_NAME" =~ ^(bare|visual): ]]
-    ); then
+    if [[ "$VARIABLE_NAME" =~ ^([Bb][Aa][Rr][Ee]|[Vv][Ii][Ss][Uu][Aa][Ll]):[[:space:]]*([a-zA-Z_][a-zA-Z_0-9]*)$ ]]; then
+        VARIABLE_SCOPE="${BASH_REMATCH[1],,}"
+        VARIABLE_NAME="${BASH_REMATCH[2]}"
 
-        VARIABLE_NAME="$( echo "$VARIABLE_NAME" | grep -Po "(?i)^(bare|visual):\K([a-z_][a-z_0-9]*)$" )"
-
-        EXPORT_LIST+=( "$VARIABLE_NAME" )
-
-        if (
-            shopt -s nocasematch;
-            [[ "$VARIABLE_NAME" =~ ^bare: ]]
-        ) && [[ "${START_TARGET["BAREBONE"]}" = 1 ]]; then
-            declare "${VARIABLE_NAME}=${VARIABLE_VALUE}"
-        elif (
-            shopt -s nocasematch;
-            [[ "$VARIABLE_NAME" =~ ^visual: ]]
-        ) && [[ "${START_TARGET["DESKTOP"]}" = 1 ]]; then
-            declare "${VARIABLE_NAME}=${VARIABLE_VALUE}"
+        if [[ "$VARIABLE_SCOPE" = "bare" ]] && [[ "${START_TARGET["BAREBONE"]}" != 1 ]]; then
+            continue
+        elif [[ "$VARIABLE_SCOPE" = "visual" ]] && [[ "${START_TARGET["DESKTOP"]}" != 1 ]]; then
+            continue
         fi
-    else
-        EXPORT_LIST+=( "$VARIABLE_NAME" )
-
-        declare "${VARIABLE_NAME}=${VARIABLE_VALUE}"
     fi
+
+    EXPORT_LIST+=( "$VARIABLE_NAME" )
+    declare "${VARIABLE_NAME}=${VARIABLE_VALUE}"
 done
 
 # NOTE: Export to program environment, the SystemD User Session, and the DBus Activation Environment.
