@@ -18,7 +18,6 @@
                 "Theme": { "$ref": "Theme.toml.schema.json" },
                 "Service": { "$ref": "Service.toml.schema.json" },
                 "Niri": { "$ref": "Niri.toml.schema.json" },
-                "Sway": { "$ref": "Sway.toml.schema.json" },
                 "Waybar": { "$ref": "Waybar.toml.schema.json" },
                 "Fuzzel": { "$ref": "Fuzzel.toml.schema.json" },
                 "Ghostty": { "$ref": "Ghostty.toml.schema.json" },
