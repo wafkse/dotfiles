@@ -531,9 +531,9 @@ window-rule {
         {{ EmitString(Tree=TabTree, KeyName="active-color") }}
         {{ EmitString(Tree=TabTree, KeyName="inactive-color") }}
         {{ EmitString(Tree=TabTree, KeyName="urgent-color") }}
-        {{ FormatGradient(NodeName="active-gradient", NodeTree=TabTree["active-gradient"]) }}
-        {{ FormatGradient(NodeName="inactive-gradient", NodeTree=TabTree["inactive-gradient"]) }}
-        {{ FormatGradient(NodeName="urgent-gradient", NodeTree=TabTree["urgent-gradient"]) }}
+        {{ FormatGradient(NodeName="active-gradient", NodeTree=TabTree) }}
+        {{ FormatGradient(NodeName="inactive-gradient", NodeTree=TabTree) }}
+        {{ FormatGradient(NodeName="urgent-gradient", NodeTree=TabTree) }}
     }
     {% endif %}
 
