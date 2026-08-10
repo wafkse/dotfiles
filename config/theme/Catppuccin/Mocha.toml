@@ -1,0 +1,141 @@
+#:schema ../../schema/Universe.toml.schema.json
+
+# ==============================================================================
+# CATPPUCCIN MOCHA
+# ==============================================================================
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+[default.Theme.'Catppuccin Mocha']
+family = "Catppuccin"
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#11111b"
+name = "Crust"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#181825"
+name = "Mantle"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#1e1e2e"
+name = "Base"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#313244"
+name = "Surface 0"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#45475a"
+name = "Surface 1"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#585b70"
+name = "Surface 2"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#6c7086"
+name = "Overlay 0"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#7f849c"
+name = "Overlay 1"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#9399b2"
+name = "Overlay 2"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#a6adc8"
+name = "Subtext 0"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#bac2de"
+name = "Subtext 1"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#cdd6f4"
+name = "Text"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#b4befe"
+name = "Lavender"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#89b4fa"
+name = "Blue"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#74c7ec"
+name = "Sapphire"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#89dceb"
+name = "Sky"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#94e2d5"
+name = "Teal"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#a6e3a1"
+name = "Green"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#f9e2af"
+name = "Yellow"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#fab387"
+name = "Peach"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#eba0ac"
+name = "Maroon"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#f38ba8"
+name = "Red"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#cba6f7"
+name = "Mauve"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#f5c2e7"
+name = "Pink"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#f2cdcd"
+name = "Flamingo"
+accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#f5e0dc"
+name = "Rosewater"
+accent = true

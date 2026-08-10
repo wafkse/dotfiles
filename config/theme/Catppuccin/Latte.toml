@@ -1,0 +1,141 @@
+#:schema ../../schema/Universe.toml.schema.json
+
+# ==============================================================================
+# CATPPUCCIN LATTE
+# ==============================================================================
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+[default.Theme.'Catppuccin Latte']
+family = "Catppuccin"
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#dce0e8"
+name = "Crust"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#e6e9ef"
+name = "Mantle"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#eff1f5"
+name = "Base"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#ccd0da"
+name = "Surface 0"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#bcc0cc"
+name = "Surface 1"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#acb0be"
+name = "Surface 2"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#9ca0b0"
+name = "Overlay 0"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#8c8fa1"
+name = "Overlay 1"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#7c7f93"
+name = "Overlay 2"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#6c6f85"
+name = "Subtext 0"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#5c5f77"
+name = "Subtext 1"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#4c4f69"
+name = "Text"
+accent = false
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#7287fd"
+name = "Lavender"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#1e66f5"
+name = "Blue"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#209fb5"
+name = "Sapphire"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#04a5e5"
+name = "Sky"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#179299"
+name = "Teal"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#40a02b"
+name = "Green"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#df8e1d"
+name = "Yellow"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#fe640b"
+name = "Peach"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#e64553"
+name = "Maroon"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#d20f39"
+name = "Red"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#8839ef"
+name = "Mauve"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#ea76cb"
+name = "Pink"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#dd7878"
+name = "Flamingo"
+accent = true
+
+[[default.Theme.'Catppuccin Latte'.Palette]]
+color = "#dc8a78"
+name = "Rosewater"
+accent = true

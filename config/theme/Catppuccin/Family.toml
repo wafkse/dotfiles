@@ -1,0 +1,127 @@
+#:schema ../../schema/Universe.toml.schema.json
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+# ==============================================================================
+# FAMILY OVERRIDE: CATPPUCCIN
+# Shared by every flavor tagged `family = "Catppuccin"`. Values are palette role
+# names, resolved per-flavor against that flavor's Palette.
+# ==============================================================================
+
+[default.Theme.FamilyOverride.Catppuccin.Ghostty]
+background = "Base"
+foreground = "Text"
+cursor-color = "Rosewater"
+cursor-text = "Base"
+selection-background = "Surface 2"
+selection-foreground = "Rosewater"
+palette = [
+  "Surface 1",
+  "Red",
+  "Green",
+  "Yellow",
+  "Blue",
+  "Pink",
+  "Teal",
+  "Subtext 1",
+  "Surface 2",
+  "Red",
+  "Green",
+  "Yellow",
+  "Blue",
+  "Pink",
+  "Teal",
+  "Subtext 0",
+]
+
+[default.Theme.FamilyOverride.Catppuccin.Fuzzel]
+background = "Base"
+text = "Text"
+prompt = "Subtext 1"
+placeholder = "Overlay 1"
+input = "Text"
+match = "Rosewater"
+selection = "Surface 2"
+selection-text = "Text"
+selection-match = "Rosewater"
+counter = "Overlay 1"
+border = "Mauve"
+
+[default.Theme.FamilyOverride.Catppuccin.Niri]
+focus-ring-active = "Rosewater"
+focus-ring-inactive = "Surface 1"
+focus-ring-urgent = "Red"
+border-active = "Mauve"
+border-inactive = "Surface 1"
+border-urgent = "Red"
+shadow-active = "Crust"
+shadow-inactive = "Crust"
+tab-indicator-active = "Rosewater"
+tab-indicator-inactive = "Surface 1"
+tab-indicator-urgent = "Red"
+
+[default.Theme.FamilyOverride.Catppuccin.Waybar]
+primary-background = "Crust"
+primary-foreground = "Text"
+primary-accent = "Rosewater"
+tooltip-background = "Base"
+tooltip-foreground = "Text"
+tooltip-border = "Rosewater"
+workspace-background = "Mantle"
+workspace-foreground = "Subtext 0"
+workspace-button-hover-background = "Surface 0"
+workspace-button-hover-foreground = "Text"
+workspace-button-select-background = "Mantle"
+workspace-button-select-foreground = "Lavender"
+idle-background = "Mantle"
+idle-foreground = "Peach"
+privacy-background = "Mantle"
+privacy-foreground = "Red"
+window-background = "Mantle"
+window-foreground = "Sapphire"
+load-background = "Mantle"
+load-foreground = "Green"
+cpu-background = "Mantle"
+cpu-foreground = "Yellow"
+memory-background = "Mantle"
+memory-foreground = "Blue"
+memory-state-warning = "Peach"
+memory-state-critical = "Red"
+temp-background = "Mantle"
+temp-foreground = "Teal"
+temp-state-critical = "Red"
+tray-background = "Mantle"
+tray-foreground = "Text"
+audio-background = "Mantle"
+audio-foreground = "Sapphire"
+audio-hover-background = "Surface 0"
+bluetooth-background = "Mantle"
+bluetooth-foreground = "Blue"
+network-background = "Mantle"
+network-foreground = "Lavender"
+clock-background = "Mantle"
+clock-foreground = "Mauve"
+
+[default.Theme.FamilyOverride.Catppuccin.Dunst]
+global-separator = "Surface 2"
+low-background = "Base"
+low-foreground = "Subtext 0"
+low-frame = "Surface 1"
+low-highlight = "Blue"
+normal-background = "Base"
+normal-foreground = "Text"
+normal-frame = "Rosewater"
+normal-highlight = "Rosewater"
+critical-background = "Base"
+critical-foreground = "Text"
+critical-frame = "Red"
+critical-highlight = "Peach"
+
+[default.Theme.FamilyOverride.Catppuccin.Sway]
+background = "Base"
+focused = { border = "Mauve", background = "Mauve", text = "Base", indicator = "Rosewater", child_border = "Mauve" }
+focused_inactive = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+unfocused = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }
+urgent = { border = "Red", background = "Red", text = "Base", indicator = "Red", child_border = "Red" }
+placeholder = { border = "Surface 1", background = "Surface 1", text = "Text", indicator = "Surface 1", child_border = "Surface 1" }

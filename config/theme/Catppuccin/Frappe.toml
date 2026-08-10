@@ -1,0 +1,141 @@
+#:schema ../../schema/Universe.toml.schema.json
+
+# ==============================================================================
+# CATPPUCCIN FRAPPE
+# ==============================================================================
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+[default.Theme.'Catppuccin Frappe']
+family = "Catppuccin"
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#232634"
+name = "Crust"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#292c3c"
+name = "Mantle"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#303446"
+name = "Base"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#414559"
+name = "Surface 0"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#51576d"
+name = "Surface 1"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#626880"
+name = "Surface 2"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#737994"
+name = "Overlay 0"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#838ba7"
+name = "Overlay 1"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#949cbb"
+name = "Overlay 2"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#a5adce"
+name = "Subtext 0"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#b5bfe2"
+name = "Subtext 1"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#c6d0f5"
+name = "Text"
+accent = false
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#babbf1"
+name = "Lavender"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#8caaee"
+name = "Blue"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#85c1dc"
+name = "Sapphire"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#99d1db"
+name = "Sky"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#81c8be"
+name = "Teal"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#a6d189"
+name = "Green"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#e5c890"
+name = "Yellow"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#ef9f76"
+name = "Peach"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#ea999c"
+name = "Maroon"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#e78284"
+name = "Red"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#ca9ee6"
+name = "Mauve"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#f4b8e4"
+name = "Pink"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#eebebe"
+name = "Flamingo"
+accent = true
+
+[[default.Theme.'Catppuccin Frappe'.Palette]]
+color = "#f2d5cf"
+name = "Rosewater"
+accent = true
