@@ -1,0 +1,13 @@
+{#- NOTE: This shebang is expressed like the following to omit it for shellcheck style-checking. -#}
+{{ "#!/usr/bin/env bash" }}
+
+window_id=$(niri msg --json focused-window | jq -r '.id // empty')
+[ -n "$window_id" ] || exit 0
+
+zenity \
+    --question \
+    --title="Close window?" \
+    --text="Close the selected window?" \
+    --ok-label="Close" \
+    --cancel-label="Cancel" \
+&& niri msg action close-window --id "$window_id"
