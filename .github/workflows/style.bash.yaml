@@ -25,4 +25,26 @@ jobs:
             - name: Initial Setup
               run: sudo apt update && sudo apt install shellcheck
 
-            - run: shellcheck --shell=bash $(git grep --color=never --cached -l '^#!/usr/bin/env bash$')
+            - name: Lint tracked Bash scripts
+              shell: bash
+              run: |
+                  mapfile -t bash_files < <(git grep --color=never --cached -l '^#!/usr/bin/env bash$' || true)
+                  if (( ${#bash_files[@]} )); then
+                      shellcheck --shell=bash "${bash_files[@]}"
+                  fi
+
+            - name: Lint rendered action scripts
+              shell: bash
+              run: |
+                  action_dir="$(mktemp -d)"
+                  trap 'rm -rf "$action_dir"' EXIT
+
+                  for template in dist/template/.action/*.jinja; do
+                      output="$action_dir/$(basename "${template%.jinja}")"
+                      {
+                          printf '%s\n' '#!/usr/bin/env bash'
+                          tail -n +3 "$template"
+                      } > "$output"
+                  done
+
+                  shellcheck --shell=bash "$action_dir"/*
