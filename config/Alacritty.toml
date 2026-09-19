@@ -1,0 +1,38 @@
+#:schema schema/Universe.toml.schema.json
+
+# ==============================================================================
+# ALACRITTY CONFIGURATION
+# ==============================================================================
+# Ghostty options without a direct Alacritty 0.17 equivalent are intentionally
+# omitted here: font-feature, font-thicken, percentage-based cell-height
+# adjustment, scrollbar, shell-integration, and quit-after-last-window-closed.
+
+[default.Alacritty.general]
+ipc-socket = true
+
+[default.Alacritty.font]
+normal = { family = "JetBrainsMono Nerd Font" }
+size = 12
+
+[default.Alacritty.window]
+padding = { x = 8, y = 8 }
+dynamic-padding = true
+decorations = "Full"
+decorations-theme-variant = "None"
+opacity = 1
+blur = true
+
+[default.Alacritty.cursor]
+style = { shape = "Block", blinking = "On" }
+
+[default.Alacritty.mouse]
+hide-when-typing = true
+
+[default.Alacritty.selection]
+save-to-clipboard = true
+
+[default.Alacritty.terminal]
+osc52 = "CopyPaste"
+
+[default.Alacritty.keyboard]
+bindings = []

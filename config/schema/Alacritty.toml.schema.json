@@ -1,0 +1,452 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Alacritty.toml.schema.json",
+    "title": "Alacritty Configuration Schema",
+    "description": "Full comfiguration schema for Alacritty to be configured via Mirage.",
+    "type": "object",
+    "properties": {
+        "general": {
+            "type": "object",
+            "properties": {
+                "import": { "type": "array", "items": { "type": "string" } },
+                "working-directory": { "type": "string" },
+                "live-config-reload": { "type": "boolean" },
+                "ipc-socket": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        },
+        "env": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+        },
+        "font": {
+            "type": "object",
+            "properties": {
+                "normal": { "$ref": "#/$defs/fontFace" },
+                "bold": { "$ref": "#/$defs/fontFace" },
+                "italic": { "$ref": "#/$defs/fontFace" },
+                "bold-italic": { "$ref": "#/$defs/fontFace" },
+                "size": { "type": "number", "exclusiveMinimum": 0 },
+                "offset": { "$ref": "#/$defs/xyInteger" },
+                "glyph-offset": { "$ref": "#/$defs/xyInteger" },
+                "builtin-box-drawing": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        },
+        "window": {
+            "type": "object",
+            "properties": {
+                "dimensions": {
+                    "type": "object",
+                    "properties": {
+                        "columns": { "type": "integer", "minimum": 0 },
+                        "lines": { "type": "integer", "minimum": 0 }
+                    },
+                    "required": ["columns", "lines"],
+                    "additionalProperties": false
+                },
+                "position": {
+                    "oneOf": [
+                        { "type": "string", "enum": ["None"] },
+                        { "$ref": "#/$defs/xyInteger" }
+                    ]
+                },
+                "padding": { "$ref": "#/$defs/xyNonNegativeInteger" },
+                "dynamic-padding": { "type": "boolean" },
+                "decorations": {
+                    "type": "string",
+                    "enum": ["Full", "None", "Transparent", "Buttonless"]
+                },
+                "decorations-theme-variant": {
+                    "type": "string",
+                    "enum": ["Dark", "Light", "None"]
+                },
+                "opacity": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "blur": { "type": "boolean" },
+                "startup-mode": {
+                    "type": "string",
+                    "enum": ["Windowed", "Maximized", "Fullscreen", "SimpleFullscreen"]
+                },
+                "title": { "type": "string" },
+                "dynamic-title": { "type": "boolean" },
+                "class": {
+                    "type": "object",
+                    "properties": {
+                        "instance": { "type": "string" },
+                        "general": { "type": "string" }
+                    },
+                    "additionalProperties": false
+                },
+                "resize-increments": { "type": "boolean" },
+                "option-as-alt": {
+                    "type": "string",
+                    "enum": ["OnlyLeft", "OnlyRight", "Both", "None"]
+                },
+                "level": {
+                    "type": "string",
+                    "enum": ["Normal", "AlwaysOnTop"]
+                }
+            },
+            "additionalProperties": false
+        },
+        "scrolling": {
+            "type": "object",
+            "properties": {
+                "history": { "type": "integer", "minimum": 0, "maximum": 100000 },
+                "multiplier": { "type": "integer", "minimum": 0 }
+            },
+            "additionalProperties": false
+        },
+        "colors": {
+            "type": "object",
+            "properties": {
+                "primary": {
+                    "type": "object",
+                    "properties": {
+                        "foreground": { "type": "string" },
+                        "background": { "type": "string" },
+                        "dim-foreground": { "type": "string" },
+                        "bright-foreground": { "type": "string" }
+                    },
+                    "additionalProperties": false
+                },
+                "cursor": { "$ref": "#/$defs/cursorColorPair" },
+                "vi-mode-cursor": { "$ref": "#/$defs/cursorColorPair" },
+                "search": {
+                    "type": "object",
+                    "properties": {
+                        "matches": { "$ref": "#/$defs/colorPair" },
+                        "focused-match": { "$ref": "#/$defs/colorPair" }
+                    },
+                    "additionalProperties": false
+                },
+                "hints": {
+                    "type": "object",
+                    "properties": {
+                        "start": { "$ref": "#/$defs/colorPair" },
+                        "end": { "$ref": "#/$defs/colorPair" }
+                    },
+                    "additionalProperties": false
+                },
+                "line-indicator": { "$ref": "#/$defs/colorPair" },
+                "footer-bar": { "$ref": "#/$defs/colorPair" },
+                "selection": { "$ref": "#/$defs/selectionColorPair" },
+                "normal": { "$ref": "#/$defs/ansiColors" },
+                "bright": { "$ref": "#/$defs/ansiColors" },
+                "dim": { "$ref": "#/$defs/ansiColors" },
+                "indexed-colors": {
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/indexedColor" }
+                },
+                "transparent-background-colors": { "type": "boolean" },
+                "draw-bold-text-with-bright-colors": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        },
+        "bell": {
+            "type": "object",
+            "properties": {
+                "animation": {
+                    "type": "string",
+                    "enum": [
+                        "Ease",
+                        "EaseOut",
+                        "EaseOutSine",
+                        "EaseOutQuad",
+                        "EaseOutCubic",
+                        "EaseOutQuart",
+                        "EaseOutQuint",
+                        "EaseOutExpo",
+                        "EaseOutCirc",
+                        "Linear"
+                    ]
+                },
+                "duration": { "type": "integer", "minimum": 0 },
+                "color": { "type": "string" },
+                "command": { "$ref": "#/$defs/command" }
+            },
+            "additionalProperties": false
+        },
+        "cursor": {
+            "type": "object",
+            "properties": {
+                "style": { "$ref": "#/$defs/cursorStyle" },
+                "vi-mode-style": {
+                    "oneOf": [
+                        { "$ref": "#/$defs/cursorStyle" },
+                        { "type": "string", "enum": ["None"] }
+                    ]
+                },
+                "blink-interval": { "type": "integer", "minimum": 0 },
+                "blink-timeout": { "type": "integer", "minimum": 0 },
+                "unfocused-hollow": { "type": "boolean" },
+                "thickness": { "type": "number", "minimum": 0, "maximum": 1 }
+            },
+            "additionalProperties": false
+        },
+        "mouse": {
+            "type": "object",
+            "properties": {
+                "hide-when-typing": { "type": "boolean" },
+                "bindings": {
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/mouseBinding" }
+                }
+            },
+            "additionalProperties": false
+        },
+        "selection": {
+            "type": "object",
+            "properties": {
+                "semantic-escape-chars": { "type": "string" },
+                "save-to-clipboard": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        },
+        "terminal": {
+            "type": "object",
+            "properties": {
+                "shell": { "$ref": "#/$defs/command" },
+                "osc52": {
+                    "type": "string",
+                    "enum": ["Disabled", "OnlyCopy", "OnlyPaste", "CopyPaste"]
+                }
+            },
+            "additionalProperties": false
+        },
+        "hints": {
+            "type": "object",
+            "properties": {
+                "alphabet": { "type": "string" },
+                "enabled": {
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/hint" }
+                }
+            },
+            "additionalProperties": false
+        },
+        "keyboard": {
+            "type": "object",
+            "properties": {
+                "bindings": {
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/keyBinding" }
+                }
+            },
+            "additionalProperties": false
+        },
+        "debug": {
+            "type": "object",
+            "properties": {
+                "render-timer": { "type": "boolean" },
+                "persistent-logging": { "type": "boolean" },
+                "log-level": {
+                    "type": "string",
+                    "enum": ["Off", "Error", "Warn", "Info", "Debug", "Trace"]
+                },
+                "renderer": {
+                    "type": "string",
+                    "enum": ["glsl3", "gles2", "gles2pure", "None"]
+                },
+                "print-events": { "type": "boolean" },
+                "highlight-damage": { "type": "boolean" },
+                "prefer-egl": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false,
+    "$defs": {
+        "fontFace": {
+            "type": "object",
+            "properties": {
+                "family": { "type": "string" },
+                "style": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+        "xyInteger": {
+            "type": "object",
+            "properties": {
+                "x": { "type": "integer" },
+                "y": { "type": "integer" }
+            },
+            "required": ["x", "y"],
+            "additionalProperties": false
+        },
+        "xyNonNegativeInteger": {
+            "type": "object",
+            "properties": {
+                "x": { "type": "integer", "minimum": 0 },
+                "y": { "type": "integer", "minimum": 0 }
+            },
+            "required": ["x", "y"],
+            "additionalProperties": false
+        },
+        "command": {
+            "oneOf": [
+                { "type": "string" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "program": { "type": "string" },
+                        "args": {
+                            "type": "array",
+                            "items": { "type": "string" }
+                        }
+                    },
+                    "required": ["program"],
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "cursorStyle": {
+            "type": "object",
+            "properties": {
+                "shape": {
+                    "type": "string",
+                    "enum": ["Block", "Underline", "Beam"]
+                },
+                "blinking": {
+                    "type": "string",
+                    "enum": ["Never", "Off", "On", "Always"]
+                }
+            },
+            "additionalProperties": false
+        },
+        "colorPair": {
+            "type": "object",
+            "properties": {
+                "foreground": { "type": "string" },
+                "background": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+        "selectionColorPair": {
+            "type": "object",
+            "properties": {
+                "text": { "type": "string" },
+                "background": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+        "cursorColorPair": {
+            "type": "object",
+            "properties": {
+                "text": { "type": "string" },
+                "cursor": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+        "ansiColors": {
+            "type": "object",
+            "properties": {
+                "black": { "type": "string" },
+                "red": { "type": "string" },
+                "green": { "type": "string" },
+                "yellow": { "type": "string" },
+                "blue": { "type": "string" },
+                "magenta": { "type": "string" },
+                "cyan": { "type": "string" },
+                "white": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+        "indexedColor": {
+            "type": "object",
+            "properties": {
+                "index": { "type": "integer", "minimum": 0, "maximum": 255 },
+                "color": { "type": "string" }
+            },
+            "required": ["index", "color"],
+            "additionalProperties": false
+        },
+        "keyBinding": {
+            "type": "object",
+            "properties": {
+                "key": { "type": ["string", "integer"] },
+                "mods": { "type": "string" },
+                "mode": { "type": "string" },
+                "command": { "$ref": "#/$defs/command" },
+                "chars": { "type": "string" },
+                "action": { "type": "string" }
+            },
+            "required": ["key"],
+            "additionalProperties": false
+        },
+        "mouseBinding": {
+            "type": "object",
+            "properties": {
+                "mouse": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "enum": ["Middle", "Left", "Right", "Back", "Forward", "WheelUp", "WheelDown"]
+                        },
+                        { "type": "integer", "minimum": 0 }
+                    ]
+                },
+                "mods": { "type": "string" },
+                "mode": { "type": "string" },
+                "command": { "$ref": "#/$defs/command" },
+                "chars": { "type": "string" },
+                "action": { "type": "string" }
+            },
+            "required": ["mouse"],
+            "additionalProperties": false
+        },
+        "hintBinding": {
+            "type": "object",
+            "properties": {
+                "key": { "type": "string" },
+                "mods": { "type": "string" },
+                "mode": { "type": "string" }
+            },
+            "required": ["key"],
+            "additionalProperties": false
+        },
+        "hintMouse": {
+            "type": "object",
+            "properties": {
+                "mods": { "type": "string" },
+                "enabled": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        },
+        "hint": {
+            "type": "object",
+            "properties": {
+                "regex": { "type": "string" },
+                "hyperlinks": { "type": "boolean" },
+                "post-processing": { "type": "boolean" },
+                "persist": { "type": "boolean" },
+                "action": {
+                    "type": "string",
+                    "enum": ["Copy", "Paste", "Select", "MoveViModeCursor"]
+                },
+                "command": { "$ref": "#/$defs/command" },
+                "binding": { "$ref": "#/$defs/hintBinding" },
+                "mouse": { "$ref": "#/$defs/hintMouse" }
+            },
+            "allOf": [
+                {
+                    "anyOf": [
+                        { "required": ["regex"] },
+                        { "required": ["hyperlinks"] }
+                    ]
+                },
+                {
+                    "anyOf": [
+                        { "required": ["action"] },
+                        { "required": ["command"] }
+                    ]
+                }
+            ],
+            "additionalProperties": false
+        }
+    }
+}
