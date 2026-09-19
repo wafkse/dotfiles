@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+set -eu
+
+# This file is stowed into ~/.config but invoked through a symlink under
+# $PREFIX/var/service. Resolve the real file first so the repository root can
+# be derived without assuming the dotfiles live at ~/.dotfiles.
+RUN_PATH="$(realpath -e "$0")"
+DOTFILES_PATH="$(realpath -e "$(dirname "$RUN_PATH")/../../../../..")"
+
+exec mirage -C "$DOTFILES_PATH/config" -T "$DOTFILES_PATH/dist/template"
