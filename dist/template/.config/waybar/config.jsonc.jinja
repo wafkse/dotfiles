@@ -1,4 +1,6 @@
-{#- NOTE: The configuration matches the JSON exactly, so we can simply re-serialize. -#}
+{#- NOTE: Mirage-facing TOML uses kebab-case; translate Waybar's underscore-native keys. -#}
 {%- if Waybar is defined -%}
-{{ Waybar | tojson(indent=2) }}
+{{ Waybar | tojson(indent=2)
+    | replace('"reload-style-on-change":', '"reload_style_on_change":')
+    | replace('"idle-inhibitor":', '"idle_inhibitor":') }}
 {%- endif -%}

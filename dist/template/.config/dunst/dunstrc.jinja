@@ -10,17 +10,17 @@
 {%- for Key, Value in SectionTree | items %}
     {%- if Value is sequence %}
         {%- for item in Value %}
-{{ Key }} = "{{ item }}"
+{{ Key | replace("-", "_") }} = "{{ item }}"
         {%- endfor %}
     {%- elif Value is string %}
         {# Dunst strictly requires quotes for strings to prevent '#' from being parsed as a comment #}
-{{ Key }} = "{{ Value | replace("\n", "\\n") }}"
+{{ Key | replace("-", "_") }} = "{{ Value | replace("\n", "\\n") }}"
     {%- elif Value is number %}
         {# Numbers (checked before booleans: minijinja coerces 1 == true) #}
-{{ Key }} = {{ Value }}
+{{ Key | replace("-", "_") }} = {{ Value }}
     {%- else %}
         {# Dunst expects literal true/false strings for booleans #}
-{{ Key }} = {% if Value %}true{% else %}false{% endif %}
+{{ Key | replace("-", "_") }} = {% if Value %}true{% else %}false{% endif %}
     {%- endif %}
 {%- endfor %}
 
