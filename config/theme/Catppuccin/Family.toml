@@ -35,6 +35,30 @@ palette = [
   "Subtext 0",
 ]
 
+[default.Theme.FamilyOverride.Catppuccin.Alacritty]
+background = "Base"
+foreground = "Text"
+cursor = "Rosewater"
+cursor-text = "Base"
+selection-background = "Surface 2"
+selection-text = "Rosewater"
+normal-black = "Surface 1"
+normal-red = "Red"
+normal-green = "Green"
+normal-yellow = "Yellow"
+normal-blue = "Blue"
+normal-magenta = "Pink"
+normal-cyan = "Teal"
+normal-white = "Subtext 1"
+bright-black = "Surface 2"
+bright-red = "Red"
+bright-green = "Green"
+bright-yellow = "Yellow"
+bright-blue = "Blue"
+bright-magenta = "Pink"
+bright-cyan = "Teal"
+bright-white = "Subtext 0"
+
 [default.Theme.FamilyOverride.Catppuccin.Fuzzel]
 background = "Base"
 text = "Text"

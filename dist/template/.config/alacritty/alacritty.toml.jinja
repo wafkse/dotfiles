@@ -1,0 +1,64 @@
+{# Alacritty uses snake_case; Mirage-facing TOML uses kebab-case. #}
+{% macro TomlKey(Key) -%}{{ Key | replace("-", "_") }}{%- endmacro %}
+
+{% macro TomlValue(Value) -%}
+{%- if Value is mapping -%}
+{ {%- for Key, Item in Value | items %}{{ TomlKey(Key) }} = {{ TomlValue(Item) }}{% if not loop.last %}, {% endif %}{% endfor -%} }
+{%- elif Value is string -%}
+{{ Value | tojson }}
+{%- elif Value is sequence -%}
+[{%- for Item in Value %}{{ TomlValue(Item) }}{% if not loop.last %}, {% endif %}{% endfor -%}]
+{%- elif Value is number -%}
+{{ Value }}
+{%- else -%}
+{% if Value %}true{% else %}false{% endif %}
+{%- endif -%}
+{%- endmacro %}
+
+{% macro EmitTable(Path, Tree) -%}
+[{{ Path }}]
+{%- for Key, Value in Tree | items %}
+{%- if Value is not mapping %}
+{{ TomlKey(Key) }} = {{ TomlValue(Value) }}
+{%- endif %}
+{%- endfor %}
+{%- for Key, Value in Tree | items %}
+{%- if Value is mapping %}
+
+{{ EmitTable(Path ~ "." ~ TomlKey(Key), Value) }}
+{%- endif %}
+{%- endfor %}
+{%- endmacro %}
+
+# Configuration for Alacritty
+
+[general]
+import = ["themes/default.toml"{% if Alacritty.general is defined and Alacritty.general.import is defined %}{% for Import in Alacritty.general.import %}, {{ Import | tojson }}{% endfor %}{% endif %}]
+{% if Alacritty.general is defined -%}
+{% for Key, Value in Alacritty.general | items -%}
+{% if Key != "import" -%}
+{{ TomlKey(Key) }} = {{ TomlValue(Value) }}
+{% endif -%}
+{% endfor -%}
+{% endif %}
+
+{% if Alacritty.env is defined -%}
+[env]
+{% for Key, Value in Alacritty.env | items -%}
+{{ Key }} = {{ TomlValue(Value) }}
+{% endfor %}
+{% endif -%}
+
+{#
+    These sections are rendered explicitly above instead of through EmitTable:
+    - general injects the managed theme import before user-provided imports.
+    - env preserves environment variable names verbatim instead of converting
+      kebab-case keys to Alacritty's snake_case spelling.
+#}
+{% set ExplicitSections = ["general", "env"] -%}
+{% for SectionName, SectionTree in Alacritty | items -%}
+{% if SectionName not in ExplicitSections -%}
+{{ EmitTable(TomlKey(SectionName), SectionTree) }}
+
+{% endif -%}
+{% endfor -%}

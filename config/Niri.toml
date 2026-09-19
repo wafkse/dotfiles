@@ -150,8 +150,10 @@ clip-to-geometry = true
 show-hotkey-overlay = true
 
 [default.Niri.Keybinds.'Mod+T']
-hotkey-overlay-title = "Open a Terminal: ghostty"
-spawn = ["ghostty"]
+hotkey-overlay-title = "Open a Terminal: alacritty"
+# Reuse an existing Alacritty process when possible; start the first process
+# when no IPC socket exists yet.
+spawn-sh = "alacritty msg create-window 2>/dev/null || exec alacritty"
 
 [default.Niri.Keybinds.'Mod+D']
 hotkey-overlay-title = "Run an Application: fuzzel"

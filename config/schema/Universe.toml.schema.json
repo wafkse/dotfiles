@@ -21,6 +21,7 @@
                 "Waybar": { "$ref": "Waybar.toml.schema.json" },
                 "Fuzzel": { "$ref": "Fuzzel.toml.schema.json" },
                 "Ghostty": { "$ref": "Ghostty.toml.schema.json" },
+                "Alacritty": { "$ref": "Alacritty.toml.schema.json" },
                 "Dunst": { "$ref": "Dunst.toml.schema.json" }
             },
             "additionalProperties": false
