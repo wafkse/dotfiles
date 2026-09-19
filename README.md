@@ -52,6 +52,8 @@ Afterwards, re-login to the user, the complete environment should start automati
 
 These dotfiles are managed by `mirage`, which allow dynamic system-wide theming of terminal- and compositor-based user sessions.
 
+Mirage-facing TOML configuration keys use kebab-case. Templates translate those keys to an application's native spelling when its configuration format requires something else.
+
 # License
 
 **All** files under this repository are licensed under the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) license.

@@ -4,7 +4,7 @@
 layer = "top"
 position = "top"
 mode = "dock"
-reload_style_on_change = true
+reload-style-on-change = true
 height = 24
 spacing = 4
 
@@ -28,7 +28,7 @@ format = "{icon}"
 active = ""
 default = ""
 
-[default.Waybar.idle_inhibitor]
+[default.Waybar.idle-inhibitor]
 format = "{icon} "
 format-icons = { activated = "", deactivated = "" }
 tooltip = true
