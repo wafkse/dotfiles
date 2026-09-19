@@ -191,6 +191,25 @@ export "${EXPORT_LIST[@]}"
 
 case $- in
   *i*)
+    if [[ -n "${TERMUX_VERSION:-}" ]]; then
+        TERMUX_SERVICE_ROOT="${SVDIR:-${PREFIX:-}/var/service}"
+        TERMUX_MIRAGE_RUN="${XDG_CONFIG_HOME:-$HOME/.config}/termux-services/mirage/run"
+
+        # Termux uses runit through termux-services instead of a systemd user
+        # session. Link the stowed Mirage service into runit's supervised
+        # directory, then ask the service runner to bring it up. This branch
+        # intentionally runs before every systemctl/DBus activation update.
+        if [[ -n "${PREFIX:-}" ]] && hash sv 2>/dev/null && [[ -x "$TERMUX_MIRAGE_RUN" ]]; then
+            mkdir -p "$TERMUX_SERVICE_ROOT/mirage"
+
+            ln -sfn "$TERMUX_MIRAGE_RUN" "$TERMUX_SERVICE_ROOT/mirage/run"
+
+            sv up "$TERMUX_SERVICE_ROOT/mirage"
+        fi
+
+        exec bash
+    fi
+
     systemctl --user import-environment "${EXPORT_LIST[@]}"
 
     if hash dbus-update-activation-environment 2>/dev/null; then
@@ -205,7 +224,7 @@ case $- in
         systemctl --user unset-environment WAYLAND_DISPLAY DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP NIRI_SOCKET
 
         exit
-    elif [[ -n "$SSH_CONNECTION" ]] || [[ -n "$TERMUX_VERSION" ]]; then
+    elif [[ -n "$SSH_CONNECTION" ]]; then
         exec bash
     else
         exec tmux new "-As${USER:-default}"

@@ -6,6 +6,10 @@ This is a repository containing the configuration for my personal Linux machines
 
 To install these sets of *dotfiles*, the `stow` and `mirage` utilities must be installed.
 
+On Termux, `termux-services` must also be installed. The shell profile links the
+stowed Mirage run script into `$PREFIX/var/service/mirage` and starts it with
+Termux's runit-based service runner instead of using a systemd user service.
+
 For the desktop, the following must be installed:
 
 * `niri`
