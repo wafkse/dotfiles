@@ -1,0 +1,78 @@
+# CS2 cinematic screen-space pipeline for vkBasalt 0.3.2.x.
+# Mirage profile: Applications.VkBasalt.profile = "cinematic"
+#
+# Only effects implemented by this packaged vkBasalt build are used. The
+# unavailable ReShade collections are deliberately not referenced.
+# Processing order is significant and runs left-to-right.
+
+effects = smaa:deband:lightroom:selective:bloom:lut:ca:grain:vignette:dls
+enableOnLaunch = True
+depthCapture = off
+
+# ReShade shader roots discovered on this system.
+reshadeIncludePath = /opt/reshade/shaders
+reshadeTexturePath = /opt/reshade/textures
+
+# Explicit effect names are required by vkBasalt for external FX files.
+lightroom = /opt/reshade/shaders/qUINT/qUINT_lightroom.fx
+selective = /opt/reshade/shaders/PD80/PD80_04_Selective_Color.fx
+bloom = /opt/reshade/shaders/qUINT/qUINT_bloom.fx
+ca = /opt/reshade/shaders/SweetFX/ChromaticAberration.fx
+grain = /opt/reshade/shaders/SweetFX/FilmGrain.fx
+vignette = /opt/reshade/shaders/SweetFX/Vignette.fx
+
+# Primary AA. Tuned for CS2 without MSAA.
+smaaEdgeDetection = color
+smaaThreshold = 0.065
+smaaMaxSearchSteps = 32
+smaaMaxSearchStepsDiag = 16
+smaaCornerRounding = 22
+
+# qUINT Lightroom: restrained contrast, lifted useful midtones, warm bias,
+# and reduced green saturation before the 3D LUT.
+LIGHTROOM_GLOBAL_CONTRAST = 0.06
+LIGHTROOM_GLOBAL_SATURATION = -0.03
+LIGHTROOM_GLOBAL_VIBRANCE = 0.08
+LIGHTROOM_GLOBAL_TEMPERATURE = 0.03
+LIGHTROOM_GLOBAL_TINT = -0.02
+LIGHTROOM_GLOBAL_HIGHLIGHTS_CURVE = -0.04
+
+# PD80 Selective Color: reduce the unpleasant green cast while retaining
+# cyan shadows and warm yellow/orange highlights. Names include the shader's
+# namespace as emitted by the ReShade compiler.
+pd80_selectivecolor.g_adj_yel = -0.10
+pd80_selectivecolor.g_adj_sat = -0.08
+pd80_selectivecolor.c_adj_cya = 0.04
+pd80_selectivecolor.y_adj_yel = 0.05
+pd80_selectivecolor.y_adj_sat = 0.03
+
+# qUINT Bloom: bright-source-only, deliberately restrained.
+BLOOM_INTENSITY = 0.38
+BLOOM_CURVE = 2.5
+BLOOM_SAT = 1.0
+BLOOM_ADAPT_STRENGTH = 0.20
+
+# SweetFX lens character. vkBasalt 0.3.2 does not accept float2 config
+# overrides, so the shader's default shift is retained and strength is low.
+Strength = 0.08
+
+# Fine animated grain, below the visibility threshold of a normal game frame.
+Intensity = 0.075
+Variance = 0.22
+Mean = 0.5
+SignalToNoiseRatio = 8
+
+# Restrained edge falloff.
+Type = 0
+Ratio = 1.7778
+Radius = 2.4
+Amount = -0.12
+Slope = 4
+
+# Filmic teal/amber grade. This is the existing Mirage-managed 33^3 LUT.
+lutFile = ../../../../../../../../../.config/vkBasalt/luts/blade-runner.cube
+
+# Final detail restoration after AA, debanding, and grading.
+# CAS is intentionally omitted so sharpening is not stacked.
+dlsSharpness = 0.34
+dlsDenoise = 0.32

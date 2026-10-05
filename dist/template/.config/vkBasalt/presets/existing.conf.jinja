@@ -1,0 +1,44 @@
+# ~/.config/vkBasalt/vkBasalt.conf
+
+# Order matters:
+# 1. AA the original image
+# 2. apply color grading
+# 3. restore a little detail
+
+effects = smaa:lut:cas
+
+enableOnLaunch = True
+
+# -------------------------
+# SMAA
+# -------------------------
+
+# color catches more chromatic edges than luma
+smaaEdgeDetection = color
+
+# Lower = more aggressive.
+# 0.05 is very aggressive; 0.10 is the usual baseline.
+smaaThreshold = 0.065
+
+# Ultra-quality search
+smaaMaxSearchSteps = 32
+smaaMaxSearchStepsDiag = 16
+
+# Keeps corners from looking excessively rounded
+smaaCornerRounding = 20
+
+
+# -------------------------
+# LUT
+# -------------------------
+
+lutFile = ../../../../../../../../../.config/vkBasalt/luts/blade-runner.cube
+
+
+# -------------------------
+# CAS
+# -------------------------
+
+# SMAA softens the image slightly, so sharpen afterwards.
+# Keep this low for CS2 — high CAS gets ugly on fences/textures.
+casSharpness = 0.18

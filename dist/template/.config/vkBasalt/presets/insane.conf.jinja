@@ -1,0 +1,82 @@
+# CS2 insane cinematic preset for vkBasalt 0.3.2.x.
+# Deliberately stylized: dual bloom, red halation, technicolor separation,
+# chromatic lens distortion, grain, vignette, and final DLS.
+# No depth-dependent effects are used.
+
+effects = smaa:deband:lightroom:selective:bloom:halation:orton:technicolor:ca:grain:dls
+enableOnLaunch = True
+depthCapture = off
+
+reshadeIncludePath = /opt/reshade/shaders
+reshadeTexturePath = /opt/reshade/textures
+
+lightroom = /opt/reshade/shaders/qUINT/qUINT_lightroom.fx
+selective = /opt/reshade/shaders/PD80/PD80_04_Selective_Color.fx
+bloom = /opt/reshade/shaders/qUINT/qUINT_bloom.fx
+halation = /opt/reshade/shaders/GShade-Shaders/Halation.fx
+orton = /opt/reshade/shaders/GShade-Shaders/OrtonBloom.fx
+technicolor = /opt/reshade/shaders/SweetFX/Technicolor2.fx
+ca = /opt/reshade/shaders/FXShaders/FlexibleCA.fx
+grain = /opt/reshade/shaders/SweetFX/FilmGrain.fx
+vignette = /opt/reshade/shaders/FXShaders/ArtisticVignette.fx
+
+# Primary AA without MSAA.
+smaaEdgeDetection = color
+smaaThreshold = 0.065
+smaaMaxSearchSteps = 32
+smaaMaxSearchStepsDiag = 16
+smaaCornerRounding = 22
+
+# Main color shape before the LUT.
+LIGHTROOM_GLOBAL_CONTRAST = 0.09
+LIGHTROOM_GLOBAL_SATURATION = -0.04
+LIGHTROOM_GLOBAL_VIBRANCE = 0.12
+LIGHTROOM_GLOBAL_TEMPERATURE = 0.05
+LIGHTROOM_GLOBAL_TINT = -0.03
+LIGHTROOM_GLOBAL_HIGHLIGHTS_CURVE = -0.08
+
+# Green suppression and cyan/amber split.
+pd80_selectivecolor.g_adj_yel = -0.16
+pd80_selectivecolor.g_adj_sat = -0.14
+pd80_selectivecolor.c_adj_cya = 0.08
+pd80_selectivecolor.y_adj_yel = 0.08
+pd80_selectivecolor.y_adj_sat = 0.05
+
+# Bright-source bloom plus Orton diffusion.
+BLOOM_INTENSITY = 0.55
+BLOOM_CURVE = 2.2
+BLOOM_SAT = 1.15
+BLOOM_ADAPT_STRENGTH = 0.24
+halationRadius = 1
+halationOffset = 0.80
+GammaCorrectionEnable = True
+BlurMulti = 1.0
+BlackPoint = 40
+WhitePoint = 180
+MidTonesShift = -0.60
+BlendStrength = 0.12
+
+# Existing 33^3 teal/amber LUT.
+lutFile = ../../../../../../../../../.config/vkBasalt/luts/blade-runner.cube
+
+# Technicolor and lens distortion are intentionally restrained individually;
+# their combination creates the aggressive character of this preset.
+Brightness = 1.02
+Saturation = 0.96
+Strength = 0.18
+Multiplier = 0.35
+
+# Fine animated grain.
+Intensity = 0.09
+Variance = 0.24
+Mean = 0.5
+SignalToNoiseRatio = 8
+
+# Artistic vignette: dark radial corners, not depth-based.
+BlendMode = 1
+VignetteRatio = 1.7778
+VignetteShape = 1
+
+# Final detail restoration; CAS remains disabled.
+dlsSharpness = 0.34
+dlsDenoise = 0.34
