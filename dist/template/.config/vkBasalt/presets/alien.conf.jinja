@@ -1,0 +1,72 @@
+# CS2 alien cinematic preset for vkBasalt 0.3.2.x.
+# Aggressive cyan/magenta science-fiction grade with neon bloom and lens color.
+# ArtisticVignette is intentionally excluded: it was confirmed to crash CS2.
+
+effects = smaa:deband:lightroom:selective:bloom:halation:orton:lut:technicolor:ca:grain:dls
+enableOnLaunch = True
+depthCapture = off
+
+reshadeIncludePath = /opt/reshade/shaders
+reshadeTexturePath = /opt/reshade/textures
+
+lightroom = /opt/reshade/shaders/qUINT/qUINT_lightroom.fx
+selective = /opt/reshade/shaders/PD80/PD80_04_Selective_Color.fx
+bloom = /opt/reshade/shaders/qUINT/qUINT_bloom.fx
+halation = /opt/reshade/shaders/GShade-Shaders/Halation.fx
+orton = /opt/reshade/shaders/GShade-Shaders/OrtonBloom.fx
+technicolor = /opt/reshade/shaders/SweetFX/Technicolor2.fx
+ca = /opt/reshade/shaders/FXShaders/FlexibleCA.fx
+grain = /opt/reshade/shaders/SweetFX/FilmGrain.fx
+
+# Cold cyan shadows, magenta contamination, bright synthetic highlights.
+LIGHTROOM_GLOBAL_CONTRAST = 0.18
+LIGHTROOM_GLOBAL_SATURATION = 0.02
+LIGHTROOM_GLOBAL_VIBRANCE = 0.28
+LIGHTROOM_GLOBAL_TEMPERATURE = -0.16
+LIGHTROOM_GLOBAL_TINT = 0.14
+LIGHTROOM_GLOBAL_HIGHLIGHTS_CURVE = -0.16
+
+# Pull sickly greens toward cyan and violet while keeping warm lights alive.
+pd80_selectivecolor.g_adj_yel = -0.28
+pd80_selectivecolor.g_adj_cya = 0.18
+pd80_selectivecolor.g_adj_mag = 0.12
+pd80_selectivecolor.g_adj_sat = -0.22
+pd80_selectivecolor.c_adj_cya = 0.20
+pd80_selectivecolor.c_adj_sat = 0.16
+pd80_selectivecolor.m_adj_mag = 0.18
+pd80_selectivecolor.m_adj_sat = 0.12
+pd80_selectivecolor.y_adj_yel = 0.12
+pd80_selectivecolor.y_adj_sat = 0.08
+
+# Neon diffusion: conspicuous, but still bounded enough to retain silhouettes.
+BLOOM_INTENSITY = 0.72
+BLOOM_CURVE = 2.0
+BLOOM_SAT = 1.28
+BLOOM_ADAPT_STRENGTH = 0.30
+halationRadius = 1
+halationOffset = 0.90
+GammaCorrectionEnable = True
+BlurMulti = 1.0
+BlackPoint = 34
+WhitePoint = 190
+MidTonesShift = -0.48
+BlendStrength = 0.16
+
+# Existing 33^3 cyberpunk LUT supplies the final cyan/neon palette.
+lutFile = ../../../../../../../../../.config/vkBasalt/luts/cyberpunk.cube
+
+# Artificial color separation and restrained lens displacement.
+Brightness = 1.01
+Saturation = 1.02
+Strength = 0.28
+Multiplier = 0.48
+
+# Fine grain keeps the synthetic grade from looking completely flat.
+Intensity = 0.07
+Variance = 0.20
+Mean = 0.5
+SignalToNoiseRatio = 8
+
+# Final detail recovery; no CAS because DLS is the only sharpening pass.
+dlsSharpness = 0.30
+dlsDenoise = 0.30

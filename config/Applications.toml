@@ -1,0 +1,5 @@
+#:schema schema/Universe.toml.schema.json
+
+# Application-specific configuration selections.
+[default.Applications.VkBasalt]
+profile = "clean-aa"

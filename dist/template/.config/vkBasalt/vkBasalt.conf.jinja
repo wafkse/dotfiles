@@ -1,0 +1,32 @@
+{% set Profile = Applications.VkBasalt.profile %}
+{% if Profile == "blade-runner" %}
+{% include ".config/vkBasalt/presets/blade-runner.conf.jinja" %}
+{% elif Profile == "cyberpunk" %}
+{% include ".config/vkBasalt/presets/cyberpunk.conf.jinja" %}
+{% elif Profile == "kodak-warm" %}
+{% include ".config/vkBasalt/presets/kodak-warm.conf.jinja" %}
+{% elif Profile == "sicario" %}
+{% include ".config/vkBasalt/presets/sicario.conf.jinja" %}
+{% elif Profile == "clean-aa" %}
+{% include ".config/vkBasalt/presets/clean-aa.conf.jinja" %}
+{% elif Profile == "restrained" %}
+{% include ".config/vkBasalt/presets/restrained.conf.jinja" %}
+{% elif Profile == "balanced" %}
+{% include ".config/vkBasalt/presets/balanced.conf.jinja" %}
+{% elif Profile == "aggressive" %}
+{% include ".config/vkBasalt/presets/aggressive.conf.jinja" %}
+{% elif Profile == "lunatic" %}
+{% include ".config/vkBasalt/presets/lunatic.conf.jinja" %}
+{% elif Profile == "cinematic" %}
+{% include ".config/vkBasalt/presets/cinematic.conf.jinja" %}
+{% elif Profile == "insane" %}
+{% include ".config/vkBasalt/presets/insane.conf.jinja" %}
+{% elif Profile == "alien" %}
+{% include ".config/vkBasalt/presets/alien.conf.jinja" %}
+{% elif Profile == "purple" %}
+{% include ".config/vkBasalt/presets/purple.conf.jinja" %}
+{% elif Profile == "baseline" %}
+{% include ".config/vkBasalt/presets/baseline.conf.jinja" %}
+{% else %}
+{% include ".config/vkBasalt/presets/existing.conf.jinja" %}
+{% endif %}

@@ -1,0 +1,59 @@
+# CS2 purple-clear cinematic preset for vkBasalt 0.3.2.x.
+# Stylish violet environment grade with readable midtones and restrained optics.
+# Depth is deliberately disabled for clean, stable visibility.
+
+effects = smaa:deband:lightroom:selective:bloom:lut:ca:grain:dls
+enableOnLaunch = True
+depthCapture = off
+
+reshadeIncludePath = /opt/reshade/shaders
+reshadeTexturePath = /opt/reshade/textures
+
+lightroom = /opt/reshade/shaders/qUINT/qUINT_lightroom.fx
+selective = /opt/reshade/shaders/PD80/PD80_04_Selective_Color.fx
+bloom = /opt/reshade/shaders/qUINT/qUINT_bloom.fx
+technicolor = /opt/reshade/shaders/SweetFX/Technicolor2.fx
+ca = /opt/reshade/shaders/FXShaders/FlexibleCA.fx
+grain = /opt/reshade/shaders/SweetFX/FilmGrain.fx
+
+# Purple environment without crushing dark map areas.
+LIGHTROOM_GLOBAL_CONTRAST = 0.10
+LIGHTROOM_GLOBAL_SATURATION = -0.02
+LIGHTROOM_GLOBAL_VIBRANCE = 0.10
+LIGHTROOM_GLOBAL_TEMPERATURE = -0.04
+LIGHTROOM_GLOBAL_TINT = 0.10
+LIGHTROOM_GLOBAL_HIGHLIGHTS_CURVE = -0.12
+
+# Violet/cyan separation; keep yellow/orange player colors readable.
+pd80_selectivecolor.g_adj_yel = -0.12
+pd80_selectivecolor.g_adj_mag = -0.08
+pd80_selectivecolor.g_adj_sat = -0.18
+pd80_selectivecolor.c_adj_mag = 0.10
+pd80_selectivecolor.c_adj_sat = 0.08
+pd80_selectivecolor.b_adj_mag = 0.10
+pd80_selectivecolor.b_adj_sat = 0.08
+pd80_selectivecolor.m_adj_mag = 0.08
+pd80_selectivecolor.y_adj_sat = 0.04
+
+# Controlled glow for bright edges, without the foggy alien wash.
+BLOOM_INTENSITY = 0.28
+BLOOM_CURVE = 2.35
+BLOOM_SAT = 1.04
+BLOOM_ADAPT_STRENGTH = 0.16
+
+# Downloaded VEL Vivid Teal LUT (16^3); testing this as the primary grade.
+lutFile = ../../../../../../../../../.config/vkBasalt/luts/vivid-teal.cube
+Brightness = 0.98
+Saturation = 0.96
+Strength = 0.10
+Multiplier = 0.20
+
+# Fine, nearly invisible texture grain.
+Intensity = 0.025
+Variance = 0.16
+Mean = 0.5
+SignalToNoiseRatio = 10
+
+# Final clarity restoration; no CAS or depth sharpening.
+dlsSharpness = 0.24
+dlsDenoise = 0.34
