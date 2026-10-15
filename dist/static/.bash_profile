@@ -7,6 +7,11 @@ declare -A ENVIRONMENT_TABLE=(
     [SSH_AUTH_SOCK]="$( gpgconf --list-dirs agent-ssh-socket 2> /dev/null )"
     [SSH_AGENT_PID]="$( pgrep "gpg-agent" )"
     [GPG_TTY]="$( tty )"
+
+    # Android-specific environment variables.
+    [ANDROID_HOME]="${XDG_DATA_HOME:-$HOME/.local/share}/android/sdk"
+    [ANDROID_USER_HOME]="${XDG_STATE_HOME:-$HOME/.local/state}/android"
+    [ANDROID_AVD_HOME]="${XDG_DATA_HOME:-$HOME/.local/share}/android/avd"
 )
 
 # Inherit the previously set $PATH from /etc/profile, then rank its components.
@@ -20,6 +25,18 @@ declare -a PATH_LIST=( "$HOME/util" "$HOME/.local/bin" )
 
 [ -d "$HOME/.lmstudio/bin" ] && PATH_LIST+=( "$HOME/.lmstudio/bin" )
 
+# NOTE: Add android-specific tooling to $PATH if their respective directories exist.
+ANDROID_SDK="${ENVIRONMENT_TABLE[ANDROID_HOME]}"
+
+[[ -d "$ANDROID_SDK/platform-tools" ]] &&
+    PATH_LIST+=( "$ANDROID_SDK/platform-tools" )
+
+[[ -d "$ANDROID_SDK/emulator" ]] &&
+    PATH_LIST+=( "$ANDROID_SDK/emulator" )
+
+[[ -d "$ANDROID_SDK/cmdline-tools/latest/bin" ]] &&
+    PATH_LIST+=( "$ANDROID_SDK/cmdline-tools/latest/bin" )
+
 if hash cargo > /dev/null 2>&1; then
     PATH_LIST+=( "$HOME/.cargo/bin" )
 fi
@@ -31,6 +48,7 @@ if hash luarocks > /dev/null 2>&1; then
     ENVIRONMENT_TABLE[LUA_CPATH]="$( luarocks path --lr-cpath )"
 fi
 
+# NOTE: Sort PATH entries by executable-count, location, and other heuristics.
 declare -a INHERITED_PATH=()
 declare -a PATH_COMPONENTS=()
 declare -a AVAILABLE_PATH_COMPONENTS=()
