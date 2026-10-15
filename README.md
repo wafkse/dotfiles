@@ -17,7 +17,7 @@ For the desktop, the following must be installed:
 * `pwvucontrol`
 * `bluetui`
 * `nmtui`
-* `ghostty`
+* `alacritty`
 
 *NOTE*: This list is not exhaustive, and some applications may not have been mentioned.
 
