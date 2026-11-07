@@ -11,12 +11,17 @@ local VSCode = {}
 function VSCode.ThemeVSCodeTheme(Theme: Types.ThemeRoot): string
 	local Appearance = ThemeContext.ThemeAppearance(Theme)
 	local TokenFields = ColorRoles.resolve(Theme, "VSCode", "Tokens")
+	local SemanticTokenFields = ColorRoles.resolve(Theme, "VSCode", "SemanticTokens")
 	return Json.object({
 		{ Key = "$schema", Value = Json.quote("vscode://schemas/color-theme") },
 		{ Key = "name", Value = Json.quote("Mirage") },
 		{ Key = "type", Value = Json.quote(Appearance) },
 		{ Key = "colors", Value = Json.colorObject(ColorRoles.resolve(Theme, "VSCode", "Colors")) },
 		{ Key = "tokenColors", Value = Json.vscodeTokens(TokenFields) },
+		{
+			Key = "semanticTokenColors",
+			Value = Json.vscodeSemanticTokens(SemanticTokenFields),
+		},
 	})
 end
 

@@ -69,4 +69,16 @@ function Json.vscodeTokens(Fields: { Types.ColorField }): string
 	return "[" .. table.concat(Rules, ",") .. "]"
 end
 
+--- vscodeSemanticTokens encodes semantic token scopes as foreground objects.
+function Json.vscodeSemanticTokens(Fields: { Types.ColorField }): string
+	local JsonFields: { Types.JsonField } = {}
+	for _, Field in Fields do
+		local TokenStyle = Json.object({
+			{ Key = "foreground", Value = Json.quote(Field.Color) },
+		})
+		table.insert(JsonFields, { Key = Field.Key, Value = TokenStyle })
+	end
+	return Json.object(JsonFields)
+end
+
 return Json

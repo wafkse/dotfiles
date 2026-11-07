@@ -67,7 +67,7 @@ export type GradientOverride = {
 export type ColorHex = string
 export type Appearance = "dark" | "light"
 export type EditorApplication = "Zed" | "VSCode" | "IDEA"
-export type ApplicationRoleGroup = "Colors" | "Syntax" | "Terminal" | "Tokens" | "UI" | "Attributes" | "Players" | "Icons" | "Settings" | "Styles"
+export type ApplicationRoleGroup = "Colors" | "SemanticTokens" | "Syntax" | "Terminal" | "Tokens" | "UI" | "Attributes" | "Players" | "Icons" | "Settings" | "Styles"
 
 --- ColorField is one resolved editor token and its active palette color.
 export type ColorField = {
