@@ -1,0 +1,92 @@
+#:schema ../../schema/Universe.toml.schema.json
+
+# ==============================================================================
+# NORD
+# ==============================================================================
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+[default.Theme.'Nord']
+family = "Nord"
+appearance = "dark"
+
+[[default.Theme.'Nord'.Palette]]
+color = "#2e3440"
+name = "nord0"
+accent = false
+
+[[default.Theme.'Nord'.Palette]]
+color = "#3b4252"
+name = "nord1"
+accent = false
+
+[[default.Theme.'Nord'.Palette]]
+color = "#434c5e"
+name = "nord2"
+accent = false
+
+[[default.Theme.'Nord'.Palette]]
+color = "#4c566a"
+name = "nord3"
+accent = false
+
+[[default.Theme.'Nord'.Palette]]
+color = "#d8dee9"
+name = "nord4"
+accent = false
+
+[[default.Theme.'Nord'.Palette]]
+color = "#e5e9f0"
+name = "nord5"
+accent = false
+
+[[default.Theme.'Nord'.Palette]]
+color = "#eceff4"
+name = "nord6"
+accent = false
+
+[[default.Theme.'Nord'.Palette]]
+color = "#8fbcbb"
+name = "nord7"
+accent = true
+
+[[default.Theme.'Nord'.Palette]]
+color = "#88c0d0"
+name = "nord8"
+accent = true
+
+[[default.Theme.'Nord'.Palette]]
+color = "#81a1c1"
+name = "nord9"
+accent = true
+
+[[default.Theme.'Nord'.Palette]]
+color = "#5e81ac"
+name = "nord10"
+accent = true
+
+[[default.Theme.'Nord'.Palette]]
+color = "#bf616a"
+name = "nord11"
+accent = true
+
+[[default.Theme.'Nord'.Palette]]
+color = "#d08770"
+name = "nord12"
+accent = true
+
+[[default.Theme.'Nord'.Palette]]
+color = "#ebcb8b"
+name = "nord13"
+accent = true
+
+[[default.Theme.'Nord'.Palette]]
+color = "#a3be8c"
+name = "nord14"
+accent = true
+
+[[default.Theme.'Nord'.Palette]]
+color = "#b48ead"
+name = "nord15"
+accent = true

@@ -9,6 +9,7 @@
 
 [default.Theme.'Catppuccin Frappe']
 family = "Catppuccin"
+appearance = "dark"
 
 [[default.Theme.'Catppuccin Frappe'.Palette]]
 color = "#232634"

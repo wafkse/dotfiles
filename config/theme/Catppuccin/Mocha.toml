@@ -9,6 +9,7 @@
 
 [default.Theme.'Catppuccin Mocha']
 family = "Catppuccin"
+appearance = "dark"
 
 [[default.Theme.'Catppuccin Mocha'.Palette]]
 color = "#11111b"

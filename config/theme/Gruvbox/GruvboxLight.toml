@@ -1,0 +1,167 @@
+#:schema ../../schema/Universe.toml.schema.json
+
+# ==============================================================================
+# GRUVBOX LIGHT
+# ==============================================================================
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+[default.Theme.'Gruvbox Light']
+family = "Gruvbox Light"
+appearance = "light"
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#1d2021"
+name = "dark0_hard"
+accent = false
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#282828"
+name = "dark0"
+accent = false
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#3c3836"
+name = "dark1"
+accent = false
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#504945"
+name = "dark2"
+accent = false
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#928374"
+name = "gray_245"
+accent = false
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#fbf1c7"
+name = "light0"
+accent = false
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#ebdbb2"
+name = "light1"
+accent = false
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#d5c4a1"
+name = "light2"
+accent = false
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#bdae93"
+name = "light3"
+accent = false
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#a89984"
+name = "light4"
+accent = false
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#fb4934"
+name = "bright_red"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#b8bb26"
+name = "bright_green"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#fabd2f"
+name = "bright_yellow"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#83a598"
+name = "bright_blue"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#d3869b"
+name = "bright_purple"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#8ec07c"
+name = "bright_aqua"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#fe8019"
+name = "bright_orange"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#cc241d"
+name = "neutral_red"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#98971a"
+name = "neutral_green"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#d79921"
+name = "neutral_yellow"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#458588"
+name = "neutral_blue"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#b16286"
+name = "neutral_purple"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#689d6a"
+name = "neutral_aqua"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#d65d0e"
+name = "neutral_orange"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#9d0006"
+name = "faded_red"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#79740e"
+name = "faded_green"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#b57614"
+name = "faded_yellow"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#076678"
+name = "faded_blue"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#8f3f71"
+name = "faded_purple"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#427b58"
+name = "faded_aqua"
+accent = true
+
+[[default.Theme.'Gruvbox Light'.Palette]]
+color = "#af3a03"
+name = "faded_orange"
+accent = true

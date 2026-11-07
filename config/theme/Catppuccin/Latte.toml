@@ -9,6 +9,16 @@
 
 [default.Theme.'Catppuccin Latte']
 family = "Catppuccin"
+appearance = "light"
+
+[default.Theme.'Catppuccin Latte'.Override.Roles]
+surface-light = "Base"
+surface-midlight = "Mantle"
+surface-mid = "Surface 1"
+surface-dark = "Surface 2"
+shadow = "Surface 2"
+warning-foreground = "Text"
+success-foreground = "Text"
 
 [[default.Theme.'Catppuccin Latte'.Palette]]
 color = "#dce0e8"

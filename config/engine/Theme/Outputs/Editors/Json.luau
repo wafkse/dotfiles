@@ -1,0 +1,72 @@
+--!strict
+
+local Types = require("../../Types")
+
+local Json = {}
+
+--- quote escapes a Luau string for a JSON string value.
+function Json.quote(Value: string): string
+	local Escaped = string.gsub(Value, "\\", "\\\\")
+	Escaped = string.gsub(Escaped, '"', '\\"')
+	Escaped = string.gsub(Escaped, "\b", "\\b")
+	Escaped = string.gsub(Escaped, "\f", "\\f")
+	Escaped = string.gsub(Escaped, "\n", "\\n")
+	Escaped = string.gsub(Escaped, "\r", "\\r")
+	Escaped = string.gsub(Escaped, "\t", "\\t")
+	Escaped = string.gsub(Escaped, "[%z\1-\31]", function(Character: string): string
+		return string.format("\\u%04x", string.byte(Character))
+	end)
+	return '"' .. Escaped .. '"'
+end
+
+--- object encodes a set of already serialized JSON values in stable key order.
+function Json.object(Fields: { Types.JsonField }): string
+	local Sorted: { Types.JsonField } = {}
+	for _, Field in Fields do
+		table.insert(Sorted, Field)
+	end
+	table.sort(Sorted, function(Left, Right)
+		return Left.Key < Right.Key
+	end)
+
+	local Parts: { string } = {}
+	for _, Field in Sorted do
+		table.insert(Parts, Json.quote(Field.Key) .. ":" .. Field.Value)
+	end
+	return "{" .. table.concat(Parts, ",") .. "}"
+end
+
+--- colorObject encodes app token colors as a JSON string-to-string object.
+function Json.colorObject(Fields: { Types.ColorField }): string
+	local JsonFields: { Types.JsonField } = {}
+	for _, Field in Fields do
+		table.insert(JsonFields, { Key = Field.Key, Value = Json.quote(Field.Color) })
+	end
+	return Json.object(JsonFields)
+end
+
+--- syntaxObject encodes Zed syntax captures as objects containing a color.
+function Json.syntaxObject(Fields: { Types.ColorField }): string
+	local JsonFields: { Types.JsonField } = {}
+	for _, Field in Fields do
+		local Color = Json.object({ { Key = "color", Value = Json.quote(Field.Color) } })
+		table.insert(JsonFields, { Key = Field.Key, Value = Color })
+	end
+	return Json.object(JsonFields)
+end
+
+--- vscodeTokens encodes TextMate scopes as VS Code token color rules.
+function Json.vscodeTokens(Fields: { Types.ColorField }): string
+	local Rules: { string } = {}
+	for _, Field in Fields do
+		local Settings = Json.object({ { Key = "foreground", Value = Json.quote(Field.Color) } })
+		local Rule = Json.object({
+			{ Key = "scope", Value = Json.quote(Field.Key) },
+			{ Key = "settings", Value = Settings },
+		})
+		table.insert(Rules, Rule)
+	end
+	return "[" .. table.concat(Rules, ",") .. "]"
+end
+
+return Json

@@ -1,0 +1,117 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "ApplicationRoles.theme.toml.schema.json",
+    "title": "Application Semantic Role Assignments",
+    "description": "Maps application theme tokens to palette-independent visual roles.",
+    "$defs": {
+        "role": {
+            "type": "string",
+            "enum": [
+                "background",
+                "foreground",
+                "surface",
+                "surface-foreground",
+                "surface-raised",
+                "surface-raised-foreground",
+                "surface-light",
+                "surface-midlight",
+                "surface-mid",
+                "surface-dark",
+                "surface-hover",
+                "surface-selection",
+                "surface-inactive",
+                "surface-input",
+                "muted",
+                "foreground-muted",
+                "foreground-subtle",
+                "disabled",
+                "border",
+                "border-strong",
+                "shadow",
+                "accent",
+                "accent-primary",
+                "accent-secondary",
+                "accent-tertiary",
+                "accent-warm",
+                "accent-soft",
+                "accent-foreground",
+                "selection",
+                "selection-foreground",
+                "error",
+                "error-foreground",
+                "warning",
+                "warning-foreground",
+                "success",
+                "success-foreground",
+                "link",
+                "link-visited",
+                "tooltip",
+                "tooltip-foreground",
+                "placeholder",
+                "caret",
+                "syntax-annotation",
+                "syntax-class",
+                "syntax-comment",
+                "syntax-entity",
+                "syntax-constant",
+                "syntax-function",
+                "syntax-identifier",
+                "syntax-keyword",
+                "syntax-number",
+                "syntax-operator",
+                "syntax-parameter",
+                "syntax-property",
+                "syntax-punctuation",
+                "syntax-regexp",
+                "syntax-string",
+                "syntax-tag",
+                "syntax-type",
+                "syntax-variable"
+            ]
+        },
+        "roleMap": {
+            "type": "object",
+            "additionalProperties": { "$ref": "#/$defs/role" }
+        },
+        "valueMap": {
+            "type": "object",
+            "additionalProperties": {
+                "type": ["string", "integer", "number", "boolean"]
+            }
+        }
+    },
+    "type": "object",
+    "properties": {
+        "Zed": {
+            "type": "object",
+            "properties": {
+                "Colors": { "$ref": "#/$defs/roleMap" },
+                "Syntax": { "$ref": "#/$defs/roleMap" },
+                "Terminal": { "$ref": "#/$defs/roleMap" },
+                "Players": { "$ref": "#/$defs/roleMap" }
+            },
+            "additionalProperties": false
+        },
+        "VSCode": {
+            "type": "object",
+            "properties": {
+                "Colors": { "$ref": "#/$defs/roleMap" },
+                "Tokens": { "$ref": "#/$defs/roleMap" }
+            },
+            "additionalProperties": false
+        },
+        "IDEA": {
+            "type": "object",
+            "properties": {
+                "UI": { "$ref": "#/$defs/roleMap" },
+                "Colors": { "$ref": "#/$defs/roleMap" },
+                "Attributes": { "$ref": "#/$defs/roleMap" },
+                "Icons": { "$ref": "#/$defs/roleMap" },
+                "Settings": { "$ref": "#/$defs/valueMap" },
+                "Styles": { "$ref": "#/$defs/valueMap" }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}

@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "Theme.toml.schema.json",
     "title": "Theme Schema",
-    "description": "Validation schema for the system-wide Theme selection.",
+    "description": "Validation schema for the system-wide Theme tree. The tree is assembled from layered TOML fragments, so default and placeholder can be supplied by a separate fragment.",
     "type": "object",
     "properties": {
         "name": {
@@ -18,12 +18,23 @@
             "description": "The placeholder color used when no color is assigned.",
             "pattern": "^#[a-fA-F0-9]{6}$"
         },
+        "ApplicationRoles": {
+            "$ref": "Theme/ApplicationRoles.theme.toml.schema.json",
+            "description": "Shared application-token to semantic-role mappings."
+        },
         "FamilyOverride": {
             "type": "object",
-            "description": "Per-family application override mappings, keyed by family name. A theme tagged with a matching 'family' inherits these role-name mappings, resolved against its own palette.",
+            "description": "Per-family semantic palette roles and application override mappings, keyed by family name. A theme tagged with a matching 'family' inherits these role-name mappings, resolved against its own palette.",
             "additionalProperties": {
                 "type": "object",
                 "properties": {
+                    "Roles": {
+                        "$ref": "Theme/PaletteRoles.theme.toml.schema.json"
+                    },
+                    "ApplicationRoles": {
+                        "$ref": "Theme/ApplicationRoles.theme.toml.schema.json"
+                    },
+                    "GTK": { "$ref": "Theme/GTK.theme.toml.schema.json" },
                     "Waybar": { "$ref": "Theme/Waybar.theme.toml.schema.json" },
                     "Ghostty": {
                         "$ref": "Theme/Ghostty.theme.toml.schema.json"
@@ -39,13 +50,17 @@
             }
         }
     },
-    "required": ["default", "placeholder"],
     "additionalProperties": {
         "type": "object",
         "properties": {
             "family": {
                 "type": "string",
                 "description": "The family this theme belongs to. Selects the shared 'FamilyOverride.<family>' mapping when a key is not given a per-theme Override exception."
+            },
+            "appearance": {
+                "type": "string",
+                "enum": ["dark", "light"],
+                "description": "The editor appearance generated for this palette."
             },
             "Palette": {
                 "type": "array",
@@ -72,6 +87,13 @@
             "Override": {
                 "type": "object",
                 "properties": {
+                    "Roles": {
+                        "$ref": "Theme/RoleOverrides.theme.toml.schema.json"
+                    },
+                    "ApplicationRoles": {
+                        "$ref": "Theme/ApplicationRoles.theme.toml.schema.json"
+                    },
+                    "GTK": { "$ref": "Theme/GTK.theme.toml.schema.json" },
                     "Waybar": { "$ref": "Theme/Waybar.theme.toml.schema.json" },
                     "Ghostty": {
                         "$ref": "Theme/Ghostty.theme.toml.schema.json"
