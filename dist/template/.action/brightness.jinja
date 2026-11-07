@@ -1,5 +1,5 @@
-{#- NOTE: This shebang is expressed like the following to omit it for shellcheck style-checking. -#}
-{{ "#!/usr/bin/env bash" }}
+#!/usr/bin/env bash
+# shellcheck disable=all
 
 target_action="$1"
 
@@ -15,4 +15,3 @@ case "$target_action" in
     ddcutil detect --enable-dynamic-sleep | grep -Po "^Display\s+(\K\d+)" | xargs -r -I{} ddcutil setvcp 10 "$BRIGHTNESS_VALUE" --display={} --enable-dynamic-sleep
     ;;
 esac
-
