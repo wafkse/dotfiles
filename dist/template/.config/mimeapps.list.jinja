@@ -1,0 +1,5 @@
+{% if Applications is defined and Applications.MimeApps is defined -%}
+{% for SectionName, SectionTree in Applications.MimeApps | items %}[{{ SectionName }}]
+{% for MimeType, DesktopFile in SectionTree | items %}{{ MimeType }}={{ DesktopFile }}
+{% endfor %}{% endfor %}
+{% endif %}

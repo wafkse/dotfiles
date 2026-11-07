@@ -1,0 +1,5 @@
+{% if Applications is defined and Applications.Portals is defined -%}
+{% for SectionName, SectionTree in Applications.Portals | items %}[{{ SectionName }}]
+{% for PortalName, Implementations in SectionTree | items %}{{ PortalName }}={% for Implementation in Implementations %}{{ Implementation }};{% endfor %}
+{% endfor %}{% endfor %}
+{% endif %}

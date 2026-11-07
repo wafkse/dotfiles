@@ -1,5 +1,20 @@
 #:schema schema/Universe.toml.schema.json
 
-# Application-specific configuration selections.
+# Application configuration.
+[default.Applications.MimeApps."Default Applications"]
+"text/html" = "firefox.desktop"
+"application/xhtml+xml" = "firefox.desktop"
+"x-scheme-handler/http" = "firefox.desktop"
+"x-scheme-handler/https" = "firefox.desktop"
+"x-scheme-handler/about" = "firefox.desktop"
+"x-scheme-handler/unknown" = "firefox.desktop"
+
+[default.Applications.Portals.preferred]
+default = ["gnome", "gtk"]
+"org.freedesktop.impl.portal.Access" = ["gtk"]
+"org.freedesktop.impl.portal.Notification" = ["gtk"]
+"org.freedesktop.impl.portal.Secret" = ["gnome-keyring"]
+"org.freedesktop.impl.portal.FileChooser" = ["gtk"]
+
 [default.Applications.VkBasalt]
 profile = "clean-aa"

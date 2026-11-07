@@ -2,6 +2,31 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "Application configuration selections",
     "type": "object",
+    "properties": {
+        "MimeApps": {
+            "type": "object",
+            "description": "MIME association sections, with MIME types mapped to desktop file IDs.",
+            "additionalProperties": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "string"
+                }
+            }
+        },
+        "Portals": {
+            "type": "object",
+            "description": "XDG portal sections, with preferred implementations listed in order.",
+            "additionalProperties": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
     "patternProperties": {
         "^[a-zA-Z0-9_-]+$": {
             "type": "object",
