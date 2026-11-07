@@ -1,0 +1,11 @@
+set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
+
+idea_profile := env("MIRAGE_IDEA_PROFILE", "IntelliJIdea2026.2")
+data_home := env("XDG_DATA_HOME", home_directory() / ".local/share")
+plugin_lib := data_home / "JetBrains" / idea_profile / "Mirage Theme" / "lib"
+plugin_jar := plugin_lib / "Mirage Theme.jar"
+source_dir := module_directory()
+
+build:
+    mkdir -p "{{ plugin_lib }}"
+    cd "{{ source_dir }}" && jar --create --file "{{ plugin_jar }}" META-INF/plugin.xml themes/Mirage.theme.json themes/Mirage.xml

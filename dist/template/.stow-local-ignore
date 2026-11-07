@@ -5,6 +5,7 @@
 ^README\.md$
 ^\.gitignore$
 ^\.stow-local-ignore$
+(^|.*/)Justfile$
 
 # NOTE: No filesystem garbage.
 ^\.DS_Store$

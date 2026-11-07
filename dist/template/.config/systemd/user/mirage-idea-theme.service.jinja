@@ -1,0 +1,7 @@
+[Unit]
+Description=Build the IntelliJ Mirage theme plugin
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/.dotfiles
+ExecStart=%h/.local/bin/just idea-theme

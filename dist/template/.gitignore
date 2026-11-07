@@ -4,6 +4,7 @@
 
 # NOTE: Un-ignore the Jinja templates
 !*.jinja
+!Justfile
 
 # NOTE: Un-ignore this .gitignore and the stow ignore so they can be committed
 !.gitignore

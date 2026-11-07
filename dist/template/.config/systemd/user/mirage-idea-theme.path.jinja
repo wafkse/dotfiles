@@ -1,0 +1,10 @@
+[Unit]
+Description=Rebuild IntelliJ Mirage theme when its palette changes
+
+[Path]
+PathChanged=%h/.config/JetBrains/MirageThemeSource/themes/Mirage.theme.json
+PathChanged=%h/.config/JetBrains/MirageThemeSource/themes/Mirage.xml
+Unit=mirage-idea-theme.service
+
+[Install]
+WantedBy=default.target

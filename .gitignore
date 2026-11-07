@@ -1,3 +1,4 @@
-# NOTE: Ignore configuration directories for development environments.
-.zed
+# Keep development-only editor config out, but share repo-specific Zed settings.
+.zed/*
+!.zed/settings.json
 .vscode

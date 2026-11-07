@@ -1,0 +1,13 @@
+set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
+
+source_dir := module_directory()
+repository := clean(source_dir / "../../..")
+theme_dir := repository / "dist/template/.local/share/themes/Mirage"
+gtk3_source := source_dir / "gtk-3.0.scss"
+gtk4_source := source_dir / "gtk-4.0.scss"
+gtk3_output := theme_dir / "gtk-3.0/gtk.css.jinja"
+gtk4_output := theme_dir / "gtk-4.0/gtk.css.jinja"
+
+build:
+    sassc --style expanded "{{ gtk3_source }}" "{{ gtk3_output }}"
+    sassc --style expanded "{{ gtk4_source }}" "{{ gtk4_output }}"

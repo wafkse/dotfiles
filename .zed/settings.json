@@ -1,0 +1,16 @@
+{
+  "languages": {
+    "SCSS": {
+      "language_servers": ["scss-lsp"]
+    }
+  },
+  "lsp": {
+    "scss-lsp": {
+      "settings": {
+        "scss": {
+          "validate": false
+        }
+      }
+    }
+  }
+}
