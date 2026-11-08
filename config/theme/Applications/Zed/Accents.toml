@@ -1,0 +1,13 @@
+#:schema ../../../schema/Universe.toml.schema.json
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+[default.Theme.ApplicationRoles.Zed.Accents]
+"1" = "accent-primary"
+"2" = "link-visited"
+"3" = "accent-cyan"
+"4" = "success"
+"5" = "accent-secondary"
+"6" = "accent-warm"
+"7" = "error"

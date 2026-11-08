@@ -1,0 +1,10 @@
+#:schema ../../../schema/Universe.toml.schema.json
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+[default.Theme.ApplicationRoles.Zed.Null]
+"editor.highlighted_line.background" = true
+"scrollbar.thumb.active_background" = true
+"scrollbar.thumb.border" = true
+"minimap.thumb.border" = true

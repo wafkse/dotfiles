@@ -5,74 +5,146 @@
 
 
 [default.Theme.ApplicationRoles.Zed.Colors]
-background = { role = "background", mix = "surface-raised", amount = 0.55 }
+background = { role = "surface", "dark-shade" = 0.07, "light-shade" = -0.05, "color-math" = "byte-ratio" }
 border = "surface-raised"
-"border.variant" = { role = "surface-raised", mix = "background", amount = 0.8 }
-"border.focused" = "foreground"
+"border.variant" = { role = "accent-primary", mix = "background", amount = 0.08, "color-math" = "byte-ratio" }
+"border.focused" = "link-visited"
 "border.selected" = "accent-primary"
+"border.transparent" = { role = "background", opacity = 0 }
 "border.disabled" = "placeholder"
 "elevated_surface.background" = "surface"
 "surface.background" = "surface"
-"element.background" = { role = "surface-dark", mix = "surface", "light-amount" = 0, "dark-amount" = 1 }
+"element.background" = "surface-window"
 "element.hover" = "surface-raised"
-"element.active" = { role = "surface-light", opacity = 0.3 }
+"element.active" = { role = "surface-control", opacity = 0.3 }
 "element.selected" = { role = "surface-raised", opacity = 0.3 }
-"element.selection_background" = { role = "surface-raised", opacity = 0.3 }
 "element.disabled" = "placeholder"
+"drop_target.background" = { role = "surface-raised", opacity = 0.4 }
 "ghost_element.background" = { role = "background", opacity = 0 }
 "ghost_element.hover" = { role = "surface-mid", opacity = 0.3 }
-"ghost_element.active" = { role = "surface-light", opacity = 0.6 }
-"ghost_element.selected" = { role = "surface-light", "light-shade" = -0.1, "dark-shade" = 0.1, opacity = 0.4 }
+"ghost_element.active" = { role = "surface-control", opacity = 0.6 }
+"ghost_element.selected" = { role = "surface-control", "light-shade" = -0.1, "dark-shade" = 0.1, opacity = 0.4, "color-math" = "byte-ratio" }
 "ghost_element.disabled" = "placeholder"
 text = "foreground"
 "text.muted" = "foreground-subtle"
-"text.placeholder" = "placeholder"
+"text.placeholder" = "surface-control"
 "text.disabled" = "placeholder"
 "text.accent" = "accent-primary"
 icon = "foreground"
-"icon.muted" = "foreground-faint"
+"icon.muted" = "foreground-overlay"
 "icon.disabled" = "placeholder"
-"icon.placeholder" = "surface-light"
+"icon.placeholder" = "surface-control"
 "icon.accent" = "accent-primary"
-"status_bar.background" = "surface-dark"
-"title_bar.background" = "surface-dark"
-"title_bar.inactive_background" = { role = "surface-dark", mix = "surface", amount = 0.1 }
+"status_bar.background" = "surface-window"
+"title_bar.background" = "surface-window"
+"title_bar.inactive_background" = { role = "surface-window", shade = 0.03, "color-math" = "byte-ratio" }
 "toolbar.background" = "background"
-"tab_bar.background" = "surface-dark"
-"tab.inactive_background" = { role = "surface-dark", shade = -0.02 }
+"tab_bar.background" = "surface-window"
+"tab.inactive_background" = { role = "surface-window", shade = -0.03, "color-math" = "byte-ratio" }
 "tab.active_background" = "background"
+"search.match_background" = { role = "accent-teal", opacity = 0.3 }
+"search.active_match_background" = { role = "error", opacity = 0.3 }
 "panel.background" = "surface"
 "panel.focused_border" = "foreground"
+"panel.indent_guide" = { role = "surface-raised", opacity = 0.6 }
+"panel.indent_guide_active" = "surface-control"
+"panel.indent_guide_hover" = "accent-primary"
+"panel.overlay_background" = "surface"
 "pane.focused_border" = "foreground"
-"scrollbar.thumb.background" = { role = "border-strong", opacity = 0.5 }
+"pane_group.border" = "surface-raised"
+"scrollbar.thumb.background" = { role = "surface-control", opacity = 0.5 }
 "scrollbar.thumb.hover_background" = "placeholder"
-"scrollbar.thumb.border" = "border"
-"scrollbar.track.background" = "surface-dark"
+"scrollbar.track.background" = "surface-window"
 "scrollbar.track.border" = { role = "foreground", opacity = 0.07 }
+"minimap.thumb.background" = { role = "accent-primary", opacity = 0.2 }
+"minimap.thumb.hover_background" = { role = "accent-primary", opacity = 0.4 }
+"minimap.thumb.active_background" = { role = "accent-primary", opacity = 0.6 }
 "editor.foreground" = "foreground"
 "editor.background" = "background"
 "editor.gutter.background" = "background"
 "editor.subheader.background" = "surface"
 "editor.active_line.background" = { role = "foreground", opacity = 0.07 }
-"editor.highlighted_line.background" = { role = "foreground", opacity = 0.03 }
-"editor.line_number" = "foreground-faint"
+"editor.line_number" = "foreground-overlay"
 "editor.active_line_number" = "accent-primary"
-"editor.invisible" = { role = "foreground-muted", opacity = 0.4 }
-"editor.wrap_guide" = "surface-light"
-"editor.active_wrap_guide" = "border-strong"
-"editor.document_highlight.read_background" = { role = "foreground-muted", opacity = 0.16 }
-"editor.document_highlight.write_background" = { role = "foreground-muted", opacity = 0.16 }
-"search.match_background" = { role = "accent-cool", opacity = 0.3 }
-"search.active_match_background" = { role = "error", opacity = 0.3 }
+"editor.invisible" = { role = "foreground-faint", opacity = 0.4 }
+"editor.wrap_guide" = "surface-control"
+"editor.active_wrap_guide" = "surface-control"
+"editor.document_highlight.bracket_background" = { role = "accent-primary", opacity = 0.09 }
+"editor.document_highlight.read_background" = { role = "foreground-quiet", opacity = 0.16 }
+"editor.document_highlight.write_background" = { role = "foreground-quiet", opacity = 0.16 }
+"editor.indent_guide" = { role = "surface-raised", opacity = 0.6 }
+"editor.indent_guide_active" = "surface-control"
 "terminal.background" = "background"
 "terminal.foreground" = "foreground"
+"terminal.dim_foreground" = "foreground-overlay"
 "terminal.bright_foreground" = "foreground"
 "link_text.hover" = "accent-cool"
-error = "error"
-"error.background" = { role = "error", opacity = 0.12 }
+conflict = "accent-warm"
+"conflict.border" = "accent-warm"
+"conflict.background" = { role = "accent-warm", opacity = 0.15 }
+created = "success"
+"created.border" = "success"
+"created.background" = { role = "success", opacity = 0.15 }
+deleted = "error"
+"deleted.border" = "error"
+"deleted.background" = { role = "error", opacity = 0.15 }
+hidden = "placeholder"
+"hidden.border" = "placeholder"
+"hidden.background" = "surface"
+hint = "surface-control"
+"hint.border" = "surface-control"
+"hint.background" = "surface"
+ignored = "placeholder"
+"ignored.border" = "placeholder"
+"ignored.background" = { role = "placeholder", opacity = 0.15 }
+modified = "accent-secondary"
+"modified.border" = "accent-secondary"
+"modified.background" = { role = "accent-secondary", opacity = 0.15 }
+predictive = "placeholder"
+"predictive.border" = "link-visited"
+"predictive.background" = "surface"
+renamed = "accent-cyan"
+"renamed.border" = "accent-cyan"
+"renamed.background" = { role = "accent-cyan", opacity = 0.15 }
+info = "accent-teal"
+"info.border" = "accent-teal"
+"info.background" = { role = "accent-teal", opacity = 0.2 }
 warning = "warning"
+"warning.border" = "warning"
 "warning.background" = { role = "warning", opacity = 0.12 }
-info = "accent-cool"
-"info.background" = { role = "accent-cool", opacity = 0.2 }
+error = "error"
+"error.border" = "error"
+"error.background" = { role = "error", opacity = 0.12 }
 success = "success"
+"success.border" = "success"
 "success.background" = { role = "success", opacity = 0.12 }
+unreachable = "error"
+"unreachable.border" = "error"
+"unreachable.background" = { role = "error", opacity = 0.12 }
+"version_control.added" = "success"
+"version_control.deleted" = "error"
+"version_control.modified" = "warning"
+"version_control.renamed" = "accent-cyan"
+"version_control.conflict" = "accent-warm"
+"version_control.conflict_marker.ours" = { role = "success", opacity = 0.2 }
+"version_control.conflict_marker.theirs" = { role = "link", opacity = 0.2 }
+"version_control.ignored" = "placeholder"
+"debugger.accent" = "error"
+"editor.debugger_active_line.background" = { role = "accent-warm", opacity = 0.07 }
+"vim.mode.text" = "accent-contrast"
+"vim.normal.foreground" = "accent-contrast"
+"vim.helix_normal.foreground" = "accent-contrast"
+"vim.visual.foreground" = "accent-contrast"
+"vim.helix_select.foreground" = "accent-contrast"
+"vim.insert.foreground" = "accent-contrast"
+"vim.visual_line.foreground" = "accent-contrast"
+"vim.visual_block.foreground" = "accent-contrast"
+"vim.replace.foreground" = "accent-contrast"
+"vim.normal.background" = "caret"
+"vim.helix_normal.background" = "caret"
+"vim.visual.background" = "link-visited"
+"vim.helix_select.background" = "link-visited"
+"vim.insert.background" = "success"
+"vim.visual_line.background" = "link-visited"
+"vim.visual_block.background" = "accent-primary"
+"vim.replace.background" = "syntax-parameter"

@@ -140,3 +140,33 @@ accent = true
 color = "#f5e0dc"
 name = "Rosewater"
 accent = true
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#f37799"
+name = "Terminal Bright Red"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#89d88b"
+name = "Terminal Bright Green"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#ebd391"
+name = "Terminal Bright Yellow"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#74a8fc"
+name = "Terminal Bright Blue"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#f2aede"
+name = "Terminal Bright Magenta"
+accent = false
+
+[[default.Theme.'Catppuccin Mocha'.Palette]]
+color = "#6bd7ca"
+name = "Terminal Bright Cyan"
+accent = false

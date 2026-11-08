@@ -7,25 +7,25 @@
 [default.Theme.ApplicationRoles.Zed.Players]
 "1.background" = "caret"
 "1.cursor" = "caret"
-"1.selection" = { role = "foreground-faint", opacity = 0.25 }
+"1.selection" = { role = "foreground-faint", opacity = 0.25, "light-opacity" = 0.3 }
 "2.background" = "accent-primary"
 "2.cursor" = "accent-primary"
-"2.selection" = { role = "accent-primary", opacity = 0.25 }
+"2.selection" = { role = "accent-primary", opacity = 0.25, "light-opacity" = 0.3 }
 "3.background" = "link-visited"
 "3.cursor" = "link-visited"
-"3.selection" = { role = "link-visited", opacity = 0.25 }
+"3.selection" = { role = "link-visited", opacity = 0.25, "light-opacity" = 0.3 }
 "4.background" = "accent-cyan"
 "4.cursor" = "accent-cyan"
-"4.selection" = { role = "accent-cyan", opacity = 0.25 }
+"4.selection" = { role = "accent-cyan", opacity = 0.25, "light-opacity" = 0.3 }
 "5.background" = "success"
 "5.cursor" = "success"
-"5.selection" = { role = "success", opacity = 0.25 }
+"5.selection" = { role = "success", opacity = 0.25, "light-opacity" = 0.3 }
 "6.background" = "warning"
 "6.cursor" = "warning"
-"6.selection" = { role = "warning", opacity = 0.25 }
+"6.selection" = { role = "warning", opacity = 0.25, "light-opacity" = 0.3 }
 "7.background" = "accent-warm"
 "7.cursor" = "accent-warm"
-"7.selection" = { role = "accent-warm", opacity = 0.25 }
+"7.selection" = { role = "accent-warm", opacity = 0.25, "light-opacity" = 0.3 }
 "8.background" = "error"
 "8.cursor" = "error"
-"8.selection" = { role = "error", opacity = 0.25 }
+"8.selection" = { role = "error", opacity = 0.25, "light-opacity" = 0.3 }

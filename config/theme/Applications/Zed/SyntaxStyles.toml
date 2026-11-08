@@ -1,0 +1,32 @@
+#:schema ../../../schema/Universe.toml.schema.json
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+[default.Theme.ApplicationRoles.Zed.SyntaxStyles]
+"variable.special.font_style" = "italic"
+"module.font_style" = "italic"
+"string.special.url.font_style" = "italic"
+"tag.attribute.font_style" = "italic"
+"type.builtin.font_style" = "italic"
+"type.interface.font_style" = "italic"
+"type.super.font_style" = "italic"
+"comment.font_style" = "italic"
+"comment.doc.font_style" = "italic"
+"comment.documentation.font_style" = "italic"
+"comment.info.font_style" = "italic"
+"comment.error.font_style" = "italic"
+"comment.warning.font_style" = "italic"
+"comment.warn.font_style" = "italic"
+"comment.hint.font_style" = "italic"
+"comment.todo.font_style" = "italic"
+"comment.note.font_style" = "italic"
+"emphasis.font_style" = "italic"
+"namespace.font_style" = "italic"
+"hint.font_style" = "italic"
+"link_uri.font_style" = "italic"
+"string.doc.font_style" = "italic"
+"emphasis.strong.font_weight" = 700
+"enum.font_weight" = 700
+"type.class.definition.font_weight" = 700
+"title.font_weight" = 800

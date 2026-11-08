@@ -5,19 +5,28 @@
 
 
 [default.Theme.ApplicationRoles.Zed.Terminal]
-black = "border"
+background = "background"
+black = { role = "surface-mid", "light-role" = "foreground-subtle" }
 red = "error"
 green = "success"
 yellow = "warning"
 blue = "link"
 magenta = "accent-tertiary"
-cyan = "accent-cool"
-white = "foreground-subtle"
-bright_black = "surface-light"
-bright_red = "error"
-bright_green = "success"
-bright_yellow = "warning"
-bright_blue = "link"
-bright_magenta = "accent-tertiary"
-bright_cyan = "accent-cyan"
-bright_white = "foreground-subtle"
+cyan = "accent-teal"
+white = { role = "foreground-muted", "light-role" = "surface-control" }
+bright_black = { role = "surface-light", "light-role" = "foreground-quiet" }
+bright_red = "terminal-bright-red"
+bright_green = "terminal-bright-green"
+bright_yellow = "terminal-bright-yellow"
+bright_blue = "terminal-bright-blue"
+bright_magenta = "terminal-bright-magenta"
+bright_cyan = "terminal-bright-cyan"
+bright_white = { role = "foreground-subtle", "light-role" = "surface-mid" }
+dim_black = { role = "surface-mid", "light-role" = "foreground-subtle" }
+dim_red = "error"
+dim_green = "success"
+dim_yellow = "warning"
+dim_blue = "link"
+dim_magenta = "accent-tertiary"
+dim_cyan = "accent-teal"
+dim_white = { role = "foreground-muted", "light-role" = "surface-control" }

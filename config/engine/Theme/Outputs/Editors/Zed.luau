@@ -7,6 +7,56 @@ local Json = require("./Json")
 
 local Zed = {}
 
+--- syntaxFields joins capture colors and optional typography into Zed syntax entries.
+local function syntaxFields(Theme: Types.ThemeRoot): { Types.SyntaxField }
+	local FieldsByKey: { [string]: Types.SyntaxField } = {}
+	for _, Field in ColorRoles.resolve(Theme, "Zed", "Syntax") do
+		FieldsByKey[Field.Key] = { Key = Field.Key, Color = Field.Color }
+	end
+
+	local Styles = ThemeContext.ApplicationRoleMap(Theme, "Zed", "SyntaxStyles")
+	if Styles ~= nil then
+		for Key, Value in Styles do
+			if type(Key) == "string" and Value ~= nil then
+				local Capture = string.match(Key, "^(.*)%.font_style$")
+				local Property = if Capture ~= nil then "font_style" else nil
+				if Capture == nil then
+					Capture = string.match(Key, "^(.*)%.font_weight$")
+					Property = if Capture ~= nil then "font_weight" else nil
+				end
+
+				local Field = if Capture ~= nil then FieldsByKey[Capture] else nil
+				if Field ~= nil and Property == "font_style" then
+					Field.FontStyle = tostring(Value)
+				elseif Field ~= nil and Property == "font_weight" then
+					Field.FontWeight = tonumber(tostring(Value))
+				end
+			end
+		end
+	end
+
+	local Fields: { Types.SyntaxField } = {}
+	for _, Field in FieldsByKey do
+		table.insert(Fields, Field)
+	end
+	table.sort(Fields, function(Left: Types.SyntaxField, Right: Types.SyntaxField): boolean
+		return Left.Key < Right.Key
+	end)
+	return Fields
+end
+
+--- numberedFields serializes an ordered numeric role map as a JSON array.
+local function numberedFields(Fields: { Types.ColorField }): string
+	table.sort(Fields, function(Left: Types.ColorField, Right: Types.ColorField): boolean
+		return (tonumber(Left.Key) or math.huge) < (tonumber(Right.Key) or math.huge)
+	end)
+	local Values: { string } = {}
+	for _, Field in Fields do
+		table.insert(Values, Json.quote(Field.Color))
+	end
+	return "[" .. table.concat(Values, ",") .. "]"
+end
+
 --- playerArray groups numbered dotted keys into Zed's ordered player entries.
 local function playerArray(Fields: { Types.ColorField }): string
 	local Players: { [number]: { Types.ColorField } } = {}
@@ -56,10 +106,33 @@ function Zed.ThemeZedTheme(Theme: Types.ThemeRoot): string
 		})
 	end
 
+	local AccentFields = ColorRoles.resolve(Theme, "Zed", "Accents")
+	if #AccentFields > 0 then
+		table.insert(StyleFields, { Key = "accents", Value = numberedFields(AccentFields) })
+	end
+
 	table.insert(StyleFields, {
 		Key = "syntax",
-		Value = Json.syntaxObject(ColorRoles.resolve(Theme, "Zed", "Syntax")),
+		Value = Json.syntaxObject(syntaxFields(Theme)),
 	})
+
+	local NullFields = ThemeContext.ApplicationRoleMap(Theme, "Zed", "Null")
+	if NullFields ~= nil then
+		for Key, Value in NullFields do
+			if type(Key) == "string" and Value ~= nil then
+				table.insert(StyleFields, { Key = Key, Value = "null" })
+			end
+		end
+	end
+
+	local Settings = ThemeContext.ApplicationRoleMap(Theme, "Zed", "Settings")
+	if Settings ~= nil then
+		for Key, Value in Settings do
+			if type(Key) == "string" and Value ~= nil then
+				table.insert(StyleFields, { Key = Key, Value = Json.tomlScalar(Value) })
+			end
+		end
+	end
 
 	local ThemeStyle = Json.object(StyleFields)
 	local ThemeEntry = Json.object({

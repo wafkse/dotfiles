@@ -67,6 +67,8 @@ export type GradientOverride = {
 --- ApplicationRoleDescriptor adds a color operation to a semantic role assignment.
 export type ApplicationRoleDescriptor = {
 	role: TomlNode?,
+	["light-role"]: TomlNode?,
+	["dark-role"]: TomlNode?,
 	opacity: TomlNode?,
 	["light-opacity"]: TomlNode?,
 	["dark-opacity"]: TomlNode?,
@@ -77,17 +79,26 @@ export type ApplicationRoleDescriptor = {
 	shade: TomlNode?,
 	["light-shade"]: TomlNode?,
 	["dark-shade"]: TomlNode?,
+	["color-math"]: TomlNode?,
 }
 --- ColorHex is an RGB or RGBA hexadecimal color returned to a template.
 export type ColorHex = string
 export type Appearance = "dark" | "light"
 export type EditorApplication = "Zed" | "VSCode" | "IDEA"
-export type ApplicationRoleGroup = "Colors" | "SemanticTokens" | "Syntax" | "Terminal" | "Tokens" | "UI" | "Attributes" | "Players" | "Icons" | "Settings" | "Styles"
+export type ApplicationRoleGroup = "Accents" | "Colors" | "Null" | "SemanticTokens" | "Syntax" | "SyntaxStyles" | "Terminal" | "Tokens" | "UI" | "Attributes" | "Players" | "Icons" | "Settings" | "Styles"
 
 --- ColorField is one resolved editor token and its active palette color.
 export type ColorField = {
 	Key: string,
 	Color: ColorHex,
+}
+
+--- SyntaxField contains one resolved Zed capture and its optional typography.
+export type SyntaxField = {
+	Key: string,
+	Color: ColorHex,
+	FontStyle: string?,
+	FontWeight: number?,
 }
 
 --- JsonField is one object property whose Value is already valid JSON.
@@ -118,10 +129,14 @@ export type SemanticRole =
 	| "surface-selection"
 	| "surface-inactive"
 	| "surface-input"
+	| "surface-control"
+	| "surface-window"
 	| "muted"
 	| "foreground-muted"
 	| "foreground-subtle"
 	| "foreground-faint"
+	| "foreground-overlay"
+	| "foreground-quiet"
 	| "disabled"
 	| "border"
 	| "border-strong"
@@ -134,7 +149,9 @@ export type SemanticRole =
 	| "accent-soft"
 	| "accent-cool"
 	| "accent-cyan"
+	| "accent-teal"
 	| "accent-foreground"
+	| "accent-contrast"
 	| "selection"
 	| "selection-foreground"
 	| "error"
@@ -167,6 +184,12 @@ export type SemanticRole =
 	| "syntax-tag"
 	| "syntax-type"
 	| "syntax-variable"
+	| "terminal-bright-red"
+	| "terminal-bright-green"
+	| "terminal-bright-yellow"
+	| "terminal-bright-blue"
+	| "terminal-bright-magenta"
+	| "terminal-bright-cyan"
 
 --- GtkPart names the semantic UI areas consumed by the GTK Sass templates.
 export type GtkPart =

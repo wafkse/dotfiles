@@ -45,14 +45,30 @@ function Json.colorObject(Fields: { Types.ColorField }): string
 	return Json.object(JsonFields)
 end
 
---- syntaxObject encodes Zed syntax captures as objects containing a color.
-function Json.syntaxObject(Fields: { Types.ColorField }): string
+--- syntaxObject encodes Zed captures with color and optional typography.
+function Json.syntaxObject(Fields: { Types.SyntaxField }): string
 	local JsonFields: { Types.JsonField } = {}
 	for _, Field in Fields do
-		local Color = Json.object({ { Key = "color", Value = Json.quote(Field.Color) } })
-		table.insert(JsonFields, { Key = Field.Key, Value = Color })
+		local CaptureFields: { Types.JsonField } = {
+			{ Key = "color", Value = Json.quote(Field.Color) },
+			{ Key = "font_style", Value = if Field.FontStyle ~= nil then Json.quote(Field.FontStyle) else "null" },
+			{ Key = "font_weight", Value = if Field.FontWeight ~= nil then tostring(Field.FontWeight) else "null" },
+		}
+		table.insert(JsonFields, { Key = Field.Key, Value = Json.object(CaptureFields) })
 	end
 	return Json.object(JsonFields)
+end
+
+--- tomlScalar serializes a TOML scalar as a JSON primitive.
+function Json.tomlScalar(Value: Types.TomlNode): string
+	local Text = tostring(Value)
+	if Text == "true" or Text == "false" then
+		return Text
+	end
+	if tonumber(Text) ~= nil then
+		return Text
+	end
+	return Json.quote(Text)
 end
 
 --- vscodeTokens encodes TextMate scopes as VS Code token color rules.

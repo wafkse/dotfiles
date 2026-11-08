@@ -29,10 +29,14 @@ local SEMANTIC_ROLES: { [string]: boolean } = {
 	["surface-selection"] = true,
 	["surface-inactive"] = true,
 	["surface-input"] = true,
+	["surface-control"] = true,
+	["surface-window"] = true,
 	muted = true,
 	["foreground-muted"] = true,
 	["foreground-subtle"] = true,
 	["foreground-faint"] = true,
+	["foreground-overlay"] = true,
+	["foreground-quiet"] = true,
 	disabled = true,
 	border = true,
 	["border-strong"] = true,
@@ -45,7 +49,9 @@ local SEMANTIC_ROLES: { [string]: boolean } = {
 	["accent-soft"] = true,
 	["accent-cool"] = true,
 	["accent-cyan"] = true,
+	["accent-teal"] = true,
 	["accent-foreground"] = true,
+	["accent-contrast"] = true,
 	selection = true,
 	["selection-foreground"] = true,
 	error = true,
@@ -78,6 +84,12 @@ local SEMANTIC_ROLES: { [string]: boolean } = {
 	["syntax-tag"] = true,
 	["syntax-type"] = true,
 	["syntax-variable"] = true,
+	["terminal-bright-red"] = true,
+	["terminal-bright-green"] = true,
+	["terminal-bright-yellow"] = true,
+	["terminal-bright-blue"] = true,
+	["terminal-bright-magenta"] = true,
+	["terminal-bright-cyan"] = true,
 }
 
 --- ActiveTheme selects the explicitly named theme or the configured default.
@@ -179,7 +191,9 @@ end
 --- ThemeAppearance reports the active palette's explicit light or dark mode.
 function ThemeContext.ThemeAppearance(Theme: Types.ThemeRoot): Types.Appearance
 	local Active = ThemeContext.ActiveTheme(Theme)
+
 	local Appearance = if Active ~= nil then Active.appearance else nil
+
 	return if Appearance ~= nil and tostring(Appearance) == "light" then "light" else "dark"
 end
 
@@ -190,8 +204,11 @@ function ThemeContext.ApplicationRoleMap(
 	Group: Types.ApplicationRoleGroup
 ): Types.TomlNode?
 	local Active = ThemeContext.ActiveTheme(Theme)
+
 	local ThemeOverrides = if Active ~= nil then Active.Override else nil
+
 	local ThemeApplicationRoles = if ThemeOverrides ~= nil then ThemeOverrides.ApplicationRoles else nil
+
 	local RoleMap = applicationRoleMapAt(ThemeApplicationRoles, Application, Group)
 	if RoleMap ~= nil then
 		return RoleMap
@@ -201,6 +218,7 @@ function ThemeContext.ApplicationRoleMap(
 	local Families = Theme.FamilyOverride
 	local Family = if FamilyName ~= nil and Families ~= nil then Families[tostring(FamilyName)] else nil
 	local FamilyApplicationRoles = if Family ~= nil then Family.ApplicationRoles else nil
+
 	RoleMap = applicationRoleMapAt(FamilyApplicationRoles, Application, Group)
 	if RoleMap ~= nil then
 		return RoleMap
@@ -231,6 +249,8 @@ function ThemeContext.ThemeApplicationRole(
 
 	local Descriptor: Types.ApplicationRoleDescriptor = {
 		role = descriptorField("role"),
+		["light-role"] = descriptorField("light-role"),
+		["dark-role"] = descriptorField("dark-role"),
 		opacity = descriptorField("opacity"),
 		["light-opacity"] = descriptorField("light-opacity"),
 		["dark-opacity"] = descriptorField("dark-opacity"),
@@ -241,10 +261,18 @@ function ThemeContext.ThemeApplicationRole(
 		shade = descriptorField("shade"),
 		["light-shade"] = descriptorField("light-shade"),
 		["dark-shade"] = descriptorField("dark-shade"),
+		["color-math"] = descriptorField("color-math"),
 	}
-	local RoleName = if Descriptor.role ~= nil then tostring(Descriptor.role) else tostring(Assignment)
-	local Color = ThemeContext.ThemeRoleByName(Theme, RoleName)
+	local ColorMath: "byte-ratio"? = if Descriptor["color-math"] ~= nil
+		and tostring(Descriptor["color-math"]) == "byte-ratio"
+		then "byte-ratio"
+		else nil
 	local Appearance = ThemeContext.ThemeAppearance(Theme)
+	local RoleNode = if Appearance == "light"
+		then Descriptor["light-role"] or Descriptor.role
+		else Descriptor["dark-role"] or Descriptor.role
+	local RoleName = if RoleNode ~= nil then tostring(RoleNode) else tostring(Assignment)
+	local Color = ThemeContext.ThemeRoleByName(Theme, RoleName)
 	local MixRole = Descriptor.mix
 	local AmountNode = if Appearance == "light"
 		then Descriptor["light-amount"] or Descriptor.amount
@@ -254,7 +282,7 @@ function ThemeContext.ThemeApplicationRole(
 		local MixColor = ThemeContext.ThemeRoleByName(Theme, tostring(MixRole))
 		local Amount = tonumber(tostring(AmountNode))
 		if Amount ~= nil then
-			Color = Colors.mix(Color, MixColor, Amount)
+			Color = Colors.mix(Color, MixColor, Amount, ColorMath)
 		end
 	end
 
@@ -264,7 +292,7 @@ function ThemeContext.ThemeApplicationRole(
 	if ShadeNode ~= nil then
 		local Amount = tonumber(tostring(ShadeNode))
 		if Amount ~= nil then
-			Color = Colors.shade(Color, Amount)
+			Color = Colors.shade(Color, Amount, ColorMath)
 		end
 	end
 

@@ -21,10 +21,14 @@
                 "surface-selection",
                 "surface-inactive",
                 "surface-input",
+                "surface-control",
+                "surface-window",
                 "muted",
                 "foreground-muted",
                 "foreground-subtle",
                 "foreground-faint",
+                "foreground-overlay",
+                "foreground-quiet",
                 "disabled",
                 "border",
                 "border-strong",
@@ -37,7 +41,9 @@
                 "accent-soft",
                 "accent-cool",
                 "accent-cyan",
+                "accent-teal",
                 "accent-foreground",
+                "accent-contrast",
                 "selection",
                 "selection-foreground",
                 "error",
@@ -69,7 +75,13 @@
                 "syntax-string",
                 "syntax-tag",
                 "syntax-type",
-                "syntax-variable"
+                "syntax-variable",
+                "terminal-bright-red",
+                "terminal-bright-green",
+                "terminal-bright-yellow",
+                "terminal-bright-blue",
+                "terminal-bright-magenta",
+                "terminal-bright-cyan"
             ]
         },
         "roleMap": {
@@ -83,6 +95,8 @@
                     "type": "object",
                     "properties": {
                         "role": { "$ref": "#/$defs/role" },
+                        "light-role": { "$ref": "#/$defs/role" },
+                        "dark-role": { "$ref": "#/$defs/role" },
                         "opacity": { "type": "number", "minimum": 0, "maximum": 1 },
                         "light-opacity": { "type": "number", "minimum": 0, "maximum": 1 },
                         "dark-opacity": { "type": "number", "minimum": 0, "maximum": 1 },
@@ -92,7 +106,8 @@
                         "dark-amount": { "type": "number", "minimum": 0, "maximum": 1 },
                         "shade": { "type": "number", "minimum": -1, "maximum": 1 },
                         "light-shade": { "type": "number", "minimum": -1, "maximum": 1 },
-                        "dark-shade": { "type": "number", "minimum": -1, "maximum": 1 }
+                        "dark-shade": { "type": "number", "minimum": -1, "maximum": 1 },
+                        "color-math": { "enum": ["byte-ratio"] }
                     },
                     "required": ["role"],
                     "additionalProperties": false
@@ -104,6 +119,18 @@
             "additionalProperties": {
                 "type": ["string", "integer", "number", "boolean"]
             }
+        },
+        "syntaxStyleMap": {
+            "type": "object",
+            "patternProperties": {
+                "^.+\\.font_style$": { "enum": ["italic"] },
+                "^.+\\.font_weight$": { "type": "integer", "minimum": 100, "maximum": 900 }
+            },
+            "additionalProperties": false
+        },
+        "nullFieldMap": {
+            "type": "object",
+            "additionalProperties": { "const": true }
         }
     },
     "type": "object",
@@ -113,8 +140,12 @@
             "properties": {
                 "Colors": { "$ref": "#/$defs/roleMap" },
                 "Syntax": { "$ref": "#/$defs/roleMap" },
+                "SyntaxStyles": { "$ref": "#/$defs/syntaxStyleMap" },
                 "Terminal": { "$ref": "#/$defs/roleMap" },
-                "Players": { "$ref": "#/$defs/roleMap" }
+                "Players": { "$ref": "#/$defs/roleMap" },
+                "Accents": { "$ref": "#/$defs/roleMap" },
+                "Null": { "$ref": "#/$defs/nullFieldMap" },
+                "Settings": { "$ref": "#/$defs/valueMap" }
             },
             "additionalProperties": false
         },
