@@ -1,0 +1,22 @@
+#:schema ../../../schema/Universe.toml.schema.json
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+
+[default.Theme.ApplicationRoles.IDEA.Settings]
+"EditorTabs.unselectedBlend" = 0.9
+"List.Button.leftRightInset" = 8
+"List.Button.separatorInset" = 4
+"List.border" = "4,0,4,0"
+"List.rowHeight" = "24"
+"MainToolbar.Dropdown.maxWidth" = 350
+"MainToolbar.Icon.insets" = "5,5,5,5"
+"Popup.Advertiser.fontSizeOffset" = -1
+"Popup.borderWidth" = 1
+"Popup.paintBorder" = false
+"StatusBar.Breadcrumbs.chevronInset" = 0
+"TabbedPane.tabHeight" = 40
+"TabbedPane.tabSelectionArc" = 4
+"Tree.border" = "4,12,4,12"
+"Tree.rowHeight" = 24

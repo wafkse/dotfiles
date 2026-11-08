@@ -1,0 +1,38 @@
+#:schema ../../../schema/Universe.toml.schema.json
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+
+[default.Theme.ApplicationRoles.IDEA.Icons]
+"Actions.Blue" = "link"
+"Actions.Green" = "success"
+"Actions.Grey" = "disabled"
+"Actions.GreyInline" = "foreground-muted"
+"Actions.GreyInline.Dark" = "foreground-muted"
+"Actions.Red" = "error"
+"Actions.Yellow" = "warning"
+"Checkbox.Background.Default" = "background"
+"Checkbox.Background.Default.Dark" = "surface-raised"
+"Checkbox.Background.Disabled" = "background"
+"Checkbox.Background.Disabled.Dark" = "surface-raised"
+"Checkbox.Background.Selected" = "surface-selection"
+"Checkbox.Background.Selected.Dark" = "surface-hover"
+"Checkbox.Border.Default" = "surface-raised"
+"Checkbox.Border.Disabled" = "surface-raised"
+"Checkbox.Border.Selected" = "surface-raised"
+"Checkbox.Foreground.Disabled" = "disabled"
+"Checkbox.Foreground.Disabled.Dark" = "disabled"
+"Checkbox.Foreground.Selected" = "accent-primary"
+"Checkbox.Foreground.Selected.Dark" = "accent-primary"
+"Objects.BlackText" = "surface-raised"
+"Objects.Blue" = "link"
+"Objects.Green" = "success"
+"Objects.Grey" = "disabled"
+"Objects.Pink" = "accent-tertiary"
+"Objects.Purple" = "accent-primary"
+"Objects.Red" = "error"
+"Objects.RedStatus" = "error"
+"Objects.Yellow" = "warning"
+"Objects.YellowDark" = "accent-soft"
+"Tree.iconColor" = "foreground"

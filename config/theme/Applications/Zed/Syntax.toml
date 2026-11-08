@@ -1,0 +1,25 @@
+#:schema ../../../schema/Universe.toml.schema.json
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+
+[default.Theme.ApplicationRoles.Zed.Syntax]
+attribute = "syntax-annotation"
+boolean = "syntax-constant"
+"comment" = "syntax-comment"
+"comment.doc" = "muted"
+constant = "syntax-constant"
+constructor = "syntax-class"
+enum = "syntax-class"
+function = "syntax-function"
+keyword = "syntax-keyword"
+number = "syntax-number"
+operator = "syntax-operator"
+property = "syntax-property"
+punctuation = "syntax-punctuation"
+string = "syntax-string"
+tag = "syntax-tag"
+type = "syntax-type"
+variable = "syntax-variable"
+"variable.parameter" = "syntax-parameter"

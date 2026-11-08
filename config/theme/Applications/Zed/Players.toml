@@ -1,0 +1,10 @@
+#:schema ../../../schema/Universe.toml.schema.json
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+
+[default.Theme.ApplicationRoles.Zed.Players]
+cursor = "accent"
+background = "surface"
+selection = "selection"

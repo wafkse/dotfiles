@@ -1,0 +1,23 @@
+#:schema ../../../schema/Universe.toml.schema.json
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+
+[default.Theme.ApplicationRoles.Zed.Terminal]
+black = "background"
+red = "error"
+green = "success"
+yellow = "warning"
+blue = "link"
+magenta = "accent"
+cyan = "link"
+white = "foreground-muted"
+bright_black = "disabled"
+bright_red = "error"
+bright_green = "success"
+bright_yellow = "warning"
+bright_blue = "link"
+bright_magenta = "accent"
+bright_cyan = "link"
+bright_white = "foreground"

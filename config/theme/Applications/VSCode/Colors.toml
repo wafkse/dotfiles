@@ -1,0 +1,572 @@
+#:schema ../../../schema/Universe.toml.schema.json
+
+# tombi: lint.rules.table-key-required.disabled = true
+[default.Theme]
+
+
+[default.Theme.ApplicationRoles.VSCode.Colors]
+"activityBar.background" = "surface-dark"
+"activityBar.foreground" = "accent-primary"
+"activityBar.inactiveForeground" = "disabled"
+"activityBarBadge.background" = "accent-primary"
+"activityBarBadge.foreground" = "accent-foreground"
+"badge.background" = "surface-mid"
+"badge.foreground" = "foreground"
+"button.background" = "accent-primary"
+"button.foreground" = "accent-foreground"
+"button.hoverBackground" = { role = "accent-primary", shade = 0.07 }
+"editor.background" = "background"
+"editor.foreground" = "foreground"
+"editorCursor.foreground" = "caret"
+"editorGutter.background" = "background"
+"editorLineNumber.foreground" = "foreground-muted"
+"editorLineNumber.activeForeground" = "accent-primary"
+"editor.selectionBackground" = { role = "foreground-faint", opacity = 0.25, "light-opacity" = 0.3 }
+"editor.lineHighlightBackground" = { role = "foreground", opacity = 0.07 }
+"editor.findMatchBackground" = { role = "error", mix = "background", amount = 0.3 }
+"editor.findMatchHighlightBackground" = { role = "accent-cool", mix = "background", amount = 0.3 }
+"editorError.foreground" = "error"
+"editorWarning.foreground" = "accent-warm"
+"editorInfo.foreground" = "link"
+"editorWidget.background" = "surface"
+"editorWidget.foreground" = "foreground"
+"editorWidget.border" = "surface-light"
+"editorGroup.border" = "surface-light"
+"input.background" = "surface-raised"
+"input.foreground" = "foreground"
+"input.border" = { role = "background", opacity = 0 }
+"input.placeholderForeground" = { role = "foreground", opacity = 0.45 }
+"list.activeSelectionBackground" = "surface-selection"
+"list.activeSelectionForeground" = "foreground"
+"list.hoverBackground" = { role = "surface-raised", opacity = 0.5 }
+"menu.background" = "background"
+"menu.foreground" = "foreground"
+"panel.background" = "background"
+"panel.border" = "surface-light"
+"sideBar.background" = "surface"
+"sideBar.foreground" = "foreground"
+"statusBar.background" = "surface-dark"
+"statusBar.foreground" = "foreground"
+"tab.activeBackground" = "background"
+"tab.activeForeground" = "accent-primary"
+"tab.inactiveBackground" = "surface"
+"tab.inactiveForeground" = "foreground-muted"
+"titleBar.activeBackground" = "surface-dark"
+"titleBar.activeForeground" = "foreground"
+"titleBar.inactiveBackground" = "surface-dark"
+"titleBar.inactiveForeground" = { role = "foreground", opacity = 0.5 }
+"terminal.background" = "background"
+"terminal.foreground" = "foreground"
+"terminal.ansiBlack" = "surface-mid"
+"terminal.ansiRed" = "error"
+"terminal.ansiGreen" = "success"
+"terminal.ansiYellow" = "warning"
+"terminal.ansiBlue" = "link"
+"terminal.ansiMagenta" = "accent-tertiary"
+"terminal.ansiCyan" = "syntax-class"
+"terminal.ansiWhite" = "muted"
+"terminal.ansiBrightBlack" = "surface-light"
+"terminal.ansiBrightRed" = "error"
+"terminal.ansiBrightGreen" = "success"
+"terminal.ansiBrightYellow" = "warning"
+"terminal.ansiBrightBlue" = "link"
+"terminal.ansiBrightMagenta" = "accent-tertiary"
+"terminal.ansiBrightCyan" = "syntax-class"
+"terminal.ansiBrightWhite" = "foreground-subtle"
+focusBorder = "accent-primary"
+foreground = "foreground"
+disabledForeground = "muted"
+"widget.shadow" = { role = "surface", opacity = 0.5 }
+"selection.background" = { role = "accent-primary", opacity = 0.4 }
+descriptionForeground = "foreground"
+errorForeground = "error"
+"icon.foreground" = "accent-primary"
+"sash.hoverBorder" = "accent-primary"
+"textBlockQuote.background" = "surface"
+"textBlockQuote.border" = "surface-dark"
+"textCodeBlock.background" = "surface"
+"textLink.foreground" = "link"
+"textLink.activeForeground" = "accent-cool"
+"textPreformat.foreground" = "foreground"
+"textSeparator.foreground" = "accent-primary"
+"activityBar.activeBackground" = { role = "surface-dark", opacity = 0 }
+"activityBar.activeBorder" = { role = "surface-dark", opacity = 0 }
+"activityBar.activeFocusBorder" = { role = "surface-dark", opacity = 0 }
+"activityBar.border" = { role = "surface-dark", opacity = 0 }
+"activityBar.dropBorder" = { role = "accent-primary", opacity = 0.2 }
+"activityBarTop.foreground" = "accent-primary"
+"activityBarTop.activeBorder" = { role = "surface-dark", opacity = 0 }
+"activityBarTop.inactiveForeground" = "disabled"
+"activityBarTop.dropBorder" = { role = "accent-primary", opacity = 0.2 }
+"breadcrumb.activeSelectionForeground" = "accent-primary"
+"breadcrumb.background" = "background"
+"breadcrumb.focusForeground" = "accent-primary"
+"breadcrumb.foreground" = { role = "foreground", opacity = 0.8 }
+"breadcrumbPicker.background" = "surface"
+"button.border" = { role = "background", opacity = 0 }
+"button.secondaryBackground" = "surface-light"
+"button.secondaryForeground" = "foreground"
+"button.secondaryHoverBackground" = { role = "surface-light", shade = 0.07 }
+"checkbox.background" = "surface-mid"
+"checkbox.border" = { role = "background", opacity = 0 }
+"checkbox.foreground" = "accent-primary"
+"dropdown.background" = "surface"
+"dropdown.listBackground" = "surface-light"
+"dropdown.border" = "accent-primary"
+"dropdown.foreground" = "foreground"
+"debugToolBar.background" = "surface-dark"
+"debugToolBar.border" = { role = "background", opacity = 0 }
+"debugExceptionWidget.background" = "surface-dark"
+"debugExceptionWidget.border" = "accent-primary"
+"debugTokenExpression.number" = "syntax-number"
+"debugTokenExpression.boolean" = "accent-primary"
+"debugTokenExpression.string" = "syntax-string"
+"debugTokenExpression.error" = "error"
+"debugIcon.breakpointForeground" = "error"
+"debugIcon.breakpointDisabledForeground" = { role = "error", opacity = 0.6 }
+"debugIcon.breakpointUnverifiedForeground" = { role = "error", mix = "surface-light", amount = 0.5 }
+"debugIcon.startForeground" = "success"
+"debugIcon.pauseForeground" = "link"
+"debugIcon.stopForeground" = "error"
+"debugIcon.disconnectForeground" = "surface-light"
+"debugIcon.restartForeground" = "syntax-class"
+"debugIcon.stepOverForeground" = "accent-primary"
+"debugIcon.stepIntoForeground" = "foreground"
+"debugIcon.stepOutForeground" = "foreground"
+"debugIcon.continueForeground" = "success"
+"debugConsole.infoForeground" = "link"
+"debugConsole.warningForeground" = "accent-warm"
+"debugConsole.errorForeground" = "error"
+"debugConsole.sourceForeground" = "caret"
+"testing.runAction" = "accent-primary"
+"testing.iconErrored" = "error"
+"testing.iconFailed" = "error"
+"testing.iconPassed" = "success"
+"testing.iconQueued" = "link"
+"testing.iconUnset" = "foreground"
+"testing.iconSkipped" = "muted"
+"testing.peekBorder" = "accent-primary"
+"testing.peekHeaderBackground" = "surface-light"
+"testing.messagePeekBorder" = "accent-primary"
+"testing.messagePeekHeaderBackground" = "surface-light"
+"testing.coverCountBadgeForeground" = "accent-primary"
+"diffEditor.border" = "surface-light"
+"diffEditor.insertedTextBackground" = { role = "success", opacity = 0.2 }
+"diffEditor.removedTextBackground" = { role = "error", opacity = 0.2 }
+"diffEditor.insertedLineBackground" = { role = "success", opacity = 0.15 }
+"diffEditor.removedLineBackground" = { role = "error", opacity = 0.15 }
+"diffEditorOverview.insertedForeground" = { role = "success", opacity = 0.8 }
+"diffEditorOverview.removedForeground" = { role = "error", opacity = 0.8 }
+"editor.lineHighlightBorder" = { role = "background", opacity = 0 }
+"editor.findMatchBorder" = { role = "error", opacity = 0.2 }
+"editor.findMatchHighlightBorder" = { role = "accent-cool", opacity = 0.2 }
+"editor.findRangeHighlightBackground" = { role = "accent-cool", mix = "background", amount = 0.3 }
+"editor.findRangeHighlightBorder" = { role = "accent-cool", opacity = 0.2 }
+"editor.foldBackground" = { role = "accent-cool", opacity = 0.25 }
+"editor.hoverHighlightBackground" = { role = "accent-cool", opacity = 0.25 }
+"editor.rangeHighlightBackground" = { role = "accent-cool", opacity = 0.25 }
+"editor.rangeHighlightBorder" = { role = "background", opacity = 0 }
+"editor.selectionHighlightBackground" = { role = "foreground-faint", opacity = 0.2 }
+"editor.selectionHighlightBorder" = { role = "foreground-faint", opacity = 0.2 }
+"editor.wordHighlightBackground" = { role = "foreground-faint", opacity = 0.2 }
+"editor.wordHighlightStrongBackground" = { role = "link", opacity = 0.2, "light-opacity" = 0.15 }
+"editorBracketHighlight.foreground1" = "error"
+"editorBracketHighlight.foreground2" = "syntax-number"
+"editorBracketHighlight.foreground3" = "warning"
+"editorBracketHighlight.foreground4" = "success"
+"editorBracketHighlight.foreground5" = "accent-cyan"
+"editorBracketHighlight.foreground6" = "accent-primary"
+"editorBracketHighlight.unexpectedBracket.foreground" = "syntax-entity"
+"editorBracketMatch.background" = { role = "foreground-faint", opacity = 0.1 }
+"editorBracketMatch.border" = "foreground-faint"
+"editorCodeLens.foreground" = "muted"
+"editorGroup.dropBackground" = { role = "accent-primary", opacity = 0.2 }
+"editorGroup.emptyBackground" = "background"
+"editorGroupHeader.tabsBackground" = "surface-dark"
+"editorGutter.addedBackground" = "success"
+"editorGutter.deletedBackground" = "error"
+"editorGutter.modifiedBackground" = "warning"
+"editorGutter.foldingControlForeground" = "foreground-faint"
+"editorGutter.commentGlyphForeground" = "accent-primary"
+"editorGutter.commentRangeForeground" = "surface-raised"
+"editorHoverWidget.background" = "surface"
+"editorHoverWidget.border" = "surface-light"
+"editorHoverWidget.foreground" = "tooltip-foreground"
+"editorIndentGuide.background" = "border"
+"editorIndentGuide.activeBackground" = "border-strong"
+"editorInlayHint.background" = { role = "surface", opacity = 0.75 }
+"editorInlayHint.foreground" = "foreground-muted"
+"editorInlayHint.typeBackground" = { role = "surface", opacity = 0.75 }
+"editorInlayHint.typeForeground" = "foreground-subtle"
+"editorInlayHint.parameterBackground" = { role = "surface", opacity = 0.75 }
+"editorInlayHint.parameterForeground" = "muted"
+"editorLightBulb.foreground" = "warning"
+"editorLink.activeForeground" = "accent-primary"
+"editorMarkerNavigation.background" = "surface"
+"editorMarkerNavigationError.background" = "error"
+"editorMarkerNavigationInfo.background" = "link"
+"editorMarkerNavigationWarning.background" = "accent-warm"
+"editorOverviewRuler.background" = "surface"
+"editorOverviewRuler.border" = { role = "foreground", opacity = 0.07 }
+"editorOverviewRuler.modifiedForeground" = "warning"
+"editorRuler.foreground" = "border-strong"
+"editorStickyScrollHover.background" = "surface-raised"
+"editorSuggestWidget.background" = "surface"
+"editorSuggestWidget.border" = "surface-light"
+"editorSuggestWidget.foreground" = "foreground"
+"editorSuggestWidget.highlightForeground" = "accent-primary"
+"editorSuggestWidget.selectedBackground" = "surface-selection"
+"editorWhitespace.foreground" = { role = "foreground-faint", opacity = 0.4 }
+"editorError.background" = { role = "background", opacity = 0 }
+"editorError.border" = { role = "background", opacity = 0 }
+"editorWarning.background" = { role = "background", opacity = 0 }
+"editorWarning.border" = { role = "background", opacity = 0 }
+"editorInfo.background" = { role = "background", opacity = 0 }
+"editorInfo.border" = { role = "background", opacity = 0 }
+"inputOption.activeBackground" = "surface-light"
+"inputOption.activeBorder" = "accent-primary"
+"inputOption.activeForeground" = "foreground"
+"inputValidation.errorBackground" = "error"
+"inputValidation.errorBorder" = { role = "accent-foreground", opacity = 0.2 }
+"inputValidation.errorForeground" = "accent-foreground"
+"inputValidation.infoBackground" = "link"
+"inputValidation.infoBorder" = { role = "accent-foreground", opacity = 0.2 }
+"inputValidation.infoForeground" = "accent-foreground"
+"inputValidation.warningBackground" = "accent-warm"
+"inputValidation.warningBorder" = { role = "accent-foreground", opacity = 0.2 }
+"inputValidation.warningForeground" = "accent-foreground"
+"list.focusBackground" = "surface-selection"
+"list.focusForeground" = "foreground"
+"list.focusOutline" = { role = "background", opacity = 0 }
+"list.focusAndSelectionBackground" = "surface-mid"
+"list.inactiveSelectionBackground" = "surface-selection"
+"list.inactiveSelectionForeground" = "foreground"
+"list.dropBackground" = { role = "accent-primary", opacity = 0.2 }
+"list.highlightForeground" = "accent-primary"
+"list.hoverForeground" = "foreground"
+"list.warningForeground" = "accent-warm"
+"listFilterWidget.background" = "surface-mid"
+"listFilterWidget.noMatchesOutline" = "error"
+"listFilterWidget.outline" = { role = "background", opacity = 0 }
+"tree.indentGuidesStroke" = "foreground-faint"
+"tree.inactiveIndentGuidesStroke" = "surface-mid"
+"menu.border" = { role = "background", opacity = 0.5 }
+"menu.selectionBackground" = "surface-light"
+"menu.selectionBorder" = { role = "background", opacity = 0 }
+"menu.selectionForeground" = "foreground"
+"menu.separatorBackground" = "surface-light"
+"menubar.selectionBackground" = "surface-mid"
+"menubar.selectionForeground" = "foreground"
+"merge.commonContentBackground" = "surface-mid"
+"merge.commonHeaderBackground" = "surface-light"
+"merge.currentContentBackground" = { role = "success", opacity = 0.2 }
+"merge.currentHeaderBackground" = { role = "success", opacity = 0.4 }
+"merge.incomingContentBackground" = { role = "link", opacity = 0.2 }
+"merge.incomingHeaderBackground" = { role = "link", opacity = 0.4 }
+"minimap.background" = { role = "surface", opacity = 0.5 }
+"minimap.findMatchHighlight" = { role = "accent-cool", opacity = 0.3 }
+"minimap.selectionHighlight" = { role = "surface-light", opacity = 0.75 }
+"minimap.warningHighlight" = { role = "accent-warm", opacity = 0.75 }
+"minimap.errorHighlight" = { role = "error", opacity = 0.75 }
+"minimapSlider.background" = { role = "accent-primary", opacity = 0.2 }
+"minimapSlider.hoverBackground" = { role = "accent-primary", opacity = 0.4 }
+"minimapSlider.activeBackground" = { role = "accent-primary", opacity = 0.6 }
+"minimapGutter.addedBackground" = { role = "success", opacity = 0.75 }
+"minimapGutter.deletedBackground" = { role = "error", opacity = 0.75 }
+"minimapGutter.modifiedBackground" = { role = "warning", opacity = 0.75 }
+"notificationCenter.border" = "accent-primary"
+"notificationCenterHeader.foreground" = "foreground"
+"notificationCenterHeader.background" = "surface"
+"notificationToast.border" = "accent-primary"
+"notifications.foreground" = "foreground"
+"notifications.background" = "surface"
+"notifications.border" = "accent-primary"
+"notificationLink.foreground" = "link"
+"notificationsErrorIcon.foreground" = "error"
+"notificationsWarningIcon.foreground" = "accent-warm"
+"notificationsInfoIcon.foreground" = "link"
+"sideBar.border" = { role = "background", opacity = 0 }
+"sideBarSectionHeader.background" = "surface"
+"sideBarSectionHeader.foreground" = "foreground"
+"sideBarTitle.foreground" = "accent-primary"
+"banner.background" = "surface-mid"
+"banner.foreground" = "foreground"
+"banner.iconForeground" = "foreground"
+"statusBar.border" = { role = "background", opacity = 0 }
+"statusBar.noFolderBackground" = "surface-dark"
+"statusBar.noFolderForeground" = "foreground"
+"statusBar.noFolderBorder" = { role = "background", opacity = 0 }
+"statusBar.debuggingBackground" = "accent-warm"
+"statusBar.debuggingForeground" = "accent-foreground"
+"statusBarItem.remoteBackground" = "link"
+"statusBarItem.remoteForeground" = "accent-foreground"
+"statusBarItem.activeBackground" = { role = "surface-light", opacity = 0.4 }
+"statusBarItem.hoverBackground" = { role = "surface-light", opacity = 0.2 }
+"statusBarItem.prominentForeground" = "accent-primary"
+"statusBarItem.errorForeground" = "error"
+"statusBarItem.warningForeground" = "accent-warm"
+"commandCenter.foreground" = "foreground-subtle"
+"commandCenter.inactiveForeground" = "foreground-subtle"
+"commandCenter.activeForeground" = "accent-primary"
+"commandCenter.background" = "surface"
+"commandCenter.activeBackground" = { role = "surface-light", opacity = 0.2 }
+"commandCenter.border" = { role = "background", opacity = 0 }
+"commandCenter.inactiveBorder" = { role = "background", opacity = 0 }
+"commandCenter.activeBorder" = "accent-primary"
+"tab.activeBorder" = { role = "background", opacity = 0 }
+"tab.activeBorderTop" = "accent-primary"
+"tab.activeModifiedBorder" = "warning"
+"tab.border" = "surface"
+"tab.hoverBackground" = { role = "background", shade = 0.05 }
+"tab.hoverBorder" = { role = "background", opacity = 0 }
+"tab.hoverForeground" = "accent-primary"
+"tab.inactiveModifiedBorder" = { role = "warning", opacity = 0.3 }
+"tab.unfocusedActiveBackground" = "surface"
+"button.secondaryBorder" = "accent-primary"
+"button.separator" = { role = "background", opacity = 0 }
+"charts.blue" = "link"
+"charts.foreground" = "foreground"
+"charts.green" = "success"
+"charts.lines" = "foreground-subtle"
+"charts.orange" = "accent-warm"
+"charts.purple" = "accent-primary"
+"charts.red" = "error"
+"charts.yellow" = "warning"
+"debugConsoleInputIcon.foreground" = "foreground"
+"debugIcon.breakpointCurrentStackframeForeground" = "surface-light"
+"debugIcon.breakpointStackframeForeground" = "surface-light"
+"debugIcon.stepBackForeground" = "surface-light"
+"diffEditor.diagonalFill" = { role = "surface-light", opacity = 0.6 }
+"editor.focusedStackFrameHighlightBackground" = { role = "success", opacity = 0.15 }
+"editor.stackFrameHighlightBackground" = { role = "warning", opacity = 0.15 }
+"editorCursor.background" = "background"
+"editorWidget.resizeBorder" = "surface-light"
+"extensionBadge.remoteBackground" = "link"
+"extensionBadge.remoteForeground" = "accent-foreground"
+"extensionButton.prominentBackground" = "accent-primary"
+"extensionButton.prominentForeground" = "accent-foreground"
+"extensionButton.prominentHoverBackground" = { role = "accent-primary", shade = 0.07 }
+"extensionButton.separator" = "background"
+"extensionIcon.preReleaseForeground" = "surface-light"
+"extensionIcon.sponsorForeground" = "accent-tertiary"
+"extensionIcon.starForeground" = "warning"
+"extensionIcon.verifiedForeground" = "success"
+"gitDecoration.addedResourceForeground" = "success"
+"gitDecoration.conflictingResourceForeground" = "accent-primary"
+"gitDecoration.deletedResourceForeground" = "error"
+"gitDecoration.ignoredResourceForeground" = "disabled"
+"gitDecoration.modifiedResourceForeground" = "warning"
+"gitDecoration.stageDeletedResourceForeground" = "error"
+"gitDecoration.stageModifiedResourceForeground" = "warning"
+"gitDecoration.submoduleResourceForeground" = "link"
+"gitDecoration.untrackedResourceForeground" = "success"
+"issues.closed" = "accent-primary"
+"issues.newIssueDecoration" = "caret"
+"issues.open" = "success"
+"minimap.selectionOccurrenceHighlight" = { role = "surface-light", opacity = 0.75 }
+"panelSection.border" = "surface-light"
+"panelSection.dropBackground" = { role = "accent-primary", opacity = 0.2 }
+"panelTitle.activeBorder" = "accent-primary"
+"panelTitle.activeForeground" = "foreground"
+"panelTitle.inactiveForeground" = "muted"
+"peekView.border" = "accent-primary"
+"peekViewEditor.background" = "surface"
+"peekViewEditorGutter.background" = "surface"
+"peekViewEditor.matchHighlightBackground" = { role = "accent-cool", opacity = 0.3 }
+"peekViewEditor.matchHighlightBorder" = { role = "background", opacity = 0 }
+"peekViewResult.background" = "surface"
+"peekViewResult.fileForeground" = "foreground"
+"peekViewResult.lineForeground" = "foreground"
+"peekViewResult.matchHighlightBackground" = { role = "accent-cool", opacity = 0.3 }
+"peekViewResult.selectionBackground" = "surface-selection"
+"peekViewResult.selectionForeground" = "foreground"
+"peekViewTitle.background" = "background"
+"peekViewTitleDescription.foreground" = { role = "foreground-subtle", opacity = 0.7 }
+"peekViewTitleLabel.foreground" = "foreground"
+"pickerGroup.border" = "accent-primary"
+"pickerGroup.foreground" = "accent-primary"
+"problemsErrorIcon.foreground" = "error"
+"problemsInfoIcon.foreground" = "link"
+"problemsWarningIcon.foreground" = "accent-warm"
+"progressBar.background" = "accent-primary"
+"pullRequests.closed" = "error"
+"pullRequests.draft" = "foreground-faint"
+"pullRequests.merged" = "accent-primary"
+"pullRequests.notification" = "foreground"
+"pullRequests.open" = "success"
+"scmGraph.historyItemRefColor" = "link"
+"scmGraph.historyItemBaseRefColor" = "accent-warm"
+"scmGraph.historyItemRemoteRefColor" = "accent-primary"
+"scmGraph.foreground1" = "warning"
+"scmGraph.foreground2" = "error"
+"scmGraph.foreground3" = "success"
+"scmGraph.foreground4" = "accent-primary"
+"scmGraph.foreground5" = "syntax-class"
+"scrollbar.shadow" = "shadow"
+"scrollbarSlider.activeBackground" = { role = "surface-raised", opacity = 0.4 }
+"scrollbarSlider.background" = { role = "surface-light", opacity = 0.5 }
+"scrollbarSlider.hoverBackground" = "disabled"
+"settings.dropdownBackground" = "surface-mid"
+"settings.dropdownListBorder" = { role = "background", opacity = 0 }
+"settings.focusedRowBackground" = { role = "surface-light", opacity = 0.2 }
+"settings.headerForeground" = "foreground"
+"settings.modifiedItemIndicator" = "accent-primary"
+"settings.numberInputBackground" = "surface-mid"
+"settings.numberInputBorder" = { role = "background", opacity = 0 }
+"settings.textInputBackground" = "surface-mid"
+"settings.textInputBorder" = { role = "background", opacity = 0 }
+"sideBar.dropBackground" = { role = "accent-primary", opacity = 0.2 }
+"statusBar.debuggingBorder" = { role = "background", opacity = 0 }
+"statusBarItem.errorBackground" = { role = "background", opacity = 0 }
+"statusBarItem.prominentBackground" = { role = "background", opacity = 0 }
+"statusBarItem.prominentHoverBackground" = { role = "surface-light", opacity = 0.2 }
+"statusBarItem.warningBackground" = { role = "background", opacity = 0 }
+"symbolIcon.arrayForeground" = "accent-warm"
+"symbolIcon.booleanForeground" = "accent-primary"
+"symbolIcon.classForeground" = "warning"
+"symbolIcon.colorForeground" = "accent-tertiary"
+"symbolIcon.constantForeground" = "accent-warm"
+"symbolIcon.constructorForeground" = "link-visited"
+"symbolIcon.enumeratorForeground" = "warning"
+"symbolIcon.enumeratorMemberForeground" = "warning"
+"symbolIcon.eventForeground" = "accent-tertiary"
+"symbolIcon.fieldForeground" = "foreground"
+"symbolIcon.fileForeground" = "accent-primary"
+"symbolIcon.folderForeground" = "accent-primary"
+"symbolIcon.functionForeground" = "syntax-function"
+"symbolIcon.interfaceForeground" = "warning"
+"symbolIcon.keyForeground" = "syntax-class"
+"symbolIcon.keywordForeground" = "syntax-keyword"
+"symbolIcon.methodForeground" = "syntax-function"
+"symbolIcon.moduleForeground" = "foreground"
+"symbolIcon.namespaceForeground" = "warning"
+"symbolIcon.nullForeground" = "syntax-entity"
+"symbolIcon.numberForeground" = "syntax-number"
+"symbolIcon.objectForeground" = "warning"
+"symbolIcon.operatorForeground" = "syntax-class"
+"symbolIcon.packageForeground" = "accent-soft"
+"symbolIcon.propertyForeground" = "syntax-entity"
+"symbolIcon.referenceForeground" = "warning"
+"symbolIcon.snippetForeground" = "accent-soft"
+"symbolIcon.stringForeground" = "syntax-string"
+"symbolIcon.structForeground" = "syntax-class"
+"symbolIcon.textForeground" = "foreground"
+"symbolIcon.typeParameterForeground" = "syntax-parameter"
+"symbolIcon.unitForeground" = "foreground"
+"symbolIcon.variableForeground" = "syntax-variable"
+"table.headerBackground" = "surface-raised"
+"table.headerForeground" = "foreground"
+"terminal.border" = "surface-light"
+"terminal.dropBackground" = { role = "accent-primary", opacity = 0.2 }
+"terminal.inactiveSelectionBackground" = { role = "surface-light", opacity = 0.5 }
+"terminal.selectionBackground" = "surface-light"
+"terminal.tab.activeBorder" = "accent-primary"
+"terminalCommandDecoration.defaultBackground" = "surface-light"
+"terminalCommandDecoration.errorBackground" = "error"
+"terminalCommandDecoration.successBackground" = "success"
+"terminalCursor.background" = "background"
+"terminalCursor.foreground" = "caret"
+"titleBar.border" = { role = "background", opacity = 0 }
+"walkThrough.embeddedEditorBackground" = { role = "background", opacity = 0.3 }
+"welcomePage.progress.background" = "surface-dark"
+"welcomePage.progress.foreground" = "accent-primary"
+"welcomePage.tileBackground" = "surface"
+"errorLens.errorBackground" = { role = "error", opacity = 0.15 }
+"errorLens.errorBackgroundLight" = { role = "error", opacity = 0.15 }
+"errorLens.errorForeground" = "error"
+"errorLens.errorForegroundLight" = "error"
+"errorLens.errorMessageBackground" = { role = "error", opacity = 0.15 }
+"errorLens.hintBackground" = { role = "success", opacity = 0.15 }
+"errorLens.hintBackgroundLight" = { role = "success", opacity = 0.15 }
+"errorLens.hintForeground" = "success"
+"errorLens.hintForegroundLight" = "success"
+"errorLens.hintMessageBackground" = { role = "success", opacity = 0.15 }
+"errorLens.infoBackground" = { role = "link", opacity = 0.15 }
+"errorLens.infoBackgroundLight" = { role = "link", opacity = 0.15 }
+"errorLens.infoForeground" = "link"
+"errorLens.infoForegroundLight" = "link"
+"errorLens.infoMessageBackground" = { role = "link", opacity = 0.15 }
+"errorLens.statusBarErrorForeground" = "error"
+"errorLens.statusBarHintForeground" = "success"
+"errorLens.statusBarIconErrorForeground" = "error"
+"errorLens.statusBarIconWarningForeground" = "accent-warm"
+"errorLens.statusBarInfoForeground" = "link"
+"errorLens.statusBarWarningForeground" = "accent-warm"
+"errorLens.warningBackground" = { role = "accent-warm", opacity = 0.15 }
+"errorLens.warningBackgroundLight" = { role = "accent-warm", opacity = 0.15 }
+"errorLens.warningForeground" = "accent-warm"
+"errorLens.warningForegroundLight" = "accent-warm"
+"errorLens.warningMessageBackground" = { role = "accent-warm", opacity = 0.15 }
+"gitlens.closedAutolinkedIssueIconColor" = "accent-primary"
+"gitlens.closedPullRequestIconColor" = "error"
+"gitlens.decorations.branchAheadForegroundColor" = "success"
+"gitlens.decorations.branchBehindForegroundColor" = "accent-warm"
+"gitlens.decorations.branchDivergedForegroundColor" = "warning"
+"gitlens.decorations.branchMissingUpstreamForegroundColor" = "accent-warm"
+"gitlens.decorations.branchUnpublishedForegroundColor" = "success"
+"gitlens.decorations.statusMergingOrRebasingConflictForegroundColor" = "syntax-entity"
+"gitlens.decorations.statusMergingOrRebasingForegroundColor" = "warning"
+"gitlens.decorations.workspaceCurrentForegroundColor" = "accent-primary"
+"gitlens.decorations.workspaceRepoMissingForegroundColor" = "muted"
+"gitlens.decorations.workspaceRepoOpenForegroundColor" = "accent-primary"
+"gitlens.decorations.worktreeHasUncommittedChangesForegroundColor" = "accent-warm"
+"gitlens.decorations.worktreeMissingForegroundColor" = "syntax-entity"
+"gitlens.graphChangesColumnAddedColor" = "success"
+"gitlens.graphChangesColumnDeletedColor" = "error"
+"gitlens.graphLane1Color" = "accent-primary"
+"gitlens.graphLane2Color" = "warning"
+"gitlens.graphLane3Color" = "link"
+"gitlens.graphLane4Color" = "accent-soft"
+"gitlens.graphLane5Color" = "success"
+"gitlens.graphLane6Color" = "link-visited"
+"gitlens.graphLane7Color" = "caret"
+"gitlens.graphLane8Color" = "error"
+"gitlens.graphLane9Color" = "syntax-class"
+"gitlens.graphLane10Color" = "accent-tertiary"
+"gitlens.graphMinimapMarkerHeadColor" = "success"
+"gitlens.graphMinimapMarkerHighlightsColor" = "warning"
+"gitlens.graphMinimapMarkerLocalBranchesColor" = "link"
+"gitlens.graphMinimapMarkerRemoteBranchesColor" = "link"
+"gitlens.graphMinimapMarkerStashesColor" = "accent-primary"
+"gitlens.graphMinimapMarkerTagsColor" = "accent-soft"
+"gitlens.graphMinimapMarkerUpstreamColor" = "success"
+"gitlens.graphScrollMarkerHeadColor" = "success"
+"gitlens.graphScrollMarkerHighlightsColor" = "warning"
+"gitlens.graphScrollMarkerLocalBranchesColor" = "link"
+"gitlens.graphScrollMarkerRemoteBranchesColor" = "link"
+"gitlens.graphScrollMarkerStashesColor" = "accent-primary"
+"gitlens.graphScrollMarkerTagsColor" = "accent-soft"
+"gitlens.graphScrollMarkerUpstreamColor" = "success"
+"gitlens.gutterBackgroundColor" = { role = "surface-raised", opacity = 0.3 }
+"gitlens.gutterForegroundColor" = "foreground"
+"gitlens.gutterUncommittedForegroundColor" = "accent-primary"
+"gitlens.lineHighlightBackgroundColor" = { role = "accent-primary", opacity = 0.15 }
+"gitlens.lineHighlightOverviewRulerColor" = { role = "accent-primary", opacity = 0.8 }
+"gitlens.mergedPullRequestIconColor" = "accent-primary"
+"gitlens.openAutolinkedIssueIconColor" = "success"
+"gitlens.openPullRequestIconColor" = "success"
+"gitlens.trailingLineBackgroundColor" = { role = "background", opacity = 0 }
+"gitlens.trailingLineForegroundColor" = { role = "foreground", opacity = 0.3 }
+"gitlens.unpublishedChangesIconColor" = "success"
+"gitlens.unpublishedCommitIconColor" = "success"
+"gitlens.unpulledChangesIconColor" = "accent-warm"
+"tab.lastPinnedBorder" = "accent-primary"
+"tab.unfocusedActiveBorder" = { role = "background", opacity = 0 }
+"tab.unfocusedActiveBorderTop" = { role = "accent-primary", opacity = 0.3 }
+"testing.coverCountBadgeBackground" = { role = "background", opacity = 0 }
+"testing.coveredBackground" = { role = "success", opacity = 0.3 }
+"testing.coveredBorder" = { role = "background", opacity = 0 }
+"testing.coveredGutterBackground" = { role = "success", opacity = 0.3 }
+"testing.iconErrored.retired" = "error"
+"testing.iconFailed.retired" = "error"
+"testing.iconPassed.retired" = "success"
+"testing.iconQueued.retired" = "link"
+"testing.iconSkipped.retired" = "muted"
+"testing.iconUnset.retired" = "foreground"
+"testing.message.error.lineBackground" = { role = "error", opacity = 0.15 }
+"testing.message.info.decorationForeground" = { role = "success", opacity = 0.8 }
+"testing.message.info.lineBackground" = { role = "success", opacity = 0.15 }
+"testing.uncoveredBackground" = { role = "error", opacity = 0.2 }
+"testing.uncoveredBorder" = { role = "background", opacity = 0 }
+"testing.uncoveredBranchBackground" = { role = "error", opacity = 0.2 }
+"testing.uncoveredGutterBackground" = { role = "error", opacity = 0.25 }
