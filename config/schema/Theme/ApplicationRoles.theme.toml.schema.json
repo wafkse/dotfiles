@@ -90,7 +90,9 @@
                         "amount": { "type": "number", "minimum": 0, "maximum": 1 },
                         "light-amount": { "type": "number", "minimum": 0, "maximum": 1 },
                         "dark-amount": { "type": "number", "minimum": 0, "maximum": 1 },
-                        "shade": { "type": "number", "minimum": -1, "maximum": 1 }
+                        "shade": { "type": "number", "minimum": -1, "maximum": 1 },
+                        "light-shade": { "type": "number", "minimum": -1, "maximum": 1 },
+                        "dark-shade": { "type": "number", "minimum": -1, "maximum": 1 }
                     },
                     "required": ["role"],
                     "additionalProperties": false

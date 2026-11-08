@@ -75,6 +75,8 @@ export type ApplicationRoleDescriptor = {
 	["light-amount"]: TomlNode?,
 	["dark-amount"]: TomlNode?,
 	shade: TomlNode?,
+	["light-shade"]: TomlNode?,
+	["dark-shade"]: TomlNode?,
 }
 --- ColorHex is an RGB or RGBA hexadecimal color returned to a template.
 export type ColorHex = string
