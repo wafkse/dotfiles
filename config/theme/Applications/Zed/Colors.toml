@@ -21,13 +21,13 @@ border = "surface-raised"
 "ghost_element.background" = { role = "background", opacity = 0 }
 "ghost_element.hover" = { role = "surface-mid", opacity = 0.3 }
 "ghost_element.active" = { role = "surface-light", opacity = 0.6 }
-"ghost_element.selected" = { role = "surface-mid", mix = "foreground-faint", amount = 0.6, "light-opacity" = 0.35, "dark-opacity" = 0.4 }
+"ghost_element.selected" = "surface-selection"
 "ghost_element.disabled" = "placeholder"
 text = "foreground"
 "text.muted" = "foreground-subtle"
 "text.placeholder" = "placeholder"
 "text.disabled" = "placeholder"
-"text.accent" = "accent-primary"
+"text.accent" = "foreground"
 icon = "foreground"
 "icon.muted" = "foreground-faint"
 "icon.disabled" = "placeholder"
