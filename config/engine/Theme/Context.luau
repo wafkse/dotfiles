@@ -258,7 +258,7 @@ function ThemeContext.ThemeApplicationRole(
 		amount = descriptorField("amount"),
 		["light-amount"] = descriptorField("light-amount"),
 		["dark-amount"] = descriptorField("dark-amount"),
-		shade = descriptorField("shade"),
+		["shade"] = descriptorField("shade"),
 		["light-shade"] = descriptorField("light-shade"),
 		["dark-shade"] = descriptorField("dark-shade"),
 		["color-math"] = descriptorField("color-math"),
@@ -287,8 +287,8 @@ function ThemeContext.ThemeApplicationRole(
 	end
 
 	local ShadeNode = if Appearance == "light"
-		then Descriptor["light-shade"] or Descriptor.shade
-		else Descriptor["dark-shade"] or Descriptor.shade
+		then Descriptor["light-shade"] or Descriptor["shade"]
+		else Descriptor["dark-shade"] or Descriptor["shade"]
 	if ShadeNode ~= nil then
 		local Amount = tonumber(tostring(ShadeNode))
 		if Amount ~= nil then

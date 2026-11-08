@@ -66,19 +66,33 @@ export type GradientOverride = {
 
 --- ApplicationRoleDescriptor adds a color operation to a semantic role assignment.
 export type ApplicationRoleDescriptor = {
+	--- role selects the semantic palette role for every appearance by default.
 	role: TomlNode?,
+	--- light-role overrides role when the active theme has a light appearance.
 	["light-role"]: TomlNode?,
+	--- dark-role overrides role when the active theme has a dark appearance.
 	["dark-role"]: TomlNode?,
+	--- opacity sets the resolved color's alpha from 0 (transparent) to 1 (opaque).
 	opacity: TomlNode?,
+	--- light-opacity overrides opacity for light appearances.
 	["light-opacity"]: TomlNode?,
+	--- dark-opacity overrides opacity for dark appearances.
 	["dark-opacity"]: TomlNode?,
+	--- mix selects a second semantic role to blend with role.
 	mix: TomlNode?,
+	--- amount sets role's contribution to a mix, from 0 to 1.
 	amount: TomlNode?,
+	--- light-amount overrides amount for light appearances.
 	["light-amount"]: TomlNode?,
+	--- dark-amount overrides amount for dark appearances.
 	["dark-amount"]: TomlNode?,
-	shade: TomlNode?,
+	--- shade adjusts HSL lightness; positive values lighten and negative values darken.
+	["shade"]: TomlNode?,
+	--- light-shade overrides shade for light appearances.
 	["light-shade"]: TomlNode?,
+	--- dark-shade overrides shade for dark appearances.
 	["dark-shade"]: TomlNode?,
+	--- color-math selects the intermediate precision used by mix and shade operations.
 	["color-math"]: TomlNode?,
 }
 --- ColorHex is an RGB or RGBA hexadecimal color returned to a template.
