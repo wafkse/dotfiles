@@ -1,6 +1,7 @@
 --!strict
 
 local Types = require("./Types")
+local Colors = require("./Colors")
 
 local ThemeContext = {}
 
@@ -31,6 +32,7 @@ local SEMANTIC_ROLES: { [string]: boolean } = {
 	muted = true,
 	["foreground-muted"] = true,
 	["foreground-subtle"] = true,
+	["foreground-faint"] = true,
 	disabled = true,
 	border = true,
 	["border-strong"] = true,
@@ -41,6 +43,8 @@ local SEMANTIC_ROLES: { [string]: boolean } = {
 	["accent-tertiary"] = true,
 	["accent-warm"] = true,
 	["accent-soft"] = true,
+	["accent-cool"] = true,
+	["accent-cyan"] = true,
 	["accent-foreground"] = true,
 	selection = true,
 	["selection-foreground"] = true,
@@ -213,10 +217,63 @@ function ThemeContext.ThemeApplicationRole(
 	Key: string
 ): Types.ColorHex
 	local RoleMap = ThemeContext.ApplicationRoleMap(Theme, Application, Group)
-	local RoleName = if RoleMap ~= nil then RoleMap[tostring(Key)] else nil
-	return if RoleName == nil
-		then ThemeContext.Placeholder(Theme)
-		else ThemeContext.ThemeRoleByName(Theme, tostring(RoleName))
+	local Assignment = if RoleMap ~= nil then RoleMap[tostring(Key)] else nil
+	if Assignment == nil then
+		return ThemeContext.Placeholder(Theme)
+	end
+
+	local function descriptorField(Field: string): Types.TomlNode?
+		local Success, Value = pcall(function(): Types.TomlNode?
+			return Assignment[Field]
+		end)
+		return if Success then Value else nil
+	end
+
+	local Descriptor: Types.ApplicationRoleDescriptor = {
+		role = descriptorField("role"),
+		opacity = descriptorField("opacity"),
+		["light-opacity"] = descriptorField("light-opacity"),
+		["dark-opacity"] = descriptorField("dark-opacity"),
+		mix = descriptorField("mix"),
+		amount = descriptorField("amount"),
+		["light-amount"] = descriptorField("light-amount"),
+		["dark-amount"] = descriptorField("dark-amount"),
+		shade = descriptorField("shade"),
+	}
+	local RoleName = if Descriptor.role ~= nil then tostring(Descriptor.role) else tostring(Assignment)
+	local Color = ThemeContext.ThemeRoleByName(Theme, RoleName)
+	local Appearance = ThemeContext.ThemeAppearance(Theme)
+	local MixRole = Descriptor.mix
+	local AmountNode = if Appearance == "light"
+		then Descriptor["light-amount"] or Descriptor.amount
+		else Descriptor["dark-amount"] or Descriptor.amount
+
+	if MixRole ~= nil and AmountNode ~= nil then
+		local MixColor = ThemeContext.ThemeRoleByName(Theme, tostring(MixRole))
+		local Amount = tonumber(tostring(AmountNode))
+		if Amount ~= nil then
+			Color = Colors.mix(Color, MixColor, Amount)
+		end
+	end
+
+	if Descriptor.shade ~= nil then
+		local Amount = tonumber(tostring(Descriptor.shade))
+		if Amount ~= nil then
+			Color = Colors.shade(Color, Amount)
+		end
+	end
+
+	local OpacityNode = if Appearance == "light"
+		then Descriptor["light-opacity"] or Descriptor.opacity
+		else Descriptor["dark-opacity"] or Descriptor.opacity
+	if OpacityNode ~= nil then
+		local Opacity = tonumber(tostring(OpacityNode))
+		if Opacity ~= nil then
+			Color = Colors.opacity(Color, Opacity)
+		end
+	end
+
+	return Color
 end
 
 --- ThemeRole resolves a semantic role through a theme exception or family palette map.

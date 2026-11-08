@@ -63,7 +63,20 @@ export type GradientOverride = {
 	--- in optionally names a nested gradient target.
 	["in"]: TomlNode?,
 }
---- ColorHex is an RGB hexadecimal color returned to a template.
+
+--- ApplicationRoleDescriptor adds a color operation to a semantic role assignment.
+export type ApplicationRoleDescriptor = {
+	role: TomlNode?,
+	opacity: TomlNode?,
+	["light-opacity"]: TomlNode?,
+	["dark-opacity"]: TomlNode?,
+	mix: TomlNode?,
+	amount: TomlNode?,
+	["light-amount"]: TomlNode?,
+	["dark-amount"]: TomlNode?,
+	shade: TomlNode?,
+}
+--- ColorHex is an RGB or RGBA hexadecimal color returned to a template.
 export type ColorHex = string
 export type Appearance = "dark" | "light"
 export type EditorApplication = "Zed" | "VSCode" | "IDEA"
@@ -106,6 +119,7 @@ export type SemanticRole =
 	| "muted"
 	| "foreground-muted"
 	| "foreground-subtle"
+	| "foreground-faint"
 	| "disabled"
 	| "border"
 	| "border-strong"
@@ -116,6 +130,8 @@ export type SemanticRole =
 	| "accent-tertiary"
 	| "accent-warm"
 	| "accent-soft"
+	| "accent-cool"
+	| "accent-cyan"
 	| "accent-foreground"
 	| "selection"
 	| "selection-foreground"

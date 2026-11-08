@@ -27,7 +27,7 @@ function ColorRoles.resolve(
 		end
 	end
 
-	table.sort(Fields, function(Left, Right)
+	table.sort(Fields, function(Left: Types.ColorField, Right: Types.ColorField): boolean
 		return Left.Key < Right.Key
 	end)
 	return Fields

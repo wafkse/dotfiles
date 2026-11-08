@@ -12,6 +12,10 @@ family = "Catppuccin"
 appearance = "light"
 
 [default.Theme.'Catppuccin Latte'.Override.Roles]
+muted = "Subtext 1"
+foreground-muted = "Subtext 1"
+disabled = "Subtext 1"
+accent-foreground = "Base"
 surface-light = "Base"
 surface-midlight = "Mantle"
 surface-mid = "Surface 1"
