@@ -7,6 +7,33 @@ local Json = require("./Json")
 
 local Zed = {}
 
+--- playerArray groups numbered dotted keys into Zed's ordered player entries.
+local function playerArray(Fields: { Types.ColorField }): string
+	local Players: { [number]: { Types.ColorField } } = {}
+	local Indices: { number } = {}
+
+	for _, Field in Fields do
+		local IndexText, PlayerKey = string.match(Field.Key, "^(%d+)%.([%w_.%-]+)$")
+		local Index = if IndexText ~= nil then tonumber(IndexText) else nil
+		if Index ~= nil and PlayerKey ~= nil then
+			local Player = Players[Index]
+			if Player == nil then
+				Player = {}
+				Players[Index] = Player
+				table.insert(Indices, Index)
+			end
+			table.insert(Player, { Key = PlayerKey, Color = Field.Color })
+		end
+	end
+
+	table.sort(Indices)
+	local Entries: { string } = {}
+	for _, Index in Indices do
+		table.insert(Entries, Json.colorObject(Players[Index]))
+	end
+	return "[" .. table.concat(Entries, ",") .. "]"
+end
+
 --- ThemeZedTheme serializes TOML role assignments to Zed's custom theme format.
 function Zed.ThemeZedTheme(Theme: Types.ThemeRoot): string
 	local StyleFields: { Types.JsonField } = {}
@@ -25,7 +52,7 @@ function Zed.ThemeZedTheme(Theme: Types.ThemeRoot): string
 	if #PlayerFields > 0 then
 		table.insert(StyleFields, {
 			Key = "players",
-			Value = "[" .. Json.colorObject(PlayerFields) .. "]",
+			Value = playerArray(PlayerFields),
 		})
 	end
 

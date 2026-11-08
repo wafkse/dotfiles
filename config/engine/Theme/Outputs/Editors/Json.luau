@@ -25,7 +25,7 @@ function Json.object(Fields: { Types.JsonField }): string
 	for _, Field in Fields do
 		table.insert(Sorted, Field)
 	end
-	table.sort(Sorted, function(Left, Right)
+	table.sort(Sorted, function(Left: Types.JsonField, Right: Types.JsonField): boolean
 		return Left.Key < Right.Key
 	end)
 

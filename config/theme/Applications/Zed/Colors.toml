@@ -5,73 +5,73 @@
 
 
 [default.Theme.ApplicationRoles.Zed.Colors]
-background = "background"
-border = "border"
-"border.variant" = "border"
-"border.focused" = "accent"
-"border.selected" = "accent"
-"border.disabled" = "disabled"
-"elevated_surface.background" = "surface-raised"
+background = { role = "background", mix = "surface-raised", amount = 0.55 }
+border = "surface-raised"
+"border.variant" = { role = "surface-raised", mix = "background", amount = 0.8 }
+"border.focused" = "foreground"
+"border.selected" = "accent-primary"
+"border.disabled" = "placeholder"
+"elevated_surface.background" = "surface"
 "surface.background" = "surface"
-"element.background" = "surface"
+"element.background" = { role = "surface-dark", mix = "surface", "light-amount" = 0, "dark-amount" = 1 }
 "element.hover" = "surface-raised"
-"element.active" = "surface-raised"
-"element.selected" = "selection"
-"element.disabled" = "surface"
-"ghost_element.background" = "background"
-"ghost_element.hover" = "surface-raised"
-"ghost_element.active" = "surface-raised"
-"ghost_element.selected" = "selection"
-"ghost_element.disabled" = "background"
+"element.active" = { role = "surface-light", opacity = 0.3 }
+"element.selected" = { role = "surface-raised", opacity = 0.3 }
+"element.disabled" = "placeholder"
+"ghost_element.background" = { role = "background", opacity = 0 }
+"ghost_element.hover" = { role = "surface-mid", opacity = 0.3 }
+"ghost_element.active" = { role = "surface-light", opacity = 0.6 }
+"ghost_element.selected" = { role = "surface-mid", mix = "foreground-faint", amount = 0.6, "light-opacity" = 0.35, "dark-opacity" = 0.4 }
+"ghost_element.disabled" = "placeholder"
 text = "foreground"
-"text.muted" = "foreground-muted"
+"text.muted" = "foreground-subtle"
 "text.placeholder" = "placeholder"
-"text.disabled" = "disabled"
-"text.accent" = "accent"
+"text.disabled" = "placeholder"
+"text.accent" = "accent-primary"
 icon = "foreground"
-"icon.muted" = "foreground-muted"
-"icon.disabled" = "disabled"
-"icon.placeholder" = "placeholder"
-"icon.accent" = "accent"
-"status_bar.background" = "surface"
-"title_bar.background" = "surface"
-"title_bar.inactive_background" = "background"
-"toolbar.background" = "surface"
-"tab_bar.background" = "surface"
-"tab.inactive_background" = "surface"
+"icon.muted" = "foreground-faint"
+"icon.disabled" = "placeholder"
+"icon.placeholder" = "surface-light"
+"icon.accent" = "accent-primary"
+"status_bar.background" = "surface-dark"
+"title_bar.background" = "surface-dark"
+"title_bar.inactive_background" = { role = "surface-dark", mix = "surface", amount = 0.1 }
+"toolbar.background" = "background"
+"tab_bar.background" = "surface-dark"
+"tab.inactive_background" = { role = "surface-dark", shade = -0.02 }
 "tab.active_background" = "background"
 "panel.background" = "surface"
-"panel.focused_border" = "accent"
-"pane.focused_border" = "accent"
-"scrollbar.thumb.background" = "border-strong"
-"scrollbar.thumb.hover_background" = "foreground-muted"
+"panel.focused_border" = "foreground"
+"pane.focused_border" = "foreground"
+"scrollbar.thumb.background" = { role = "border-strong", opacity = 0.5 }
+"scrollbar.thumb.hover_background" = "placeholder"
 "scrollbar.thumb.border" = "border"
-"scrollbar.track.background" = "background"
-"scrollbar.track.border" = "border"
+"scrollbar.track.background" = "surface-dark"
+"scrollbar.track.border" = { role = "foreground", opacity = 0.07 }
 "editor.foreground" = "foreground"
 "editor.background" = "background"
 "editor.gutter.background" = "background"
 "editor.subheader.background" = "surface"
-"editor.active_line.background" = "surface"
-"editor.highlighted_line.background" = "surface"
-"editor.line_number" = "foreground-muted"
-"editor.active_line_number" = "foreground"
-"editor.invisible" = "disabled"
-"editor.wrap_guide" = "border"
+"editor.active_line.background" = { role = "foreground", opacity = 0.07 }
+"editor.highlighted_line.background" = { role = "foreground", opacity = 0.03 }
+"editor.line_number" = "foreground-faint"
+"editor.active_line_number" = "accent-primary"
+"editor.invisible" = { role = "foreground-muted", opacity = 0.4 }
+"editor.wrap_guide" = "surface-light"
 "editor.active_wrap_guide" = "border-strong"
-"editor.document_highlight.read_background" = "selection"
-"editor.document_highlight.write_background" = "accent"
-"search.match_background" = "selection"
-"search.active_match_background" = "accent"
+"editor.document_highlight.read_background" = { role = "foreground-muted", opacity = 0.16 }
+"editor.document_highlight.write_background" = { role = "foreground-muted", opacity = 0.16 }
+"search.match_background" = { role = "accent-cool", opacity = 0.3 }
+"search.active_match_background" = { role = "error", opacity = 0.3 }
 "terminal.background" = "background"
 "terminal.foreground" = "foreground"
 "terminal.bright_foreground" = "foreground"
-"link_text.hover" = "link"
+"link_text.hover" = "accent-cool"
 error = "error"
-"error.background" = "background"
+"error.background" = { role = "error", opacity = 0.12 }
 warning = "warning"
-"warning.background" = "background"
-info = "link"
-"info.background" = "background"
+"warning.background" = { role = "warning", opacity = 0.12 }
+info = "accent-cool"
+"info.background" = { role = "accent-cool", opacity = 0.2 }
 success = "success"
-"success.background" = "background"
+"success.background" = { role = "success", opacity = 0.12 }
