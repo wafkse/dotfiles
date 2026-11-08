@@ -16,7 +16,7 @@ border = "surface-raised"
 "element.background" = { role = "surface-dark", mix = "surface", "light-amount" = 0, "dark-amount" = 1 }
 "element.hover" = "surface-raised"
 "element.active" = { role = "surface-light", opacity = 0.3 }
-"element.selected" = { role = "surface-raised", opacity = 0.3 }
+"element.selected" = "surface-selection"
 "element.disabled" = "placeholder"
 "ghost_element.background" = { role = "background", opacity = 0 }
 "ghost_element.hover" = { role = "surface-mid", opacity = 0.3 }
