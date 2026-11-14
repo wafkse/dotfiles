@@ -18,6 +18,10 @@
             "description": "The placeholder color used when no color is assigned.",
             "pattern": "^#[a-fA-F0-9]{6}$"
         },
+        "Desktop": {
+            "$ref": "Theme/Desktop.theme.toml.schema.json",
+            "description": "GTK and Qt theme selectors and icon themes shared by the desktop session."
+        },
         "ApplicationRoles": {
             "$ref": "Theme/ApplicationRoles.theme.toml.schema.json",
             "description": "Shared application-token to semantic-role mappings."

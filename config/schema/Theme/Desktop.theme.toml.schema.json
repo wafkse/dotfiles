@@ -1,0 +1,261 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Desktop.theme.toml.schema.json",
+    "title": "Desktop toolkit themes",
+    "description": "GTK, Qt, and cursor settings rendered into their toolkit configuration files.",
+    "type": "object",
+    "properties": {
+        "Gtk": {
+            "type": "object",
+            "description": "GTK theme, icon, font, and dark-style preferences.",
+            "properties": {
+                "gtk-3-theme-name": {
+                    "type": "string",
+                    "description": "GTK 3 theme name written to gtk-3.0/settings.ini."
+                },
+                "gtk-4-theme-name": {
+                    "type": "string",
+                    "description": "GTK 4 theme name written to gtk-4.0/settings.ini."
+                },
+                "icon-theme-name": {
+                    "type": "string",
+                    "description": "Icon theme name written to both GTK settings files."
+                },
+                "font-name": {
+                    "type": "string",
+                    "description": "GTK font description written to both GTK settings files."
+                },
+                "application-prefer-dark-theme": {
+                    "type": "boolean",
+                    "description": "Whether GTK applications should prefer dark styling."
+                }
+            },
+            "required": [
+                "gtk-3-theme-name",
+                "gtk-4-theme-name",
+                "icon-theme-name",
+                "font-name",
+                "application-prefer-dark-theme"
+            ],
+            "additionalProperties": false
+        },
+        "Qt": {
+            "type": "object",
+            "description": "Qt style, icon, and font settings for qt5ct and qt6ct.",
+            "properties": {
+                "style": {
+                    "type": "string",
+                    "description": "Qt widget style selected by qt5ct and qt6ct."
+                },
+                "icon-theme-name": {
+                    "type": "string",
+                    "description": "Icon theme name selected by qt5ct and qt6ct."
+                },
+                "qt5-fixed-font": {
+                    "$ref": "#/$defs/qt5-font",
+                    "description": "Qt 5 fixed-width font description used by qt5ct."
+                },
+                "qt5-general-font": {
+                    "$ref": "#/$defs/qt5-font",
+                    "description": "Qt 5 general font description used by qt5ct."
+                },
+                "qt6-fixed-font": {
+                    "$ref": "#/$defs/qt6-font",
+                    "description": "Qt 6 fixed-width font description used by qt6ct."
+                },
+                "qt6-general-font": {
+                    "$ref": "#/$defs/qt6-font",
+                    "description": "Qt 6 general font description used by qt6ct."
+                }
+            },
+            "required": [
+                "style",
+                "icon-theme-name",
+                "qt5-fixed-font",
+                "qt5-general-font",
+                "qt6-fixed-font",
+                "qt6-general-font"
+            ],
+            "additionalProperties": false
+        },
+        "Cursor": {
+            "type": "object",
+            "description": "Cursor theme settings written to both GTK settings files.",
+            "properties": {
+                "theme-name": {
+                    "type": "string",
+                    "description": "Cursor theme name."
+                },
+                "size": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Cursor size."
+                }
+            },
+            "required": ["theme-name", "size"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["Gtk", "Qt", "Cursor"],
+    "additionalProperties": false,
+    "$defs": {
+        "qt5-font": {
+            "type": "object",
+            "description": "Qt 5 QFont fields in QFont::toString order; style-name is appended only when non-empty. Weight uses the Qt 5 legacy scale.",
+            "properties": {
+                "family": {
+                    "type": "string",
+                    "description": "Font family name."
+                },
+                "point-size": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "description": "Font size in points."
+                },
+                "pixel-size": {
+                    "oneOf": [
+                        { "const": -1 },
+                        { "type": "integer", "minimum": 1 }
+                    ],
+                    "description": "Pixel size; -1 means the point size is used."
+                },
+                "style-hint": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 8,
+                    "description": "QFont::StyleHint enum value; 5 is AnyStyle."
+                },
+                "weight": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 99,
+                    "description": "Qt 5 font weight; 50 is Normal."
+                },
+                "style": {
+                    "type": "integer",
+                    "enum": [0, 1, 2],
+                    "description": "QFont::Style: 0 Normal, 1 Italic, 2 Oblique."
+                },
+                "underline": {
+                    "type": "boolean",
+                    "description": "Whether the font is underlined."
+                },
+                "strike-out": {
+                    "type": "boolean",
+                    "description": "Whether the font has a strike-through."
+                },
+                "fixed-pitch": {
+                    "type": "boolean",
+                    "description": "Whether font matching must require a fixed-pitch face."
+                },
+                "reserved": {
+                    "const": 0,
+                    "description": "Qt serializes this compatibility slot as 0; fromString ignores it."
+                },
+                "style-name": {
+                    "type": "string",
+                    "description": "Optional named font style; Qt appends it when non-empty."
+                }
+            },
+            "required": [
+                "family", "point-size", "pixel-size", "style-hint", "weight",
+                "style", "underline", "strike-out", "fixed-pitch", "reserved", "style-name"
+            ],
+            "additionalProperties": false
+        },
+        "qt6-font": {
+            "type": "object",
+            "description": "Configurable Qt 6 QFont fields through style-strategy, in QFont::toString order. The template omits empty style names and the newer font-feature/variable-axis tail. Weight uses the Qt 6 OpenType scale.",
+            "properties": {
+                "family": {
+                    "type": "string",
+                    "description": "Font family name."
+                },
+                "point-size": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "description": "Font size in points."
+                },
+                "pixel-size": {
+                    "oneOf": [
+                        { "const": -1 },
+                        { "type": "integer", "minimum": 1 }
+                    ],
+                    "description": "Pixel size; -1 means the point size is used."
+                },
+                "style-hint": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 8,
+                    "description": "QFont::StyleHint enum value; 5 is AnyStyle."
+                },
+                "weight": {
+                    "type": "integer",
+                    "enum": [100, 200, 300, 400, 500, 600, 700, 800, 900],
+                    "description": "Qt 6 QFont::Weight enum; 400 is Normal."
+                },
+                "style": {
+                    "type": "integer",
+                    "enum": [0, 1, 2],
+                    "description": "QFont::Style: 0 Normal, 1 Italic, 2 Oblique."
+                },
+                "underline": {
+                    "type": "boolean",
+                    "description": "Whether the font is underlined."
+                },
+                "strike-out": {
+                    "type": "boolean",
+                    "description": "Whether the font has a strike-through."
+                },
+                "fixed-pitch": {
+                    "type": "boolean",
+                    "description": "Whether font matching must require a fixed-pitch face."
+                },
+                "reserved": {
+                    "const": 0,
+                    "description": "Qt serializes this compatibility slot as 0; fromString ignores it."
+                },
+                "capitalization": {
+                    "type": "integer",
+                    "enum": [0, 1, 2, 3, 4],
+                    "description": "QFont::Capitalization; 0 is MixedCase."
+                },
+                "letter-spacing-type": {
+                    "type": "integer",
+                    "enum": [0, 1],
+                    "description": "QFont::SpacingType; 0 PercentageSpacing, 1 AbsoluteSpacing."
+                },
+                "letter-spacing": {
+                    "type": "number",
+                    "description": "Spacing adjustment; 0 adds no extra letter spacing."
+                },
+                "word-spacing": {
+                    "type": "number",
+                    "description": "Pixel adjustment between words; 0 adds no extra word spacing."
+                },
+                "stretch": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4000,
+                    "description": "Font stretch percentage; 0 is AnyStretch."
+                },
+                "style-strategy": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "QFont::StyleStrategy bitmask; 1 is PreferDefault."
+                },
+                "style-name": {
+                    "type": "string",
+                    "description": "Optional named font style; Qt appends it when non-empty."
+                }
+            },
+            "required": [
+                "family", "point-size", "pixel-size", "style-hint", "weight",
+                "style", "underline", "strike-out", "fixed-pitch", "reserved",
+                "capitalization", "letter-spacing-type", "letter-spacing", "word-spacing",
+                "stretch", "style-strategy", "style-name"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

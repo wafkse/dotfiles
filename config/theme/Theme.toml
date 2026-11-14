@@ -3,3 +3,22 @@
 [default.Theme]
 default = "Catppuccin Mocha"
 placeholder = "#ff00ff"
+
+[default.Theme.Desktop.Gtk]
+gtk-3-theme-name = "Mirage"
+gtk-4-theme-name = "Mirage"
+icon-theme-name = "oomox-Catppuccin-Mocha"
+font-name = "Iosevka Nerd Font Medium Oblique 11"
+application-prefer-dark-theme = true
+
+[default.Theme.Desktop.Qt]
+style = "Fusion"
+icon-theme-name = "Catppuccin-Mocha-Alt2"
+qt5-fixed-font = { family = "Iosevka Nerd Font Mono", point-size = 12, pixel-size = -1, style-hint = 5, weight = 50, style = 0, underline = false, strike-out = false, fixed-pitch = false, reserved = 0, style-name = "Regular" }
+qt5-general-font = { family = "Iosevka Nerd Font", point-size = 12, pixel-size = -1, style-hint = 5, weight = 50, style = 0, underline = false, strike-out = false, fixed-pitch = false, reserved = 0, style-name = "Regular" }
+qt6-fixed-font = { family = "Noto Sans", point-size = 12, pixel-size = -1, style-hint = 5, weight = 400, style = 0, underline = false, strike-out = false, fixed-pitch = false, reserved = 0, capitalization = 0, letter-spacing-type = 0, letter-spacing = 0, word-spacing = 0, stretch = 0, style-strategy = 1, style-name = "" }
+qt6-general-font = { family = "Noto Sans", point-size = 12, pixel-size = -1, style-hint = 5, weight = 400, style = 0, underline = false, strike-out = false, fixed-pitch = false, reserved = 0, capitalization = 0, letter-spacing-type = 0, letter-spacing = 0, word-spacing = 0, stretch = 0, style-strategy = 1, style-name = "" }
+
+[default.Theme.Desktop.Cursor]
+theme-name = "Nordzy-cursors"
+size = 24
