@@ -1,0 +1,276 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "GpgAgent.toml.schema.json",
+    "title": "GnuPG Agent Configuration Schema",
+    "description": "Supported kebab-case directives for Mirage-managed ~/.gnupg/gpg-agent.conf files. Boolean values emit their directive when true; false omits it and leaves GnuPG's built-in default in effect.",
+    "type": "object",
+    "properties": {
+        "allow-emacs-pinentry": {
+            "type": "boolean",
+            "description": "Allow Pinentry to route passphrase entry through Emacs."
+        },
+        "allow-loopback-pinentry": {
+            "type": "boolean",
+            "description": "Allow clients to use loopback Pinentry mode."
+        },
+        "allow-mark-trusted": {
+            "type": "boolean",
+            "description": "Allow clients to add keys to the user trust list."
+        },
+        "allow-preset-passphrase": {
+            "type": "boolean",
+            "description": "Allow gpg-preset-passphrase to seed the agent cache."
+        },
+        "auto-expand-secmem": {
+            "oneOf": [
+                { "type": "boolean" },
+                { "type": "integer", "minimum": 0 }
+            ],
+            "description": "Allow secure memory to grow; an integer sets the suggested growth size in bytes."
+        },
+        "batch": {
+            "type": "boolean",
+            "description": "Disable Pinentry and other operations that require user interaction."
+        },
+        "browser-socket": {
+            "type": "string",
+            "description": "Set the browser support socket path."
+        },
+        "check-passphrase-pattern": {
+            "type": "string",
+            "description": "Path to a pattern file used to check newly entered passphrases."
+        },
+        "check-sym-passphrase-pattern": {
+            "type": "string",
+            "description": "Path to a pattern file used when creating symmetric keys."
+        },
+        "debug": {
+            "type": "string",
+            "description": "Set debugging flags using a GnuPG debug expression."
+        },
+        "debug-all": {
+            "type": "boolean",
+            "description": "Enable all GnuPG debug flags."
+        },
+        "debug-level": {
+            "oneOf": [
+                {
+                    "type": "string",
+                    "enum": ["none", "basic", "advanced", "expert", "guru"]
+                },
+                { "type": "integer", "minimum": 0 }
+            ],
+            "description": "Set the diagnostic verbosity level."
+        },
+        "debug-pinentry": {
+            "type": "boolean",
+            "description": "Enable additional Pinentry diagnostics."
+        },
+        "debug-wait": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Wait this many seconds before entering the processing loop, for attaching a debugger."
+        },
+        "default-cache-ttl": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Passphrase cache lifetime in seconds, reset whenever an entry is accessed."
+        },
+        "default-cache-ttl-ssh": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "SSH key cache lifetime in seconds, reset whenever an entry is accessed."
+        },
+        "disable-check-own-socket": {
+            "type": "boolean",
+            "description": "Disable the agent's periodic check for a replaced socket."
+        },
+        "disable-scdaemon": {
+            "type": "boolean",
+            "description": "Disable smartcard operations through scdaemon."
+        },
+        "enable-passphrase-history": {
+            "type": "boolean",
+            "description": "Enable passphrase history; this directive is currently a no-op in GnuPG."
+        },
+        "enable-putty-support": {
+            "type": "boolean",
+            "description": "Enable PuTTY Pageant protocol support on Windows."
+        },
+        "enable-ssh-support": {
+            "type": "boolean",
+            "description": "Expose the SSH agent protocol and set SSH_AUTH_SOCK when starting the agent."
+        },
+        "enable-win32-openssh-support": {
+            "type": "boolean",
+            "description": "Enable the native Windows OpenSSH agent protocol."
+        },
+        "enforce-passphrase-constraints": {
+            "type": "boolean",
+            "description": "Prevent users from bypassing configured passphrase constraints."
+        },
+        "extra-socket": {
+            "type": "string",
+            "description": "Set the extra agent socket path; use \"none\" or \"/dev/null\" to disable it."
+        },
+        "faked-system-time": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Use this Unix timestamp as the system time; intended for testing."
+        },
+        "grab": {
+            "type": "boolean",
+            "description": "Ask Pinentry to grab the keyboard and mouse."
+        },
+        "ignore-cache-for-signing": {
+            "type": "boolean",
+            "description": "Bypass cached passphrases for signing operations."
+        },
+        "keep-display": {
+            "type": "boolean",
+            "description": "Ignore requests to change the X11 DISPLAY value."
+        },
+        "keep-tty": {
+            "type": "boolean",
+            "description": "Ignore requests to change the controlling TTY."
+        },
+        "listen-backlog": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Maximum number of pending connections to the agent socket."
+        },
+        "log-file": {
+            "type": "string",
+            "description": "Append agent diagnostics to this path or socket URL."
+        },
+        "max-cache-ttl": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Maximum lifetime in seconds for cached passphrases."
+        },
+        "max-cache-ttl-ssh": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Maximum lifetime in seconds for cached SSH keys."
+        },
+        "max-passphrase-days": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Ask users to change passphrases after this many days."
+        },
+        "min-passphrase-len": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Minimum passphrase length before GnuPG displays a warning."
+        },
+        "min-passphrase-nonalpha": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Minimum number of non-alphanumeric passphrase characters before a warning."
+        },
+        "no-allow-external-cache": {
+            "type": "boolean",
+            "description": "Tell Pinentry not to use an external passphrase cache."
+        },
+        "no-allow-loopback-pinentry": {
+            "type": "boolean",
+            "description": "Disallow clients from using loopback Pinentry mode."
+        },
+        "no-allow-mark-trusted": {
+            "type": "boolean",
+            "description": "Prevent clients from adding keys to the user trust list."
+        },
+        "no-detach": {
+            "type": "boolean",
+            "description": "Keep the agent attached to the console, primarily for debugging."
+        },
+        "no-grab": {
+            "type": "boolean",
+            "description": "Do not ask Pinentry to grab the keyboard and mouse."
+        },
+        "no-user-trustlist": {
+            "type": "boolean",
+            "description": "Ignore the per-user trust list and use only the system trust list."
+        },
+        "pinentry-formatted-passphrase": {
+            "type": "boolean",
+            "description": "Ask Pinentry to enable formatted passphrase entry."
+        },
+        "pinentry-invisible-char": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1,
+            "description": "Single character Pinentry may display in place of entered passphrase characters."
+        },
+        "pinentry-program": {
+            "type": "string",
+            "description": "Path to the Pinentry program."
+        },
+        "pinentry-timeout": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Pinentry inactivity timeout in seconds; zero requests no timeout."
+        },
+        "pinentry-touch-file": {
+            "type": "string",
+            "description": "Path Pinentry should touch on exit; use \"/dev/null\" to disable this behavior."
+        },
+        "quiet": {
+            "type": "boolean",
+            "description": "Reduce diagnostic output."
+        },
+        "s2k-calibration": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 60000,
+            "description": "Set the passphrase protection calibration time in milliseconds."
+        },
+        "s2k-count": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Override the calibrated iteration count used for passphrase protection."
+        },
+        "scdaemon-program": {
+            "type": "string",
+            "description": "Path to the smartcard daemon program."
+        },
+        "ssh-fingerprint-digest": {
+            "type": "string",
+            "description": "Digest algorithm used to display SSH key fingerprints."
+        },
+        "sys-trustlist-name": {
+            "type": "string",
+            "description": "System trust list filename or path."
+        },
+        "tpm2daemon-program": {
+            "type": "string",
+            "description": "Path to the TPM 2.0 daemon program."
+        },
+        "verbose": {
+            "type": "boolean",
+            "description": "Enable additional diagnostic output."
+        },
+        "write-env-file": {
+            "type": "string",
+            "description": "Write agent environment information to this file."
+        }
+    },
+    "allOf": [
+        {
+            "not": {
+                "required": ["allow-loopback-pinentry", "no-allow-loopback-pinentry"]
+            }
+        },
+        {
+            "not": {
+                "required": ["allow-mark-trusted", "no-allow-mark-trusted"]
+            }
+        },
+        {
+            "not": {
+                "required": ["grab", "no-grab"]
+            }
+        }
+    ],
+    "additionalProperties": false
+}

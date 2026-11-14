@@ -1,0 +1,8 @@
+#:schema schema/Universe.toml.schema.json
+
+# GnuPG agent settings can be overridden in named profiles.
+[default.GpgAgent]
+default-cache-ttl = 600
+enable-ssh-support = true
+no-allow-external-cache = true
+pinentry-program = "/usr/bin/pinentry"

@@ -17,6 +17,7 @@
             "properties": {
                 "Theme": { "$ref": "Theme.toml.schema.json" },
                 "Service": { "$ref": "Service.toml.schema.json" },
+                "GpgAgent": { "$ref": "GpgAgent.toml.schema.json" },
                 "Niri": { "$ref": "Niri.toml.schema.json" },
                 "Waybar": { "$ref": "Waybar.toml.schema.json" },
                 "Fuzzel": { "$ref": "Fuzzel.toml.schema.json" },
